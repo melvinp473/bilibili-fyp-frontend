@@ -6,6 +6,6 @@ npm install
 
 ## To Run
 
-cd my-app
+cd routing-app
 
-ng serve --open
+ng serve
