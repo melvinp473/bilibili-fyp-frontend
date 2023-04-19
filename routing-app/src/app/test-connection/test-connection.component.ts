@@ -34,7 +34,7 @@ export class TestConnectionComponent  implements OnInit {
   
   public sendTest(data: string) {
       // const url = this.apiUrl + ApiConfig.FACEBOOK_FEED_PATH
-      const url = this.apiUrl + '/connect'
+      const url = this.apiUrl + 'connect'
       console.log(data)
       console.log(url)
       return this.httpClient.post(
@@ -46,11 +46,9 @@ export class TestConnectionComponent  implements OnInit {
       
   }
 
-
-
   connect() {
     alert("connecting")
-    this.sendTest("sss")
+    this.sendTest('{"sss":"ssss"}')
     console.log("runnnn")
 
   }
