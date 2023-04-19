@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+// import { Injectable } from "@angular/core";
 
 
-@Injectable({providedIn: "root"})
-export class ConnectionService {
+// @Injectable({providedIn: "root"})
+export class TestConnectionService {
 
     apiUrl: string;
     httpClient: HttpClient;
@@ -14,22 +14,25 @@ export class ConnectionService {
     }
 
     public getHttpHeader() {
+      console.log("www")
         const httpOptions = {
           headers: new HttpHeaders({
-            'Content-Type': 'application/json',
           })
         };
         return httpOptions;
-      }
+    }
     
-    public sendTest(data: any) {
+    public sendTest(data: string) {
         // const url = this.apiUrl + ApiConfig.FACEBOOK_FEED_PATH
-        const url = this.apiUrl
+        const url = this.apiUrl + "/connect"
+        console.log(data)
+        console.log(url)
         return this.httpClient.post(
           url,
           data,
           this.getHttpHeader()
         );
+        
     }
 
 
