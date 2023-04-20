@@ -2,7 +2,7 @@
 
 ## Install npm dependencies
 
-npm install
+npm install --legacy-peer-deps
 
 ## To Run
 
