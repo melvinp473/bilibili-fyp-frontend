@@ -14,7 +14,7 @@ export const insertNewDataInit = createAction(
 
 export const insertNewDataSuccess = createAction(
     INSERT_NEW_DATA_INIT,
-    props<{databaseData: DatabaseModel}>()
+    props<{databaseData: any}>()
 );
 
 export const insertNewDataFailed = createAction(

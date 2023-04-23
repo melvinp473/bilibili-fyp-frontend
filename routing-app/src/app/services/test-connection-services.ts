@@ -6,7 +6,7 @@ import { BasicApiResponseModel } from "../models/api-models/basic-response-model
 
 
 // @Injectable({providedIn: "root"})
-export class TestConnectionService<T> {
+export class TestConnectionService {
 
     apiUrl: string;
     httpClient: HttpClient;
@@ -25,12 +25,12 @@ export class TestConnectionService<T> {
         return httpOptions;
     }
     
-    public sendTest(data: string): Observable<BasicApiResponseModel<T>> {
+    public sendTest(data: string) {
         // const url = this.apiUrl + ApiConfig.FACEBOOK_FEED_PATH
         const url = this.apiUrl + "/connect"
         console.log(data)
         console.log(url)
-        return this.httpClient.post<BasicApiResponseModel<T>>(
+        return this.httpClient.post(
           url,
           data,
           this.getHttpHeader()
