@@ -3,8 +3,9 @@ import { select, Store } from "@ngrx/store";
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TestConnectionService } from '../services/test-connection-services';
-import { TestConnectionActions } from './store/actions/action-index';
-import { TestConnectionState } from './store/states/state-index';
+import { TestConnectionActions } from './store/actions';
+import { TestConnectionState } from './store/states';
+
 
 
 
@@ -12,7 +13,6 @@ import { TestConnectionState } from './store/states/state-index';
   selector: 'app-test-connection',
   templateUrl: './test-connection.component.html',
   styleUrls: ['./test-connection.component.css'],
-  providers: [Store]
 })
 
 

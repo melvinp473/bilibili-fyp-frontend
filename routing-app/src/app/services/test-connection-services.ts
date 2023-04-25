@@ -1,11 +1,13 @@
 
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { BasicApiResponseModel } from "../models/api-models/basic-response-model";
+import { BasicApiResponseModel } from "../models/api-models/api-response-model";
+import { Injectable } from "@angular/core";
+import { DatabaseModel } from "../models/store-models/database.model";
 // import { Injectable } from "@angular/core";
 
 
-// @Injectable({providedIn: "root"})
+@Injectable({providedIn: "root"})
 export class TestConnectionService {
 
     apiUrl: string;
@@ -25,7 +27,7 @@ export class TestConnectionService {
         return httpOptions;
     }
     
-    public sendTest(data: string) {
+    public sendTest(data: string){
         // const url = this.apiUrl + ApiConfig.FACEBOOK_FEED_PATH
         const url = this.apiUrl + "/connect"
         console.log(data)
