@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { TestConnectionState } from "../states/test-connection.state";
+import { TestConnectionState } from "../states";
 
 import { TestConnectionActions } from "../actions";
 import { catchError, concatMap, map, of } from "rxjs";

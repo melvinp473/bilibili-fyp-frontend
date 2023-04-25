@@ -1,7 +1,7 @@
 import { DatabaseModel } from "src/app/models/store-models/database.model"
 import {createEntityAdapter, EntityState} from "@ngrx/entity";
 
-export interface TestConnectionState extends EntityState<DatabaseModel> {
+export interface DBConnectionState extends EntityState<DatabaseModel> {
     mongoDBCol: string
 }
 

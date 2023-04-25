@@ -1,6 +1,7 @@
-import { createReducer, on } from "@ngrx/store";
+import { Action, createReducer, on } from "@ngrx/store";
 import { TestConnectionActions } from "../actions";
-import { connectionAdapter, initialConnectionState } from "../states/test-connection.state";
+import { DBConnectionState, connectionAdapter, initialConnectionState } from "../states/test-connection.state";
+import { TestConnectionState } from "../states";
 // import { initialConnectionState } from "../states/test-connection.state"
 
 export const connectionReducer = createReducer(
@@ -13,3 +14,19 @@ export const connectionReducer = createReducer(
         ))
 
 )
+
+export function appReducer(
+    state: DBConnectionState = initialConnectionState,
+    action: Action
+  ): DBConnectionState {
+    switch (action.type) {
+      case TestConnectionActions.INSERT_NEW_DATA_SUCCESS:
+        return {
+          ...state,
+          // modify properties here
+        };
+      // more actions
+      default:
+        return state;
+    }
+  }
