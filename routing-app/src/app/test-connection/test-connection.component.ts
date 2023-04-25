@@ -7,10 +7,12 @@ import { TestConnectionActions } from './store/actions/action-index';
 import { TestConnectionState } from './store/states/state-index';
 
 
+
 @Component({
   selector: 'app-test-connection',
   templateUrl: './test-connection.component.html',
-  styleUrls: ['./test-connection.component.css']
+  styleUrls: ['./test-connection.component.css'],
+  providers: [Store]
 })
 
 
@@ -19,7 +21,6 @@ export class TestConnectionComponent  implements OnInit {
   httpClient: HttpClient;
 
   constructor(httpClient: HttpClient,
-    private testConnectionService: TestConnectionService,
     private testConnectionStore: Store<TestConnectionState>) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
