@@ -8,7 +8,7 @@ export const connectionReducer = createReducer(
 
     on(TestConnectionActions.insertNewDataSuccess,
         (state, action) => connectionAdapter.setAll(
-            action.databaseData,
+            action.data.data,
             {...state, loaded: true}
         ))
 

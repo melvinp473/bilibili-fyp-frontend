@@ -23,7 +23,7 @@ export class TestConnectionEffects{
                 .pipe(
                     map(result => {
                         if (result != null){
-                            return TestConnectionActions.insertNewDataSuccess({databaseData: result})
+                            return TestConnectionActions.insertNewDataSuccess({data: result})
                         }
                         else {
                             return TestConnectionActions.insertNewDataFailed({error: result})
