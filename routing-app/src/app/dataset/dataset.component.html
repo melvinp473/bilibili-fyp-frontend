@@ -14,11 +14,21 @@
     </mat-grid-list> 
 </div>
 
+<mat-grid-list cols="3" rowHeight="70px">
+    <mat-grid-tile colspan="1"> 
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1" style="display: flex; justify-content: center; align-items: center;"> 
+        <button mat-raised-button color="basic">Import a new dataset</button>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="1"> 
+    </mat-grid-tile>
+</mat-grid-list>
 
 <div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
-    <div style="height: 80%; width: 80%;">
+    <div style="height: 100%; width: 80%;">
         <!-- Button to clear selection -->
-        <button (click)="clearSelection()">Clear Selection</button>
+        <!-- <button (click)="clearSelection()">Clear Selection</button> -->
+        <button (click)="refresh()">Refresh</button>
         <!-- AG Grid Angular Component -->
         <ag-grid-angular
         style="width: 100%; height: 100%; align-content: center; text-align: center;" 
@@ -34,20 +44,4 @@
     </div>
 </div>
 
-
-<div style="height: 80%; width: 80%;">
-    <!-- Button to clear selection -->
-    <!-- AG Grid Angular Component -->
-    <ag-grid-angular
-    style="width: 100%; height: 100%; align-content: center; text-align: center;" 
-    class="ag-theme-alpine"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
-    [rowData]="rowData$ | async"
-    [rowSelection]="'multiple'"
-    [animateRows]="true"
-    (gridReady)="onGridReady($event)"
-    (cellClicked)="onCellClicked($event)"
-    ></ag-grid-angular>
-</div>
 
