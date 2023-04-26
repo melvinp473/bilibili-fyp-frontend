@@ -17,6 +17,7 @@ import { NavigationTemplateComponentComponent } from './navigation-template-comp
 import { HomeComponent } from './home/home.component';
 import { DatasetComponent } from './dataset/dataset.component';
 import { PreprocessingComponent } from './preprocessing/preprocessing.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { PreprocessingComponent } from './preprocessing/preprocessing.component'
     NavigationTemplateComponentComponent,
     HomeComponent,
     DatasetComponent,
-    PreprocessingComponent
+    PreprocessingComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +36,7 @@ import { PreprocessingComponent } from './preprocessing/preprocessing.component'
     StoreModule.forRoot({ applicationState:  appReducer}),
     EffectsModule.forRoot([TestConnectionEffects]),
     MaterialModule,
+    AgGridModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

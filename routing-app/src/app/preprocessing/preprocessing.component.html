@@ -1,11 +1,13 @@
 <mat-grid-list cols="10" rowHeight="80px">
-    <mat-grid-tile colspan="2">
-        <a mat-flat-button color="primary" routerLink="/dataset" routerLinkActive="active" ariaCurrentWhenActive="page">previous</a>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="6">
-        <section style="font-size: 30px; font-weight: bold;" color="primary">Preprocessing</section> 
-    </mat-grid-tile>
-    <mat-grid-tile colspan="2">
-        <a mat-flat-button color="primary" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">next</a>
-    </mat-grid-tile>
+    <mat-toolbar>
+        <mat-grid-tile colspan="2">
+            <a mat-stroked-button color="primary" routerLink="/dataset" routerLinkActive="active" ariaCurrentWhenActive="page">previous</a>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="6">
+            <span style="font-size: 30px; font-weight: bold;" color="primary">Preprocessing</span> 
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2">
+            <a mat-stroked-button color="primary" routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page">next</a>
+        </mat-grid-tile>
+    </mat-toolbar>
 </mat-grid-list>
