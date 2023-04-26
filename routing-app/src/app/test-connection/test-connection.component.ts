@@ -3,14 +3,16 @@ import { select, Store } from "@ngrx/store";
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TestConnectionService } from '../services/test-connection-services';
-import { TestConnectionActions } from './store/actions/action-index';
-import { TestConnectionState } from './store/states/state-index';
+import { TestConnectionActions } from './store/actions';
+import { TestConnectionState } from './store/states';
+
+
 
 
 @Component({
   selector: 'app-test-connection',
   templateUrl: './test-connection.component.html',
-  styleUrls: ['./test-connection.component.css']
+  styleUrls: ['./test-connection.component.css'],
 })
 
 
@@ -19,8 +21,9 @@ export class TestConnectionComponent  implements OnInit {
   httpClient: HttpClient;
 
   constructor(httpClient: HttpClient,
-    private testConnectionService: TestConnectionService,
-    private testConnectionStore: Store<TestConnectionState>) {
+    private testConnectionServices: TestConnectionService,
+    private testConnectionStore: Store<TestConnectionState>
+    ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
   }
@@ -54,9 +57,10 @@ export class TestConnectionComponent  implements OnInit {
 
   connect() {
     alert("connecting")
+    // this.testConnectionServices.sendTest('{"sss":"ssss"}')
     this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"sss":"ssss"}'}))
     // this.sendTest('{"sss":"ssss"}')
-    // console.log("runnnn")
+    console.log("runnnn")
 
   }
 }

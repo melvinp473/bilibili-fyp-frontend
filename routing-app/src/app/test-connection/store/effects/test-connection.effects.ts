@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { TestConnectionState } from "../states/state-index";
+import { TestConnectionState } from "../states";
 
-import { TestConnectionActions } from "../actions/action-index";
+import { TestConnectionActions } from "../actions";
 import { catchError, concatMap, map, of } from "rxjs";
 import { TestConnectionService } from "src/app/services/test-connection-services";
 import { DatabaseModel } from "src/app/models/store-models/database.model";
 
-
+@Injectable()
 export class TestConnectionEffects{
     constructor(private action$: Actions,
                 private store: Store<TestConnectionState>,
@@ -19,11 +19,13 @@ export class TestConnectionEffects{
         this.action$.pipe(
             ofType(TestConnectionActions.insertNewDataInit),
             concatMap(action => {
+                console.log("I was here...")
+                console.log(action.data)
                 return this.testConnectionService.sendTest(action.data)
                 .pipe(
                     map(result => {
                         if (result != null){
-                            return TestConnectionActions.insertNewDataSuccess({databaseData: result})
+                            return TestConnectionActions.insertNewDataSuccess({data: result})
                         }
                         else {
                             return TestConnectionActions.insertNewDataFailed({error: result})

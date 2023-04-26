@@ -1,5 +1,9 @@
 
 
 export class DatabaseModel {
-    data: any
+    data: string
+
+    constructor(data: string) {
+        this.data = data
+    }
 }
