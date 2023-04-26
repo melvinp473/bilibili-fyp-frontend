@@ -8,7 +8,7 @@ import { catchError, concatMap, map, of } from "rxjs";
 import { TestConnectionService } from "src/app/services/test-connection-services";
 import { DatabaseModel } from "src/app/models/store-models/database.model";
 
-
+@Injectable()
 export class TestConnectionEffects{
     constructor(private action$: Actions,
                 private store: Store<TestConnectionState>,
