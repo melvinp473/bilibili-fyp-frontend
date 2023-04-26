@@ -13,11 +13,11 @@ export const insertNewDataInit = createAction(
 );
 
 export const insertNewDataSuccess = createAction(
-    INSERT_NEW_DATA_INIT,
+    INSERT_NEW_DATA_SUCCESS,
     props<{data: any}>()
 );
 
 export const insertNewDataFailed = createAction(
-    INSERT_NEW_DATA_INIT,
+    INSERT_NEW_DATA_FAILED,
     props<{error: any}>()
 );

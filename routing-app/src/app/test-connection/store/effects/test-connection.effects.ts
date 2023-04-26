@@ -19,6 +19,8 @@ export class TestConnectionEffects{
         this.action$.pipe(
             ofType(TestConnectionActions.insertNewDataInit),
             concatMap(action => {
+                console.log("I was here...")
+                console.log(action.data)
                 return this.testConnectionService.sendTest(action.data)
                 .pipe(
                     map(result => {

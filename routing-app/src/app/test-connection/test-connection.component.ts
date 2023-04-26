@@ -60,7 +60,7 @@ export class TestConnectionComponent  implements OnInit {
     // this.testConnectionServices.sendTest('{"sss":"ssss"}')
     this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"sss":"ssss"}'}))
     // this.sendTest('{"sss":"ssss"}')
-    // console.log("runnnn")
+    console.log("runnnn")
 
   }
 }
