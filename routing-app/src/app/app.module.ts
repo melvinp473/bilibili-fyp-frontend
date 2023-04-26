@@ -33,7 +33,7 @@ import { PreprocessingComponent } from './preprocessing/preprocessing.component'
     HttpClientModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({ applicationState:  appReducer}),
-    EffectsModule.forRoot([TestConnectionEffects])
+    EffectsModule.forRoot([TestConnectionEffects]),
     MaterialModule,
   ],
   providers: [],
