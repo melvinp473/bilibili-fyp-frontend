@@ -73,7 +73,7 @@ export class TestConnectionComponent  implements OnInit {
     alert("connecting")
     // this.testConnectionServices.sendTest('{"sss":"ssss"}')
     // this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"Hello":"Jia Hao"}'}))
-    this.getQueryTest("6435575578b04a2b1549c17b")
+    this.getQueryTest('{"user_id": "6435575578b04a2b1549c17b"}')
     console.log("runnnn")
 
   }
