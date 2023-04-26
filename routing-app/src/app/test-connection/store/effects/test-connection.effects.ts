@@ -22,7 +22,9 @@ export class TestConnectionEffects{
                 return this.testConnectionService.sendTest(action.data)
                 .pipe(
                     map(result => {
+                        console.log(result)
                         if (result != null){
+                            console.log("successs!!!!")
                             return TestConnectionActions.insertNewDataSuccess({data: result})
                         }
                         else {

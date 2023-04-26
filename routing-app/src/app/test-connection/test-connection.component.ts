@@ -58,7 +58,7 @@ export class TestConnectionComponent  implements OnInit {
   connect() {
     alert("connecting")
     // this.testConnectionServices.sendTest('{"sss":"ssss"}')
-    this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"sss":"ssss"}'}))
+    this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"Hello":"Tao"}'}))
     // this.sendTest('{"sss":"ssss"}')
     console.log("runnnn")
 
