@@ -55,11 +55,25 @@ export class TestConnectionComponent  implements OnInit {
       
   }
 
+  public getQueryTest(userId: string) {
+    // const url = this.apiUrl + ApiConfig.FACEBOOK_FEED_PATH
+    const url = this.apiUrl + '/getDataset'
+    console.log(userId)
+    console.log(url)
+    return this.httpClient.post(
+      url,
+      userId,
+      this.getHttpHeader()
+    ).subscribe(x =>{console.log(x)}
+    );
+    
+}
+
   connect() {
     alert("connecting")
     // this.testConnectionServices.sendTest('{"sss":"ssss"}')
-    this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"sss":"ssss"}'}))
-    // this.sendTest('{"sss":"ssss"}')
+    // this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"Hello":"Jia Hao"}'}))
+    this.getQueryTest('{"user_id": "6435575578b04a2b1549c17b"}')
     console.log("runnnn")
 
   }

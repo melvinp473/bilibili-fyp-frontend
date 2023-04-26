@@ -26,6 +26,11 @@ export function appReducer(
           // modify properties here
         };
       // more actions
+      case TestConnectionActions.INSERT_NEW_DATA_FAILED:
+        return {
+          ...state,
+          // modify properties here
+        };
       default:
         return state;
     }

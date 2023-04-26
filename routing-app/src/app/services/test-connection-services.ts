@@ -22,6 +22,7 @@ export class TestConnectionService {
       console.log("www")
         const httpOptions = {
           headers: new HttpHeaders({
+            'Content-Type': 'application/json'
           })
         };
         return httpOptions;
