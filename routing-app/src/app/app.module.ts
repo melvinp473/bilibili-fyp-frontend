@@ -18,6 +18,8 @@ import { HomeComponent } from './components/home/home.component';
 import { DatasetComponent } from './components/dataset/dataset.component';
 import { PreprocessingComponent } from './components/preprocessing/preprocessing.component';
 import { AgGridModule } from 'ag-grid-angular';
+import { MachineLearningComponent } from './components/machine-learning/machine-learning.component';
+import { ResultsComponent } from './components/results/results.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { AgGridModule } from 'ag-grid-angular';
     HomeComponent,
     DatasetComponent,
     PreprocessingComponent,
+    MachineLearningComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,

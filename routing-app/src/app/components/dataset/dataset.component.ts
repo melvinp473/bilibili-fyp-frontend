@@ -64,6 +64,8 @@ export class DatasetComponent {
   // Example of consuming Grid Event
   onCellClicked( e: CellClickedEvent): void {
     console.log('cellClicked', e);
+    const data = e.data
+    //TODO: need to save this into state so we know what Dataset ID is chosen
   }
 
   // Example using Grid's API
