@@ -14,9 +14,9 @@ import { appReducer, connectionReducer } from './test-connection/store/reducers/
 import { TestConnectionEffects} from './test-connection/store/effects/test-connection.effects'
 import { MaterialModule } from './material/material.module';
 import { NavigationTemplateComponentComponent } from './navigation-template-component/navigation-template-component.component';
-import { HomeComponent } from './home/home.component';
-import { DatasetComponent } from './dataset/dataset.component';
-import { PreprocessingComponent } from './preprocessing/preprocessing.component';
+import { HomeComponent } from './components/home/home.component';
+import { DatasetComponent } from './components/dataset/dataset.component';
+import { PreprocessingComponent } from './components/preprocessing/preprocessing.component';
 import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({

@@ -3,9 +3,9 @@ import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable, map } from 'rxjs';
-import { TestConnectionService } from '../services/test-connection-services';
+import { TestConnectionService } from '../../services/test-connection-services';
 import { Store } from '@ngrx/store';
-import { TestConnectionState } from '../test-connection/store/states';
+import { TestConnectionState } from '../../test-connection/store/states';
 
 @Component({
   selector: 'app-dataset',
