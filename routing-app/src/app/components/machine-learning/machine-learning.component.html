@@ -22,7 +22,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill" style="margin: 5px" *ngIf="algorithmCategory">
         <mat-label>Select {{algorithmCategory}} algorithm</mat-label>
-        <mat-select [(value)]="selectedAlgorithm">
+        <mat-select [(value)]="selectedAlgorithmId">
             <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
                 {{algorithm.name}}
             </mat-option>

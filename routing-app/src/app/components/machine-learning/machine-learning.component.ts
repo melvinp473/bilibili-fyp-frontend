@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class MachineLearningComponent {
   algorithmCategory: any;
   algorithms: any;
-  selectedAlgorithm: any;
+  selectedAlgorithmId: any;
 
   regression_algorithms$ = [
     {id: 12345, name: "Linear Regression"}, 
@@ -43,11 +43,11 @@ export class MachineLearningComponent {
   runAlgorithm(){
     alert("clicked")
     // console.log(this.datasetId$)
-    // console.log(this.selectedAlgorithm)
+    console.log(this.selectedAlgorithmId)
     // TODO: run machine learning
     // const request_body = {
     //   dataset_id: this.datasetId$,
-    //   algorithm: this.selectedAlgorithm,
+    //   algorithm_id: this.selectedAlgorithmId,
     // }
     // result = this.httpClient
     //   .post<any>(this.apiUrl + '/run-machine-learning', request_body, this.getHttpHeader())
