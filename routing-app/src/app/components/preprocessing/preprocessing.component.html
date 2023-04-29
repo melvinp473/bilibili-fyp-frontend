@@ -11,3 +11,18 @@
         </mat-grid-tile>
     </mat-toolbar>
 </mat-grid-list>
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
+    <div style="height: 100%; width: 80%;">
+        <ag-grid-angular
+        style="width: 100%; height: 100%; align-content: center; text-align: center;" 
+        class="ag-theme-alpine"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [rowData]="rowData$ | async"
+        [rowSelection]="'multiple'"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)"
+        ></ag-grid-angular>
+    </div>
+</div>

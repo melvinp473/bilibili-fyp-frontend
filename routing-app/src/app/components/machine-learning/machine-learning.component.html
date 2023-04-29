@@ -12,19 +12,24 @@
     </mat-toolbar>
 </mat-grid-list>
 
-
-<mat-form-field appearance="fill">
-    <mat-label>Input</mat-label>
-    <input matInput>
-</mat-form-field>
+<div style="padding: 10px;">
     <mat-form-field appearance="fill">
-    <mat-label>Select</mat-label>
-    <mat-select>
-      <mat-option value="one">First option</mat-option>
-      <mat-option value="two">Second option</mat-option>
-    </mat-select>
-</mat-form-field>
-<mat-form-field appearance="fill">
-    <mat-label>Textarea</mat-label>
-    <textarea matInput></textarea>
-</mat-form-field>
+        <mat-label>Select algorithm category</mat-label>
+        <mat-select [(value)]="algorithmCategory" (selectionChange)="selectCategory()">
+            <mat-option value="Classification">Classification</mat-option>
+            <mat-option value="Regression">Regression</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="margin: 5px" *ngIf="algorithmCategory">
+        <mat-label>Select {{algorithmCategory}} algorithm</mat-label>
+        <mat-select [(value)]="selectedAlgorithm">
+            <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
+                {{algorithm.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button style="margin: 10px;" mat-raised-button color="primary" (click)="runAlgorithm()">RUN</button>
+</div>
+
+<p>Results:</p>
+

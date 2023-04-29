@@ -3,10 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable, map } from 'rxjs';
-import { TestConnectionService } from '../../services/test-connection-services';
-import { Store } from '@ngrx/store';
-import { TestConnectionState } from '../../test-connection/store/states';
-
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
@@ -17,8 +13,6 @@ export class DatasetComponent {
   httpClient: HttpClient;
 
   constructor(httpClient: HttpClient,
-    private testConnectionServices: TestConnectionService,
-    private testConnectionStore: Store<TestConnectionState>
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -57,22 +51,26 @@ export class DatasetComponent {
 
   // Example load data from server
   onGridReady(params: GridReadyEvent) {
+    const request_body = {
+      user_id: "6435575578b04a2b1549c17b"
+    }
     this.rowData$ = this.httpClient
-      .get<any[]>('https://www.ag-grid.com/example-assets/row-data.json');
+      .post<any>(this.apiUrl + '/getDataset', request_body, this.getHttpHeader())
+      .pipe(map(response => response.message))
   }
 
   // Example of consuming Grid Event
   onCellClicked( e: CellClickedEvent): void {
     console.log('cellClicked', e);
     const data = e.data
-    //TODO: need to save this into state so we know what Dataset ID is chosen
+    //TODO: dataset id
+    // this.store.dispatch(DatasetActions.loadSelectedDatasetId({dataset: data}))
   }
 
   // Example using Grid's API
   clearSelection(): void {
     this.agGrid.api.deselectAll();
   }
-
 
 
   public getHttpHeader() {
@@ -100,9 +98,9 @@ export class DatasetComponent {
     
   }
 
-  refresh() {
-    this.rowData$ = this.httpClient.post<any>(this.apiUrl + '/getDataset', '{"user_id": "6435575578b04a2b1549c17b"}', this.getHttpHeader())
-    .pipe(map(response => response.message))
-  }
+  // refresh() {
+  //   this.rowData$ = this.httpClient.post<any>(this.apiUrl + '/getDataset', '{"user_id": "6435575578b04a2b1549c17b"}', this.getHttpHeader())
+  //   .pipe(map(response => response.message))
+  // }
 
 }
