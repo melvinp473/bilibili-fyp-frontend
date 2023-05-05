@@ -3,6 +3,7 @@ import {createEntityAdapter, EntityState} from "@ngrx/entity";
 
 export interface DBConnectionState extends EntityState<DatabaseModel> {
     mongoDBCol: string
+    selectedDatasetID: string
 }
 
 export const connectionAdapter = createEntityAdapter<DatabaseModel>({
@@ -10,5 +11,6 @@ export const connectionAdapter = createEntityAdapter<DatabaseModel>({
 })
 
 export const initialConnectionState = connectionAdapter.getInitialState({
-    mongoDBCol: ""
+    mongoDBCol: "",
+    selectedDatasetID: ""
 })

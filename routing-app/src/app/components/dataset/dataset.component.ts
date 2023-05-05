@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable, map } from 'rxjs';
+import { TestConnectionActions } from 'src/app/test-connection/store/actions';
+import { TestConnectionState } from 'src/app/test-connection/store/states';
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
@@ -13,6 +16,7 @@ export class DatasetComponent {
   httpClient: HttpClient;
 
   constructor(httpClient: HttpClient,
+    private testConnectionStore: Store<TestConnectionState>
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -96,6 +100,14 @@ export class DatasetComponent {
     ).subscribe(x =>{console.log(x)}
     );
     
+  }
+
+  testConnect() {
+    alert("connecting")
+    this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"Hello":"Jia Hao"}'}))
+    // this.getQueryTest('{"user_id": "6435575578b04a2b1549c17b"}')
+    console.log("runnnn")
+
   }
 
   // refresh() {

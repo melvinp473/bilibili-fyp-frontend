@@ -4,5 +4,5 @@ import { ActionReducerMap } from '@ngrx/store';
 import { TestConnectionState } from "../states";
 
 export const testConnectionReducers: ActionReducerMap<TestConnectionState> = {
-    mongoDBCol: fromTestConnectionReducer.connectionReducer
+    mongoDBCol: fromTestConnectionReducer.appReducer
 }

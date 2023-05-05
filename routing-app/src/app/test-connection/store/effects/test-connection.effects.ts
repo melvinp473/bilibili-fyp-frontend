@@ -25,7 +25,8 @@ export class TestConnectionEffects{
                         console.log(result)
                         if (result != null){
                             console.log("successs!!!!")
-                            return TestConnectionActions.insertNewDataSuccess({data: result})
+                            return TestConnectionActions.insertNewDataSuccess({data: "HelloWorld"})
+                            // return TestConnectionActions.insertNewDataSuccess({data: result})
                         }
                         else {
                             return TestConnectionActions.insertNewDataFailed({error: result})

@@ -2,6 +2,7 @@ import { Action, createReducer, on } from "@ngrx/store";
 import { TestConnectionActions } from "../actions";
 import { DBConnectionState, connectionAdapter, initialConnectionState } from "../states/test-connection.state";
 import { TestConnectionState } from "../states";
+import { act } from "@ngrx/effects";
 // import { initialConnectionState } from "../states/test-connection.state"
 
 export const connectionReducer = createReducer(
