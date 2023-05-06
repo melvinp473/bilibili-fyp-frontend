@@ -5,4 +5,5 @@ import { TestConnectionState } from "../states";
 
 export const testConnectionReducers: ActionReducerMap<TestConnectionState> = {
     mongoDBCol: fromTestConnectionReducer.appReducer
+    // mongoDBCol: fromTestConnectionReducer.connectionReducer
 }
