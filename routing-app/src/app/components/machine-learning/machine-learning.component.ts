@@ -4,6 +4,8 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
+import { DatasetState } from '../dataset/dataset-controller/states';
+import { selectDatasetID } from '../dataset/dataset-controller/selectors/dataset.selectors';
 @Component({
   selector: 'app-machine-learning',
   templateUrl: './machine-learning.component.html',
@@ -17,7 +19,8 @@ export class MachineLearningComponent {
   httpClient: HttpClient;
 
   constructor(httpClient: HttpClient,
-    private testConnectionStore: Store<TestConnectionState>
+    private testConnectionStore: Store<TestConnectionState>,
+    private datasetStore: Store<DatasetState>,
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -43,6 +46,7 @@ export class MachineLearningComponent {
 
   // TODO: dataset id
   // datasetId$ = this.store.select(DataSetSelectors.selectId)
+  datasetId$ = this.datasetStore.select(selectDatasetID)
 
   selectCategory(){
     if(this.algorithmCategory == "Classification"){
@@ -64,7 +68,7 @@ export class MachineLearningComponent {
 
   runAlgorithm(){
     alert("clicked")
-    // console.log(this.datasetId$)
+    console.log(this.datasetId$)
     console.log(this.selectedAlgorithmId)
     // TODO: run machine learning
     // const request_body = {
