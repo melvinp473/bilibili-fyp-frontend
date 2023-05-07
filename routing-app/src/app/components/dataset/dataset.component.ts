@@ -5,6 +5,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable, map } from 'rxjs';
 import { TestConnectionActions } from 'src/app/test-connection/store/actions';
+import { selectDatasetID } from 'src/app/test-connection/store/selectors/test-connection.selectors';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 @Component({
   selector: 'app-dataset',
@@ -105,7 +106,6 @@ export class DatasetComponent {
     alert("connecting")
     this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"Hello":"Jia Hao"}'}))
     // this.getQueryTest('{"user_id": "6435575578b04a2b1549c17b"}')
-    console.log("runnnn")
 
   }
 
