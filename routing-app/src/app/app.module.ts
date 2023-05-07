@@ -21,6 +21,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MachineLearningComponent } from './components/machine-learning/machine-learning.component';
 import { ResultsComponent } from './components/results/results.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { DatasetIDReducer } from './components/dataset/dataset-controller/reducers/datase.reducer';
+import { DatasetEffects } from './components/dataset/dataset-controller/effects/dataset.effects';
 
 @NgModule({
   declarations: [
@@ -38,12 +40,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ testConnectionReducers:  appReducer}),
+    StoreModule.forRoot({ testConnectionReducers:  appReducer, datasetReducers: DatasetIDReducer }),
     // StoreModule.forRoot({ applicationState: connectionReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),
-    EffectsModule.forRoot([TestConnectionEffects]),
+    EffectsModule.forRoot([TestConnectionEffects, DatasetEffects]),
     MaterialModule,
     AgGridModule,
   ],

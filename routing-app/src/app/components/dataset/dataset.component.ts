@@ -7,6 +7,8 @@ import { Observable, map } from 'rxjs';
 import { TestConnectionActions } from 'src/app/test-connection/store/actions';
 import { selectDatasetID } from 'src/app/test-connection/store/selectors/test-connection.selectors';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
+import { DatasetState } from './dataset-controller/states';
+import { DatasetActions } from './dataset-controller/actions';
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
@@ -17,7 +19,8 @@ export class DatasetComponent {
   httpClient: HttpClient;
 
   constructor(httpClient: HttpClient,
-    private testConnectionStore: Store<TestConnectionState>
+    private testConnectionStore: Store<TestConnectionState>,
+    private datasetStore: Store<DatasetState>
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -70,6 +73,7 @@ export class DatasetComponent {
     const data = e.data
     //TODO: dataset id
     // this.store.dispatch(DatasetActions.loadSelectedDatasetId({dataset: data}))
+    this.datasetStore.dispatch(DatasetActions.loadSelectedDatasetIDInit({ data: data._id }))
   }
 
   // Example using Grid's API
