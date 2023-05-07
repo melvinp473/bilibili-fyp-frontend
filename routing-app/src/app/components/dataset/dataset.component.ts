@@ -78,7 +78,7 @@ export class DatasetComponent {
 
 
   public getHttpHeader() {
-    console.log("www")
+    console.log("wwwd")
       const httpOptions = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
@@ -89,7 +89,6 @@ export class DatasetComponent {
 
 
   public getQueryTest(userId: string) {
-    // const url = this.apiUrl + ApiConfig.FACEBOOK_FEED_PATH
     const url = this.apiUrl + '/getDataset'
     console.log(userId)
     console.log(url)
