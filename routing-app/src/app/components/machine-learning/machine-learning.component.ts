@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../dataset/dataset-controller/states';
 import { selectDatasetID } from '../dataset/dataset-controller/selectors/dataset.selectors';
+import { MlWekaService } from 'src/app/services/ml-weka-service';
 @Component({
   selector: 'app-machine-learning',
   templateUrl: './machine-learning.component.html',
@@ -21,6 +22,7 @@ export class MachineLearningComponent {
   constructor(httpClient: HttpClient,
     private testConnectionStore: Store<TestConnectionState>,
     private datasetStore: Store<DatasetState>,
+    private mlWekaService: MlWekaService,
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -46,7 +48,12 @@ export class MachineLearningComponent {
 
   // TODO: dataset id
   // datasetId$ = this.store.select(DataSetSelectors.selectId)
-  datasetId$ = this.datasetStore.select(selectDatasetID)
+  datasetId = ""
+  // datasetId$ = this.datasetStore.select(selectDatasetID)
+  datasetId$ = this.datasetStore.select(selectDatasetID).subscribe((res) => {
+    console.log(res)
+    this.datasetId = res
+  })
 
   selectCategory(){
     if(this.algorithmCategory == "Classification"){
@@ -68,8 +75,8 @@ export class MachineLearningComponent {
 
   runAlgorithm(){
     alert("clicked")
-    console.log(this.datasetId$)
-    console.log(this.selectedAlgorithmId)
+
+    // console.log(this.selectedAlgorithmId)
     // TODO: run machine learning
     // const request_body = {
     //   dataset_id: this.datasetId$,
@@ -77,17 +84,19 @@ export class MachineLearningComponent {
     // }
     // result = this.httpClient
     //   .post<any>(this.apiUrl + '/run-machine-learning', request_body, this.getHttpHeader())
-    const url = this.apiUrl + '/machineLearning'
-    console.log(url)
-    const request_body = {dataset_id:"6435538178b04a2b1549b45e", algorithm_id: "ss"} 
-    // console.log(this.selectedAlgorithmId)
-    return this.httpClient.post(
-      url,
-      request_body,
-      this.getHttpHeader()
-    ).subscribe(x =>{console.log(x)}
-    );
-    
+
+    // const url = this.apiUrl + '/machineLearning'
+    // console.log(url)
+    // const request_body = {dataset_id:"6435538178b04a2b1549b45e", algorithm_id: "ss"} 
+    // // console.log(this.selectedAlgorithmId)
+    // return this.httpClient.post(
+    //   url,
+    //   request_body,
+    //   this.getHttpHeader()
+    // ).subscribe(x =>{console.log(x)}
+    // );
+
+    this.mlWekaService.runMlAlgorithm(this.datasetId)
 
   }
 }
