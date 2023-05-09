@@ -23,6 +23,8 @@ import { ResultsComponent } from './components/results/results.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { DatasetEffects } from './components/state-controllers/dataset-controller/effects/dataset.effects';
 import { DatasetIDReducer } from './components/state-controllers/dataset-controller/reducers/datase.reducer';
+import { WekaMLEffects } from './components/state-controllers/weka-machine-learning-controller/effects/weka-ml.effects';
+import { WekaMLReducer } from './components/state-controllers/weka-machine-learning-controller/reducers/weka-ml.reducers';
 
 
 @NgModule({
@@ -41,12 +43,12 @@ import { DatasetIDReducer } from './components/state-controllers/dataset-control
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ testConnectionReducers:  appReducer, datasetReducers: DatasetIDReducer }),
+    StoreModule.forRoot({ testConnectionReducers:  appReducer, datasetReducers: DatasetIDReducer, wekaMLReducers: WekaMLReducer }),
     // StoreModule.forRoot({ applicationState: connectionReducer}),
     StoreDevtoolsModule.instrument({
       maxAge: 25, // Retains last 25 states
     }),
-    EffectsModule.forRoot([TestConnectionEffects, DatasetEffects]),
+    EffectsModule.forRoot([TestConnectionEffects, DatasetEffects, WekaMLEffects]),
     MaterialModule,
     AgGridModule,
   ],

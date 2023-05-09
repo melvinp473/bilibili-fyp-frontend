@@ -8,6 +8,7 @@ import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { MlWekaService } from 'src/app/services/ml-weka-service';
 import { selectDatasetID } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
+import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
 @Component({
   selector: 'app-machine-learning',
   templateUrl: './machine-learning.component.html',
@@ -24,6 +25,7 @@ export class MachineLearningComponent {
     private testConnectionStore: Store<TestConnectionState>,
     private datasetStore: Store<DatasetState>,
     private mlWekaService: MlWekaService,
+    private mlWekaStore: Store
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -97,7 +99,8 @@ export class MachineLearningComponent {
     // ).subscribe(x =>{console.log(x)}
     // );
 
-    this.mlWekaService.runMlAlgorithm(this.datasetId)
+    // this.mlWekaService.runMlAlgorithm(this.datasetId, "ss")
+    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algorithm_code:"ss"}))
 
   }
 }
