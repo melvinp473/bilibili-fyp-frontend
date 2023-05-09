@@ -7,8 +7,9 @@ import { Observable, map } from 'rxjs';
 import { TestConnectionActions } from 'src/app/test-connection/store/actions';
 import { selectDatasetID } from 'src/app/test-connection/store/selectors/test-connection.selectors';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
-import { DatasetState } from './dataset-controller/states';
-import { DatasetActions } from './dataset-controller/actions';
+import { DatasetState } from '../state-controllers/dataset-controller/states';
+import { DatasetActions } from '../state-controllers/dataset-controller/actions';
+
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',

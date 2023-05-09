@@ -4,9 +4,10 @@ import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
-import { DatasetState } from '../dataset/dataset-controller/states';
-import { selectDatasetID } from '../dataset/dataset-controller/selectors/dataset.selectors';
+
 import { MlWekaService } from 'src/app/services/ml-weka-service';
+import { selectDatasetID } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
+import { DatasetState } from '../state-controllers/dataset-controller/states';
 @Component({
   selector: 'app-machine-learning',
   templateUrl: './machine-learning.component.html',

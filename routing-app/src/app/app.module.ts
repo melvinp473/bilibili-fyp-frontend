@@ -21,8 +21,9 @@ import { AgGridModule } from 'ag-grid-angular';
 import { MachineLearningComponent } from './components/machine-learning/machine-learning.component';
 import { ResultsComponent } from './components/results/results.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { DatasetIDReducer } from './components/dataset/dataset-controller/reducers/datase.reducer';
-import { DatasetEffects } from './components/dataset/dataset-controller/effects/dataset.effects';
+import { DatasetEffects } from './components/state-controllers/dataset-controller/effects/dataset.effects';
+import { DatasetIDReducer } from './components/state-controllers/dataset-controller/reducers/datase.reducer';
+
 
 @NgModule({
   declarations: [
