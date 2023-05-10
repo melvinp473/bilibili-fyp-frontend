@@ -29,7 +29,7 @@ export class MlWekaService {
         console.log(url)
         const request_body = {DATASET_ID: dataset_id, algorithm_id: algorithm_code} 
 
-        return this.httpClient.post(
+        return this.httpClient.post<any>(
           url,
           request_body,
           this.getHttpHeader()

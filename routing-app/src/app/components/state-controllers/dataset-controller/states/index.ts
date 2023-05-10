@@ -1,5 +1,5 @@
-import * as fromDatasetIdState from "./dataset.state"
+import * as fromDatasetState from "./dataset.state"
 
 export interface DatasetState {
-    datasetID: fromDatasetIdState.DatasetIdState
+    datasetID: fromDatasetState.DatasetState
 }

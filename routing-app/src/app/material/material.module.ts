@@ -11,6 +11,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 const MaterialComponents = [
   MatSlideToggleModule,
@@ -24,6 +25,7 @@ const MaterialComponents = [
   MatFormFieldModule,
   MatSelectModule,
   MatInputModule,
+  MatCheckboxModule,
 ]
 
 @NgModule({

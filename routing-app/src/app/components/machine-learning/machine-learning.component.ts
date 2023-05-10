@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
+import {ThemePalette} from '@angular/material/core';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 
 import { MlWekaService } from 'src/app/services/ml-weka-service';
-import { selectDatasetID } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
+import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
 @Component({
@@ -20,6 +21,8 @@ export class MachineLearningComponent {
   selectedAlgorithmId: any;
   apiUrl: string;
   httpClient: HttpClient;
+  datasetId: any;
+  results: any;
 
   constructor(httpClient: HttpClient,
     private testConnectionStore: Store<TestConnectionState>,
@@ -49,20 +52,17 @@ export class MachineLearningComponent {
   //   .get<any>(this.apiUrl + '/algorithms' + '?category=classification', this.getHttpHeader())
   //   .pipe(map(response => response.message))
 
-  // TODO: dataset id
-  // datasetId$ = this.store.select(DataSetSelectors.selectId)
-  datasetId = ""
-  // datasetId$ = this.datasetStore.select(selectDatasetID)
-  datasetId$ = this.datasetStore.select(selectDatasetID).subscribe((res) => {
-    console.log(res)
-    this.datasetId = res
+  dataset$ = this.datasetStore.select(selectDataset);
+  
+  sink = this.dataset$.subscribe((data) =>{
+    this.datasetId = data._id
   })
 
   selectCategory(){
     if(this.algorithmCategory == "Classification"){
-      this.algorithms = this.regression_algorithms$;
-    } else{
       this.algorithms = this.classification_algorithms$;
+    } else{
+      this.algorithms = this.regression_algorithms$;
     }
   }
 
@@ -77,30 +77,65 @@ export class MachineLearningComponent {
   }
 
   runAlgorithm(){
-    alert("clicked")
+    // TODO: add selected attributes to body
 
-    // console.log(this.selectedAlgorithmId)
-    // TODO: run machine learning
-    // const request_body = {
-    //   dataset_id: this.datasetId$,
-    //   algorithm_id: this.selectedAlgorithmId,
-    // }
-    // result = this.httpClient
-    //   .post<any>(this.apiUrl + '/run-machine-learning', request_body, this.getHttpHeader())
+    // this is an array of strings  i.e.  ['SMOKING', 'OBESITY]
+    const selectedAttributes = this.attributes
+      .filter(attribute => attribute.selected == true)
+      .map(attribute => attribute.name)
 
-    // const url = this.apiUrl + '/machineLearning'
-    // console.log(url)
-    // const request_body = {dataset_id:"6435538178b04a2b1549b45e", algorithm_id: "ss"} 
-    // // console.log(this.selectedAlgorithmId)
-    // return this.httpClient.post(
-    //   url,
-    //   request_body,
-    //   this.getHttpHeader()
-    // ).subscribe(x =>{console.log(x)}
-    // );
+    console.log(selectedAttributes)
 
-    // this.mlWekaService.runMlAlgorithm(this.datasetId, "ss")
     this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algorithm_code:"ss"}))
 
+    this.mlWekaService.runMlAlgorithm(this.datasetId, "ss").subscribe(
+      (results) => {
+        console.log(results)
+        this.results = results.data;
+      }
+    )
   }
+
+
+
+  ///////////  LINEAR REGRESSION  //////////////
+
+
+  sampleAttributes: Attribute[] = [
+    { name: 'SMOKING', selected: true },
+    { name: 'OBESITY', selected: false},
+  ]
+
+  attributes: Attribute[] = [];
+
+  sink2 = this.dataset$.pipe(
+    map(data => data.attributes)
+  ).subscribe((attributes) =>{
+    this.attributes = []
+    attributes.forEach((attribute: any) =>{
+        this.attributes.push({name: attribute, selected: false}) 
+      })  
+    console.log(this.attributes)
+  })
+
+  allSelected: boolean = false;
+
+  updateAllSelected() {
+    this.allSelected = this.attributes.every(a => a.selected);
+  }
+
+  someSelected(): boolean {
+    return this.attributes.filter(a => a.selected).length > 0 && !this.allSelected;
+    
+  }
+
+  setAll(selected: boolean) {
+    this.allSelected = selected;
+    this.attributes.forEach(a => (a.selected = selected));
+  }
+}
+
+export interface Attribute {
+  name: string;
+  selected: boolean;
 }

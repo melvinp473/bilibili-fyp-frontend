@@ -74,7 +74,7 @@ export class DatasetComponent {
     const data = e.data
     //TODO: dataset id
     // this.store.dispatch(DatasetActions.loadSelectedDatasetId({dataset: data}))
-    this.datasetStore.dispatch(DatasetActions.loadSelectedDatasetIDInit({ data: data._id }))
+    this.datasetStore.dispatch(DatasetActions.loadSelectedDatasetInit({ data: data }))
   }
 
   // Example using Grid's API

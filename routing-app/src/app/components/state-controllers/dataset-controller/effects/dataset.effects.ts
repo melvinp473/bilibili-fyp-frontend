@@ -10,18 +10,18 @@ export class DatasetEffects{
 
     loadSelectedDatasetIDInit$ = createEffect(() => 
         this.action$.pipe(
-            ofType(DatasetActions.loadSelectedDatasetIDInit),
+            ofType(DatasetActions.loadSelectedDatasetInit),
             map(result => {
                 console.log(result)
                 if (result.data != null || result.data != ""){
                     console.log("valid data")
-                    return DatasetActions.loadSelectedDatasetIDSuccess({data: result.data})
+                    return DatasetActions.loadSelectedDatasetSuccess({data: result.data})
                     }
                 else {
                     console.log("invalid data")
-                    return DatasetActions.loadSelectedDatasetIDFailed({error: result})
+                    return DatasetActions.loadSelectedDatasetFailed({error: result})
                 }
             }),
-            catchError((error) => of(DatasetActions.loadSelectedDatasetIDFailed({error: error})))
+            catchError((error) => of(DatasetActions.loadSelectedDatasetFailed({error: error})))
         ))
 }
