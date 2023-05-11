@@ -10,6 +10,7 @@ import { MlWekaService } from 'src/app/services/ml-weka-service';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
+import { getResultMetrics } from '../state-controllers/weka-machine-learning-controller/selectors/weka-ml.selectors';
 @Component({
   selector: 'app-machine-learning',
   templateUrl: './machine-learning.component.html',
@@ -87,7 +88,10 @@ export class MachineLearningComponent {
     console.log(selectedAttributes)
 
     this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algorithm_code:"ss", selected_attributes: selectedAttributes}))
-
+    this.mlWekaStore.select(getResultMetrics).subscribe((results) =>{
+      console.log(results)
+      this.results = results.data
+    })
     // this.mlWekaService.runMlAlgorithm(this.datasetId, "ss").subscribe(
     //   (results) => {
     //     console.log(results)
