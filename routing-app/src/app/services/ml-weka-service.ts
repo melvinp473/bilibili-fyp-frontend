@@ -24,10 +24,10 @@ export class MlWekaService {
         return httpOptions;
     }
     
-    public runMlAlgorithm(dataset_id: string, algorithm_code: string){
+    public runMlAlgorithm(dataset_id: string, algorithm_code: string, selected_attributes: string[]){
         const url = this.apiUrl + '/machine-learning'
         console.log(url)
-        const request_body = {DATASET_ID: dataset_id, algorithm_id: algorithm_code} 
+        const request_body = {DATASET_ID: dataset_id, algorithm_id: algorithm_code, selected_attributes: selected_attributes} 
 
         return this.httpClient.post<any>(
           url,

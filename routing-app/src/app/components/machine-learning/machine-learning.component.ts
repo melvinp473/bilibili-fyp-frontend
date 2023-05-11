@@ -86,14 +86,14 @@ export class MachineLearningComponent {
 
     console.log(selectedAttributes)
 
-    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algorithm_code:"ss"}))
+    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algorithm_code:"ss", selected_attributes: selectedAttributes}))
 
-    this.mlWekaService.runMlAlgorithm(this.datasetId, "ss").subscribe(
-      (results) => {
-        console.log(results)
-        this.results = results.data;
-      }
-    )
+    // this.mlWekaService.runMlAlgorithm(this.datasetId, "ss").subscribe(
+    //   (results) => {
+    //     console.log(results)
+    //     this.results = results.data;
+    //   }
+    // )
   }
 
 
