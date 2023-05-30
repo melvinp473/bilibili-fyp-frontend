@@ -37,8 +37,10 @@ export class MachineLearningComponent {
 
   regression_algorithms$ = [
     {id: 12345, name: "Linear Regression"}, 
-    {id: 23456, name: "Multiple Linear Regression"}, 
-    {id: 5678, name: "SMO Regression"}
+    {id: 5678, name: "Decision Trees"},
+    {id: 5678, name: "K-Nearest Neighbours (KNN)"},
+    {id: 5678, name: "Random Forests"},
+    {id: 5678, name: "Support Vector Machines (SVM)"},
   ]
   // TODO: get available algorithms
   // regression_algorithms$ = this.httpClient
@@ -46,8 +48,7 @@ export class MachineLearningComponent {
   //   .pipe(map(response => response.message))
 
   classification_algorithms$ = [
-    {id: 54321, name: "KNN"}, 
-    {id: 65432, name: "Random Forest"}
+    {id: 54321, name: "(empty)"},
   ]
   // classification_algorithms$ = this.httpClient
   //   .get<any>(this.apiUrl + '/algorithms' + '?category=classification', this.getHttpHeader())

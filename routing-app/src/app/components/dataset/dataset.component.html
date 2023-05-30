@@ -18,7 +18,18 @@
     <mat-grid-tile colspan="1"> 
     </mat-grid-tile>
     <mat-grid-tile colspan="1" style="display: flex; justify-content: center; align-items: center;"> 
-        <button mat-raised-button color="basic" (click)="import()">Import a new dataset</button>
+        <input hidden type="file" class="file-input" accept=".csv" (change)="onFileSelected($event)" #fileUpload>
+        <div class="file-upload">
+
+            {{datasetName}}
+
+            <!-- <button mat-mini-fab color="primary" class="upload-btn"
+            (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+            </button> -->
+            <button mat-raised-button color="primary" (click)="fileUpload.click()">Upload dataset</button>
+        </div>
+        <!-- <button mat-raised-button color="basic" (click)="upload()">Upload selected file as new dataset</button> -->
     </mat-grid-tile>
     <mat-grid-tile colspan="1"> 
     </mat-grid-tile>

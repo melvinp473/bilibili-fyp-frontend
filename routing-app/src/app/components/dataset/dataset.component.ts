@@ -19,6 +19,9 @@ export class DatasetComponent {
   apiUrl: string;
   httpClient: HttpClient;
 
+  datasetName: any;
+  uploadedFile!: FormData;
+
   constructor(httpClient: HttpClient,
     private testConnectionStore: Store<TestConnectionState>,
     private datasetStore: Store<DatasetState>
@@ -119,8 +122,22 @@ export class DatasetComponent {
   //   .pipe(map(response => response.message))
   // }
 
-  import(){
+  upload(){
+    console.log(this.uploadedFile)
+  }
 
+  onFileSelected(event:any){
+    const file:File = event.target.files[0];
+    if (file){
+      console.log(file)
+      this.datasetName = file.name;
+      this.uploadedFile = new FormData();
+      this.uploadedFile.append('dataset', file);
+      this.httpClient.post<any>(this.apiUrl + '/upload-dataset', this.uploadedFile, this.getHttpHeader())
+      const upload$ = this.httpClient.post(this.apiUrl + '/upload-dataset', this.uploadedFile);
+
+            upload$.subscribe();
+    }
   }
 
 }
