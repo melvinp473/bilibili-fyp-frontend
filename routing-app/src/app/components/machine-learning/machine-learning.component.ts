@@ -36,11 +36,11 @@ export class MachineLearningComponent {
   }
 
   regression_algorithms$ = [
-    {id: 12345, name: "Linear Regression"}, 
-    {id: 5678, name: "Decision Trees"},
-    {id: 5678, name: "K-Nearest Neighbours (KNN)"},
-    {id: 5678, name: "Random Forests"},
-    {id: 5678, name: "Support Vector Machines (SVM)"},
+    {id: "linear regression", name: "Linear Regression"}, 
+    {id: "decision trees", name: "Decision Trees"},
+    {id: "knn", name: "K-Nearest Neighbours (KNN)"},
+    {id: "random forests", name: "Random Forests"},
+    {id: "svm", name: "Support Vector Machines (SVM)"},
   ]
   // TODO: get available algorithms
   // regression_algorithms$ = this.httpClient
@@ -68,6 +68,10 @@ export class MachineLearningComponent {
     }
   }
 
+  algorithmChange(){
+    this.results = null;
+  }
+
   public getHttpHeader() {
     console.log("wwwd")
       const httpOptions = {
@@ -88,7 +92,7 @@ export class MachineLearningComponent {
 
     console.log(selectedAttributes)
 
-    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algorithm_code:"ss", selected_attributes: selectedAttributes}))
+    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algo: this.selectedAlgorithmId, selected_attributes: selectedAttributes}))
     this.mlWekaStore.select(getResultMetrics).subscribe((results) =>{
       console.log(results)
       this.results = results.data

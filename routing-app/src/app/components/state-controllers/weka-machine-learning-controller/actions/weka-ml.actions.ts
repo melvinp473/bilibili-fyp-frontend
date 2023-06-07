@@ -6,7 +6,7 @@ export const WEKA_ML_ALGO_FAILED = '[Weka ML Algo Effect] Weka ML Alogrithm Run 
 
 export const wekaMLAlgoInit = createAction(
     WEKA_ML_ALGO_INIT,
-    props<{dataset_id: string, algorithm_code: string, selected_attributes: string[]}>()
+    props<{dataset_id: string, algo: string, selected_attributes: string[]}>()
 );
 
 export const wekaMLAlgoSuccess = createAction(

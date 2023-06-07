@@ -133,6 +133,7 @@ export class DatasetComponent {
       this.datasetName = file.name;
       this.uploadedFile = new FormData();
       this.uploadedFile.append('dataset', file);
+      this.uploadedFile.append('user_id', '6435575578b04a2b1549c17b')
       this.httpClient.post<any>(this.apiUrl + '/upload-dataset', this.uploadedFile, this.getHttpHeader())
       const upload$ = this.httpClient.post(this.apiUrl + '/upload-dataset', this.uploadedFile);
 

@@ -22,7 +22,7 @@
     </mat-form-field>
     <mat-form-field appearance="fill" style="margin: 5px" *ngIf="algorithmCategory">
         <mat-label>Select {{algorithmCategory}} algorithm</mat-label>
-        <mat-select [(value)]="selectedAlgorithmId">
+        <mat-select [(value)]="selectedAlgorithmId" (selectionChange)="algorithmChange()">
             <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
                 {{algorithm.name}}
             </mat-option>
@@ -53,16 +53,44 @@
 </span>
 </section>
 
-<p>Results:</p>
+<mat-divider></mat-divider>
+<br>
+
+<h2>Results:</h2>
 <div *ngIf="results">
-    <h2>Coefficients:</h2>
-    <ul>
-      <li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
-    </ul>
-    <p>Intercept: {{ results.Intercept }}</p>
-    <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
-    <p>Mean Squared Error (MSE): {{ results.mse }}</p>
-    <p>R2 Score: {{ results.r2_score }}</p>
+    <div *ngIf="selectedAlgorithmId == 'linear regression'">
+        <p>Coefficients:</p>
+        <ul>
+          <li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
+        </ul>
+        <p>Intercept: {{ results.Intercept }}</p>
+        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
+        <p>R2 Score: {{ results.r2_score }}</p>        
+    </div>
+
+    <div *ngIf="selectedAlgorithmId == 'svm'">
+        <p>Coefficients:</p>
+        <ul>
+          <li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
+        </ul>
+        <p>Intercept: {{ results.Intercept }}</p>
+        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
+        <p>R2 Score: {{ results.r2_score }}</p>            
+    </div>
+    
+    <div *ngIf="selectedAlgorithmId == 'decision trees'">
+        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
+        <p>R2 Score: {{ results.r2_score }}</p>        
+    </div>
+    
+    <div *ngIf="selectedAlgorithmId == 'knn'">
+        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
+        <p>R2 Score: {{ results.r2_score }}</p>        
+    </div>
 </div>
 
 
