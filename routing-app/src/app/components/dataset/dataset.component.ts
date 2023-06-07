@@ -96,32 +96,6 @@ export class DatasetComponent {
       return httpOptions;
   }
 
-
-  // public getQueryTest(userId: string) {
-  //   const url = this.apiUrl + '/get-dataset'
-  //   console.log(userId)
-  //   console.log(url)
-  //   return this.httpClient.post(
-  //     url,
-  //     userId,
-  //     this.getHttpHeader()
-  //   ).subscribe(x =>{console.log(x)}
-  //   );
-    
-  // }
-
-  // testConnect() {
-  //   alert("connecting")
-  //   this.testConnectionStore.dispatch(TestConnectionActions.insertNewDataInit({data: '{"Hello":"Jia Hao"}'}))
-  //   // this.getQueryTest('{"user_id": "6435575578b04a2b1549c17b"}')
-
-  // }
-
-  // refresh() {
-  //   this.rowData$ = this.httpClient.post<any>(this.apiUrl + '/getDataset', '{"user_id": "6435575578b04a2b1549c17b"}', this.getHttpHeader())
-  //   .pipe(map(response => response.message))
-  // }
-
   upload(){
     console.log(this.uploadedFile)
   }

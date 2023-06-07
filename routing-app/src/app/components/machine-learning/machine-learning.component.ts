@@ -17,11 +17,12 @@ import { getResultMetrics } from '../state-controllers/weka-machine-learning-con
   styleUrls: ['./machine-learning.component.css']
 })
 export class MachineLearningComponent {
+  apiUrl: string;
+  httpClient: HttpClient;
+  
   algorithmCategory: any;
   algorithms: any;
   selectedAlgorithmId: any;
-  apiUrl: string;
-  httpClient: HttpClient;
   datasetId: any;
   results: any;
 
@@ -83,26 +84,15 @@ export class MachineLearningComponent {
   }
 
   runAlgorithm(){
-    // TODO: add selected attributes to body
-
-    // this is an array of strings  i.e.  ['SMOKING', 'OBESITY]
     const selectedAttributes = this.attributes
       .filter(attribute => attribute.selected == true)
       .map(attribute => attribute.name)
-
-    console.log(selectedAttributes)
 
     this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algo: this.selectedAlgorithmId, selected_attributes: selectedAttributes}))
     this.mlWekaStore.select(getResultMetrics).subscribe((results) =>{
       console.log(results)
       this.results = results.data
     })
-    // this.mlWekaService.runMlAlgorithm(this.datasetId, "ss").subscribe(
-    //   (results) => {
-    //     console.log(results)
-    //     this.results = results.data;
-    //   }
-    // )
   }
 
 
