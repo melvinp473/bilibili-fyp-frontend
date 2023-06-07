@@ -3,6 +3,9 @@ import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable, map } from 'rxjs';
+import { DatasetState } from '../state-controllers/dataset-controller/states';
+import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
+import { Store } from '@ngrx/store';
 @Component({
   selector: 'app-preprocessing',
   templateUrl: './preprocessing.component.html',
@@ -11,12 +14,27 @@ import { Observable, map } from 'rxjs';
 export class PreprocessingComponent {
   apiUrl: string;
   httpClient: HttpClient;
+  
+  selectedPreprocessingMethodId: any;
+  datasetId: any;
 
   constructor(httpClient: HttpClient,
+    private datasetStore: Store<DatasetState>
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
   }
+
+  preprocessingMethods = [
+    {id: "mean imputation", name: "Mean Imputation"}, 
+    {id: "standardization", name: "Standardization"},
+  ]
+
+  dataset$ = this.datasetStore.select(selectDataset);
+  
+  sink = this.dataset$.subscribe((data) =>{
+    this.datasetId = data._id
+  })
 
   columnDefs: ColDef[] = [
     // { 
@@ -78,15 +96,34 @@ export class PreprocessingComponent {
     // assign the data to rowData$
   }
 
-  
   public getHttpHeader() {
-    console.log("www")
-      const httpOptions = {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })
-      };
-      return httpOptions;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return httpOptions;
+}
+
+  public runPreProcessingService(dataset_id: string, preprocessing_code: string){
+    const url = this.apiUrl + '/preprocessing'
+    console.log(url)
+    const request_body = {
+      DATASET_ID: dataset_id, 
+      preprocessing_code: preprocessing_code,
+    } 
+
+    console.log(request_body)
+    const observer = this.httpClient.post<any>(
+      url,
+      request_body,
+      this.getHttpHeader()
+    )
+    observer.subscribe()
+  }
+
+  public runPreprocessing(){
+    this.runPreProcessingService(this.datasetId, this.selectedPreprocessingMethodId)
   }
 
 }

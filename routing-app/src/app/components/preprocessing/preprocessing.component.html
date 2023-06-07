@@ -12,6 +12,18 @@
     </mat-toolbar>
 </mat-grid-list>
 
+<div style="padding: 10px;">
+    <mat-form-field appearance="fill">
+        <mat-label>Select preprocessing method</mat-label>
+        <mat-select [(value)]="selectedPreprocessingMethodId">
+            <mat-option *ngFor="let method of preprocessingMethods" [value]="method.id">
+                {{method.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button style="margin: 10px;" mat-raised-button color="primary" (click)="runPreprocessing()">RUN</button>
+</div>
+
 <div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
     <div style="height: 100%; width: 80%;">
         <ag-grid-angular
