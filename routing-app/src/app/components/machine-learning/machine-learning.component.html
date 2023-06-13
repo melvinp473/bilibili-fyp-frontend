@@ -32,14 +32,15 @@
 </div>
 
 <!-- Algorithm specific paramaters -->
-<div style="padding: 10px;" *ngIf="selectedAlgorithmId == 'knn'">
+<div style="padding: 10px;">
     <h3>Algorithm specific parameters:</h3>
     <form (ngSubmit)="onSubmit()" #myForm="ngForm">
         <div *ngFor="let field of formFields">
           <mat-form-field>
             <mat-label>{{ field.label }}</mat-label>
             <ng-container [ngSwitch]="field.type">
-              <input *ngSwitchCase="'text'" matInput [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
+              <input *ngSwitchCase="'text'" matInput type="text" [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
+              <input *ngSwitchCase="'number'" matInput type="number" [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
               <input *ngSwitchCase="'email'" matInput [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
               <textarea *ngSwitchCase="'textarea'" matInput [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required"></textarea>
             </ng-container>

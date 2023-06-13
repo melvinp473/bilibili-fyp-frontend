@@ -78,12 +78,21 @@ export class MachineLearningComponent {
 
     if(this.selectedAlgorithmId == "knn"){
       this.formFields = [
-        { label: 'No. of Neighbours', type: 'text', name: 'neighbours_count', value: '', required: true },
+        { label: 'No. of Neighbours', type: 'number', name: 'neighbours_count', value: '', required: true },
       ];
       this.formData = {
         'neighbours_count': 8
       }
-    } else {
+    } 
+    else if(this.selectedAlgorithmId == "decision trees"){
+      this.formFields = [
+        { label: 'Max Tree Depth', type: 'number', name: 'max_depth', value: '', required: true },
+      ];
+      this.formData = {
+        'max_depth': 10
+      }
+    }
+    else {
       this.formFields = [];
     }
   }
@@ -102,8 +111,13 @@ export class MachineLearningComponent {
     const selectedAttributes = this.attributes
       .filter(attribute => attribute.selected == true)
       .map(attribute => attribute.name)
-
-    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({dataset_id: this.datasetId, algo: this.selectedAlgorithmId, selected_attributes: selectedAttributes}))
+    
+    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({
+      dataset_id: this.datasetId, 
+      algo: this.selectedAlgorithmId, 
+      selected_attributes: selectedAttributes,
+      additional_params: {...this.formData},
+    }))
     this.mlWekaStore.select(getResultMetrics).subscribe((results) =>{
       console.log(results)
       this.results = results.data
