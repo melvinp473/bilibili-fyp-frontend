@@ -27,6 +27,7 @@ export class PreprocessingComponent {
 
   preprocessingMethods = [
     {id: "mean imputation", name: "Mean Imputation"}, 
+    {id: "median imputation", name: "Median Imputation"}, 
     {id: "standardization", name: "Standardization"},
   ]
 
