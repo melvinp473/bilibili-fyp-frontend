@@ -25,6 +25,8 @@ export class MachineLearningComponent {
   selectedAlgorithmId: any;
   datasetId: any;
   results: any;
+  formFields: any;
+  formData: any;
 
   constructor(httpClient: HttpClient,
     private testConnectionStore: Store<TestConnectionState>,
@@ -61,6 +63,8 @@ export class MachineLearningComponent {
     this.datasetId = data._id
   })
 
+  onSubmit(){}
+
   selectCategory(){
     if(this.algorithmCategory == "Classification"){
       this.algorithms = this.classification_algorithms$;
@@ -71,6 +75,17 @@ export class MachineLearningComponent {
 
   algorithmChange(){
     this.results = null;
+
+    if(this.selectedAlgorithmId == "knn"){
+      this.formFields = [
+        { label: 'No. of Neighbours', type: 'text', name: 'neighbours_count', value: '', required: true },
+      ];
+      this.formData = {
+        'neighbours_count': 8
+      }
+    } else {
+      this.formFields = [];
+    }
   }
 
   public getHttpHeader() {

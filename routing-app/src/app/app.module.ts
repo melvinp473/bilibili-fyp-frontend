@@ -26,6 +26,7 @@ import { DatasetReducer } from './components/state-controllers/dataset-controlle
 import { WekaMLEffects } from './components/state-controllers/weka-machine-learning-controller/effects/weka-ml.effects';
 import { WekaMLReducer } from './components/state-controllers/weka-machine-learning-controller/reducers/weka-ml.reducers';
 import { FormsModule } from '@angular/forms';
+import { AnalysisComponent } from './components/analysis/analysis.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { FormsModule } from '@angular/forms';
     PreprocessingComponent,
     MachineLearningComponent,
     ResultsComponent,
+    AnalysisComponent,
   ],
   imports: [
     BrowserModule,

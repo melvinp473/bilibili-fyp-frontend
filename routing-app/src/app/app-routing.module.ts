@@ -6,11 +6,13 @@ import { DatasetComponent } from './components/dataset/dataset.component';
 import { PreprocessingComponent } from './components/preprocessing/preprocessing.component';
 import { MachineLearningComponent } from './components/machine-learning/machine-learning.component';
 import { ResultsComponent } from './components/results/results.component';
+import { AnalysisComponent } from './components/analysis/analysis.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'dataset', component: DatasetComponent },
   { path: 'preprocessing', component: PreprocessingComponent },
+  { path: 'analysis', component: AnalysisComponent },
   { path: 'machine-learning', component: MachineLearningComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'test-connection-component', component: TestConnectionComponent },
