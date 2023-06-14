@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
-import { Observable, map } from 'rxjs';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { map } from 'rxjs';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { Store } from '@ngrx/store';
@@ -17,6 +17,9 @@ export class PreprocessingComponent {
   
   selectedPreprocessingMethodId: any;
   datasetId: any;
+
+  private gridApi!: GridApi;
+  columnApi: any;
 
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>
@@ -38,22 +41,6 @@ export class PreprocessingComponent {
   })
 
   columnDefs: ColDef[] = [
-    // { 
-    //   headerName: "Name",
-    //   field: 'name' 
-    // },
-    // { 
-    //   headerName: "Date Uploaded",
-    //   field: 'create_date' 
-    // },
-    // { 
-    //   headerName: "Last Updated",
-    //   field: 'update_date' 
-    // },
-    // { 
-    //   headerName: "MongoDB ID",
-    //   field: '_id' 
-    // },
   ];
 
    // DefaultColDef sets props common to all Columns
@@ -63,38 +50,38 @@ export class PreprocessingComponent {
   };
 
   // Data that gets displayed in the grid
-  public rowData$!: Observable<any[]>;
+  public rowData: any;
 
   // For accessing the Grid's API
   @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
 
-  // TODO:
-  // datasetId$ = this.store.select(DataSetSelectors.selectId)
-
   // Example load data from server
-  onGridReady(params: GridReadyEvent) {
-    // // get the data using dataset id
-    // const responseData$ = this.httpClient
-    //   .post<any>(this.apiUrl + '/getDataset', '{"user_id":'+' "' + this.datasetId$ + '"}', this.getHttpHeader())
-    //   .pipe(map(response => response.message))
+  onGridReady(params: GridReadyEvent) {    
+    this.gridApi! = params.api;
+    this.columnApi = params.columnApi;
 
-    // // create the coldefs
-    // this.columnDefs = [];
-    // responseData$.pipe(
-    //   map(data => this.columnDefs.push(
-    //     {
-    //       headerName: data.
-    //     }
-    //   ))
-    // )
-    // for (data in responseData$){
-    //   colDef: ColDef = {
-    //     header: this
-    //   }
-    // }
-    
+    const request_body = {
+      user_id: "6435575578b04a2b1549c17b",
+      DATASET_ID: this.datasetId
+    }
 
-    // assign the data to rowData$
+    const responseData$ = this.httpClient
+      .post<any>(this.apiUrl + '/get-data', request_body, this.getHttpHeader())
+      .pipe(map(response => response.data))
+
+    responseData$.subscribe( list => {
+      console.log(list)
+        const listItem = list[0]
+        console.log(listItem)
+        for (const key in listItem){
+          this.columnDefs.push({
+            headerName: key,
+            field: key
+          })
+        }
+        this.gridApi.setColumnDefs(this.columnDefs)
+        this.rowData = list
+    })
   }
 
   public getHttpHeader() {
