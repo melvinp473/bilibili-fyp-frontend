@@ -26,7 +26,7 @@ export class ResultsComponent {
   knn_data: any[]  = []
   tree_data: any[]  = []
   chart: any;
-  selected_data = [];
+  selected_data: any[] = [];
 
   constructor(httpClient: HttpClient,
     private chartService: ChartService
@@ -160,7 +160,7 @@ export class ResultsComponent {
 
   public displayData(){
     const selectedNodes = this.gridApi.getSelectedNodes()
-    this.data = selectedNodes.map(node => node.data)
-    console.log(this.data)
+    this.selected_data = selectedNodes.map(node => node.data)
+    console.log(this.selected_data)
   }
 }
