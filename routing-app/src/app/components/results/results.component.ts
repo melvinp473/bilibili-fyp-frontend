@@ -26,6 +26,7 @@ export class ResultsComponent {
   knn_data: any[]  = []
   tree_data: any[]  = []
   chart: any;
+  selected_data = [];
 
   constructor(httpClient: HttpClient,
     private chartService: ChartService
