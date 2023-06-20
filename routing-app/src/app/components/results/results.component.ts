@@ -141,7 +141,7 @@ export class ResultsComponent {
     this.columnApi = params.columnApi;
 
     const request_body = {
-      user_id: "6435575578b04a2b1549c17b"
+      user_id: "user_LYJ"
     }
     this.rowData$ = this.httpClient
       .post<any>(this.apiUrl + '/get-results', request_body, this.getHttpHeader())
