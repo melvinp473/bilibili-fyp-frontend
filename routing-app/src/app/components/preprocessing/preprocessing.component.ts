@@ -32,6 +32,7 @@ export class PreprocessingComponent {
     {id: "mean imputation", name: "Mean Imputation"}, 
     {id: "median imputation", name: "Median Imputation"}, 
     {id: "standardization", name: "Standardization"},
+    {id: "label encoding", name: "Label Encoding"},
   ]
 
   dataset$ = this.datasetStore.select(selectDataset);
