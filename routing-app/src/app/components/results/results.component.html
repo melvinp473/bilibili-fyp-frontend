@@ -21,6 +21,7 @@
         [defaultColDef]="defaultColDef"
         [rowData]="rowData$ | async"
         [rowSelection]="'multiple'"
+        [rowMultiSelectWithClick] = "true"
         [animateRows]="true"
         (gridReady)="onGridReady($event)"
         ></ag-grid-angular>
