@@ -1,116 +1,151 @@
-<mat-grid-list cols="10" rowHeight="80px">
-    <mat-toolbar>
-        <mat-grid-tile colspan="2">
-            <a mat-stroked-button color="primary" routerLink="/analysis" routerLinkActive="active" ariaCurrentWhenActive="page">previous</a>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="6">
-            <span style="font-size: 30px; font-weight: bold;" color="primary">Machine Learning</span> 
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2">
-            <a mat-stroked-button color="primary" routerLink="/results" routerLinkActive="active" ariaCurrentWhenActive="page">next</a>
-        </mat-grid-tile>
-    </mat-toolbar>
-</mat-grid-list>
-
-<div style="padding: 10px;">
-    <mat-form-field appearance="fill">
-        <mat-label>Select algorithm category</mat-label>
-        <mat-select [(value)]="algorithmCategory" (selectionChange)="selectCategory()">
-            <mat-option value="Classification">Classification</mat-option>
-            <mat-option value="Regression">Regression</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="fill" style="margin: 5px" *ngIf="algorithmCategory">
-        <mat-label>Select {{algorithmCategory}} algorithm</mat-label>
-        <mat-select [(value)]="selectedAlgorithmId" (selectionChange)="algorithmChange()">
-            <mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
-                {{algorithm.name}}
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button style="margin: 10px;" mat-raised-button color="primary" (click)="runAlgorithm()">RUN</button>
+<div>    
+    <app-toolbar currentPageTitle="Machine Learning" previousLink="/analysis" nextLink="/results"></app-toolbar>
 </div>
 
-<!-- Algorithm specific paramaters -->
 <div style="padding: 10px;">
-    <h3>Algorithm specific parameters:</h3>
-    <form (ngSubmit)="onSubmit()" #myForm="ngForm">
-        <div *ngFor="let field of formFields">
-          <mat-form-field>
-            <mat-label>{{ field.label }}</mat-label>
-            <ng-container [ngSwitch]="field.type">
-              <input *ngSwitchCase="'text'" matInput type="text" [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
-              <input *ngSwitchCase="'number'" matInput type="number" [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
-              <input *ngSwitchCase="'email'" matInput [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
-              <textarea *ngSwitchCase="'textarea'" matInput [placeholder]="field.label" [id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required"></textarea>
-            </ng-container>
-          </mat-form-field>
-        </div>
-    </form>
+	<mat-form-field appearance="fill">
+		<mat-label>Select algorithm category</mat-label>
+		<mat-select [(value)]="algorithmCategory" (selectionChange)="selectCategory()">
+			<mat-option value="Classification">Classification</mat-option>
+			<mat-option value="Regression">Regression</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<mat-form-field appearance="fill" style="margin: 5px" *ngIf="algorithmCategory">
+		<mat-label>Select {{algorithmCategory}} algorithm</mat-label>
+		<mat-select [(value)]="selectedAlgorithmId" (selectionChange)="algorithmChange()">
+			<mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
+				{{algorithm.name}}
+			</mat-option>
+		</mat-select>
+	</mat-form-field>
+	<button style="margin: 10px;" mat-raised-button color="accent" (click)="runAlgorithm()">RUN</button>
 </div>
 
+<mat-accordion multi>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				Attribute selection
+			</mat-panel-title>
+			<mat-panel-description>
+				Select attributes to be inlcuded in training model
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<section class="example-section">
+			<span class="example-list-section">
+				<mat-checkbox class="example-margin" [checked]="allSelected" [indeterminate]="someSelected()"
+					(change)="setAll($event.checked)">
+					Select All
+				</mat-checkbox>
+			</span>
+			<span class="example-list-section">
+				<ul>
+					<li *ngFor="let attribute of attributes">
+						<mat-checkbox [(ngModel)]="attribute.selected" (ngModelChange)="updateAllSelected()">
+							{{attribute.name}}
+						</mat-checkbox>
+					</li>
+				</ul>
+			</span>
+		</section>
+	</mat-expansion-panel>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				Algorithm specific parameters
+			</mat-panel-title>
+			<mat-panel-description>
+				Set additional parameters of the machine learning algorithm
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<div>
+			<form (ngSubmit)="onSubmit()" #myForm="ngForm">
+				<div *ngFor="let field of formFields">
+					<mat-form-field>
+						<mat-label>{{ field.label }}</mat-label>
+						<ng-container [ngSwitch]="field.type">
+							<input *ngSwitchCase="'text'" matInput type="text" [placeholder]="field.label"
+								[id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]"
+								[required]="field.required">
+							<input *ngSwitchCase="'number'" matInput type="number" [placeholder]="field.label"
+								[id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]"
+								[required]="field.required">
+							<input *ngSwitchCase="'email'" matInput [placeholder]="field.label" [id]="field.name"
+								[name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
+							<textarea *ngSwitchCase="'textarea'" matInput [placeholder]="field.label" [id]="field.name"
+								[name]="field.name" [(ngModel)]="formData[field.name]"
+								[required]="field.required"></textarea>
+						</ng-container>
+					</mat-form-field>
+				</div>
+			</form>
+		</div>
+	</mat-expansion-panel>
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				Record Information
+			</mat-panel-title>
+			<mat-panel-description>
+				Configure the logging of results
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<div style="padding: 10px;">
+			<mat-form-field>
+				<mat-label>Run Name</mat-label>
+				<input matInput type="text">
+			</mat-form-field>
+		</div>
+	</mat-expansion-panel>
+</mat-accordion>
 
-<!-- End of Algorithm specific paramaters -->
-  
-<section class="example-section">
-    <span class="example-list-section">
-        <mat-checkbox class="example-margin"
-                        [checked]="allSelected"
-                        [indeterminate]="someSelected()"
-                        (change)="setAll($event.checked)">
-            Select All
-        </mat-checkbox>
-    </span>
-<span class="example-list-section">
-    <ul>
-    <li *ngFor="let attribute of attributes">
-        <mat-checkbox [(ngModel)]="attribute.selected"
-                        (ngModelChange)="updateAllSelected()">
-            {{attribute.name}}
-        </mat-checkbox>
-    </li>
-    </ul>
-</span>
-</section>
+
+
 
 <mat-divider></mat-divider>
 <br>
 
 <h2>Results:</h2>
 <div *ngIf="results">
-    <div *ngIf="selectedAlgorithmId == 'linear regression'">
-        <p>Coefficients:</p>
-        <ul>
-          <li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
-        </ul>
-        <p>Intercept: {{ results.Intercept }}</p>
-        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
-        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
-        <p>R2 Score: {{ results.r2_score }}</p>        
-    </div>
+	<div *ngIf="selectedAlgorithmId == 'linear regression'">
+		<p>Coefficients:</p>
+		<ul>
+			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
+		</ul>
+		<p>Intercept: {{ results.Intercept }}</p>
+		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
+		<p>Max Error: {{ results.max_error }}</p>
+		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
 
-    <div *ngIf="selectedAlgorithmId == 'svm'">
-        <p>Coefficients:</p>
-        <ul>
-          <li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
-        </ul>
-        <p>Intercept: {{ results.Intercept }}</p>
-        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
-        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
-        <p>R2 Score: {{ results.r2_score }}</p>            
-    </div>
-    
-    <div *ngIf="selectedAlgorithmId == 'decision trees'">
-        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
-        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
-        <p>R2 Score: {{ results.r2_score }}</p>        
-    </div>
-    
-    <div *ngIf="selectedAlgorithmId == 'knn'">
-        <p>Mean Absolute Error (MAE): {{ results.mae }}</p>
-        <p>Mean Squared Error (MSE): {{ results.mse }}</p>
-        <p>R2 Score: {{ results.r2_score }}</p>        
-    </div>
+	<div *ngIf="selectedAlgorithmId == 'svm'">
+		<p>Coefficients:</p>
+		<ul>
+			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
+		</ul>
+		<p>Intercept: {{ results.Intercept }}</p>
+		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
+		<p>Max Error: {{ results.max_error }}</p>
+		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
+
+	<div *ngIf="selectedAlgorithmId == 'decision trees'">
+		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
+		<p>Max Error: {{ results.max_error }}</p>
+		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
+
+	<div *ngIf="selectedAlgorithmId == 'knn'">
+		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
+		<p>Max Error: {{ results.max_error }}</p>
+		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
 </div>
-
-

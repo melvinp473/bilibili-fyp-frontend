@@ -27,6 +27,7 @@ import { WekaMLEffects } from './components/state-controllers/weka-machine-learn
 import { WekaMLReducer } from './components/state-controllers/weka-machine-learning-controller/reducers/weka-ml.reducers';
 import { FormsModule } from '@angular/forms';
 import { AnalysisComponent } from './components/analysis/analysis.component';
+import { ToolbarComponent } from './components/utilities/toolbar/toolbar.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
     MachineLearningComponent,
     ResultsComponent,
     AnalysisComponent,
+    ToolbarComponent,
   ],
   imports: [
     BrowserModule,

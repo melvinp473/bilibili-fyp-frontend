@@ -2,6 +2,7 @@
 
 
 /* angular material */
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -9,6 +10,15 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 /* ag-grid */
 @import 'ag-grid-community/styles/ag-grid.css';
 @import 'ag-grid-community/styles/ag-theme-alpine.css';
+@import 'ag-grid-community/styles/ag-theme-material.css';
+
+.ag-theme-material {
+   --ag-borders: dashed;
+   --ag-row-border-style: dashed;
+   --ag-row-border-width: 5px;
+   --ag-row-border-color: rgb(150, 150, 200);
+}
+
 html, body {
    height: 100%;
    width: 100%;

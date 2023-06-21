@@ -4,11 +4,10 @@ import { Store } from '@ngrx/store';
 import { AgGridAngular } from 'ag-grid-angular';
 import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
 import { Observable, map } from 'rxjs';
-import { TestConnectionActions } from 'src/app/test-connection/store/actions';
-import { selectDatasetID } from 'src/app/test-connection/store/selectors/test-connection.selectors';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
+import { ToolbarComponent } from '../utilities/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-dataset',
