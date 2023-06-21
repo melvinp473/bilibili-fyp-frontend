@@ -45,6 +45,7 @@ export class MachineLearningComponent {
     {id: "knn", name: "K-Nearest Neighbours (KNN)"},
     {id: "random forests", name: "Random Forests"},
     {id: "svm", name: "Support Vector Machines (SVM)"},
+    {id: "ensemble", name: "Ensemble"},
   ]
   // TODO: get available algorithms
   // regression_algorithms$ = this.httpClient
