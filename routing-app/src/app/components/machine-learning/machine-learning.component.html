@@ -59,7 +59,7 @@
 			</mat-panel-description>
 		</mat-expansion-panel-header>
 		<div>
-			<form (ngSubmit)="onSubmit()" #myForm="ngForm">
+			<form #myForm="ngForm">
 				<div *ngFor="let field of formFields">
 					<mat-form-field>
 						<mat-label>{{ field.label }}</mat-label>
@@ -84,17 +84,19 @@
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
 			<mat-panel-title>
-				Record Information
+				Result logging Information
 			</mat-panel-title>
 			<mat-panel-description>
 				Configure the logging of results
 			</mat-panel-description>
 		</mat-expansion-panel-header>
 		<div style="padding: 10px;">
-			<mat-form-field>
-				<mat-label>Run Name</mat-label>
-				<input matInput type="text">
-			</mat-form-field>
+			<form [formGroup]="resultLogForm">
+				<mat-form-field>
+					<mat-label>Run Name</mat-label>
+					<input matInput type="text" formControlName="runName">
+				</mat-form-field>
+			</form>
 		</div>
 	</mat-expansion-panel>
 </mat-accordion>

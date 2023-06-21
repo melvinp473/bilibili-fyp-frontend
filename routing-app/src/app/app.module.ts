@@ -25,7 +25,7 @@ import { DatasetEffects } from './components/state-controllers/dataset-controlle
 import { DatasetReducer } from './components/state-controllers/dataset-controller/reducers/datase.reducer';
 import { WekaMLEffects } from './components/state-controllers/weka-machine-learning-controller/effects/weka-ml.effects';
 import { WekaMLReducer } from './components/state-controllers/weka-machine-learning-controller/reducers/weka-ml.reducers';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { ToolbarComponent } from './components/utilities/toolbar/toolbar.component';
 
@@ -57,6 +57,7 @@ import { ToolbarComponent } from './components/utilities/toolbar/toolbar.compone
     MaterialModule,
     AgGridModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

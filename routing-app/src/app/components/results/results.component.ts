@@ -16,6 +16,8 @@ import { ChartService } from 'src/app/services/chart-service';
 export class ResultsComponent {
   apiUrl: string;
   httpClient: HttpClient;
+
+  user_id = "6435575578b04a2b1549c17b";
   
   private gridApi!: GridApi;
   columnApi: any;
@@ -141,7 +143,7 @@ export class ResultsComponent {
     this.columnApi = params.columnApi;
 
     const request_body = {
-      user_id: "user_LYJ"
+      user_id: this.user_id
     }
     this.rowData$ = this.httpClient
       .post<any>(this.apiUrl + '/get-results', request_body, this.getHttpHeader())

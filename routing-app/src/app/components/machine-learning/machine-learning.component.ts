@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import {ThemePalette} from '@angular/material/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
@@ -24,6 +24,7 @@ export class MachineLearningComponent {
   algorithms: any;
   selectedAlgorithmId: any;
   datasetId: any;
+  user_id = "6435575578b04a2b1549c17b";
   results: any;
   formFields: any;
   formData: any;
@@ -63,7 +64,9 @@ export class MachineLearningComponent {
     this.datasetId = data._id
   })
 
-  onSubmit(){}
+  resultLogForm = new FormGroup({
+    runName: new FormControl(''),
+  });
 
   selectCategory(){
     if(this.algorithmCategory == "Classification"){
@@ -111,12 +114,18 @@ export class MachineLearningComponent {
     const selectedAttributes = this.attributes
       .filter(attribute => attribute.selected == true)
       .map(attribute => attribute.name)
-    
-    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({
-      dataset_id: this.datasetId, 
-      algo: this.selectedAlgorithmId, 
+
+    const request_params = {
+      DATASET_ID: this.datasetId,
+      user_id: this.user_id,
+      algo_type: this.selectedAlgorithmId,
       selected_attributes: selectedAttributes,
       additional_params: {...this.formData},
+      result_logging: {...this.resultLogForm.value}
+    }
+    
+    this.mlWekaStore.dispatch(WekaMLActions.wekaMLAlgoInit({
+      request_params: request_params
     }))
     this.mlWekaStore.select(getResultMetrics).subscribe((results) =>{
       console.log(results)

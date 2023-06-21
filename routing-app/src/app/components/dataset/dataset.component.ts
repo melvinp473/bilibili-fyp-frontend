@@ -7,7 +7,6 @@ import { Observable, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
-import { ToolbarComponent } from '../utilities/toolbar/toolbar.component';
 
 @Component({
   selector: 'app-dataset',

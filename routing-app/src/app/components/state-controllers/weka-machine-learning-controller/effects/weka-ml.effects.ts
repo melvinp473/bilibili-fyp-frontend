@@ -15,7 +15,7 @@ export class WekaMLEffects{
         this.action$.pipe(
             ofType(WekaMLActions.wekaMLAlgoInit),
             concatMap(action => {
-                return this.MlWekaService.runMlAlgorithm(action.dataset_id, action.algo, action.selected_attributes, action.additional_params)
+                return this.MlWekaService.runMlAlgorithm(action.request_params)
                 .pipe(
                     map(result => {
                         if (result != null){
