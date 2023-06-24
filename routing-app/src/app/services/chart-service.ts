@@ -23,15 +23,12 @@ export class ChartService {
         return httpOptions;
     }
     
-    public getResults(){
-        const url = this.apiUrl + '/log-plot'
-        const requestbody = {
-            user_id: "user"
-        }
+    public getResults(request_body: any){
+        const url = this.apiUrl + '/get-results'
 
         return this.httpClient.post<any>(
           url,
-          requestbody,
+          request_body,
           this.getHttpHeader()
         )
         

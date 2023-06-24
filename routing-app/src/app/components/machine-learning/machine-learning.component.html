@@ -150,4 +150,12 @@
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
+
+	<div *ngIf="selectedAlgorithmId == 'ensemble'">
+		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
+		<p>Max Error: {{ results.max_error }}</p>
+		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
 </div>
