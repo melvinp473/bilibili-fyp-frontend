@@ -22,13 +22,10 @@ export class ResultsComponent {
   private gridApi!: GridApi;
   columnApi: any;
 
-  data: any[] = [];
-  linear_data: any[] = []
-  svm_data: any[]  = []
-  knn_data: any[]  = []
-  tree_data: any[]  = []
   chart: any;
-  selected_data: any[] = [];
+  selectedData: any[] = [];
+
+  displayActionToolbar: any;
 
   constructor(httpClient: HttpClient,
     private chartService: ChartService
@@ -90,6 +87,22 @@ export class ResultsComponent {
       .pipe(map(response => response.data))
   }
 
+  onSelectionChanged(event: any){
+    const selectedNodes = this.gridApi.getSelectedNodes()
+    if (selectedNodes.length > 0){
+      console.log("display toolbar")
+      this.displayActionToolbar = true
+    } else {
+      console.log("hide toolbar")
+      this.displayActionToolbar = false
+    }
+    this.selectedData = selectedNodes.map(node => node.data)
+  }
+
+  clearAllSelections(){
+    this.gridApi.deselectAll()
+  }
+
   public plotGraph(selected_data: any[]) {
     this.chart = new Chart('canvas', {
       type: 'bar',
@@ -126,11 +139,14 @@ export class ResultsComponent {
   }
 
   public displayData(){
-    const selectedNodes = this.gridApi.getSelectedNodes()
-    this.selected_data = selectedNodes.map(node => node.data)
     if (this.chart != null) {
       this.chart.destroy()
     }
-    this.plotGraph(this.selected_data)
+    this.plotGraph(this.selectedData)
+  }
+  
+  onDeleteRows(){
+    const doc_ids = this.gridApi.getSelectedNodes().map(node => node.data["_id"])
+
   }
 }

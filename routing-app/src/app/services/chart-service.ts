@@ -31,6 +31,16 @@ export class ChartService {
           request_body,
           this.getHttpHeader()
         )
-        
     }
+
+    // delete(doc_ids: [string]){
+    //   const url = this.apiUrl + '/delete-results'
+
+    //     return this.httpClient.delete<any>(
+    //       url,
+    //       {
+    //         doc_ids: doc_ids
+    //       },
+    //     )
+    // }
 }
