@@ -147,6 +147,13 @@ export class ResultsComponent {
   
   onDeleteRows(){
     const doc_ids = this.gridApi.getSelectedNodes().map(node => node.data["_id"])
-
+    this.chartService.delete(doc_ids).subscribe({
+        next: () => {
+          console.log('Items deleted successfully');
+        },
+        error: (error) => {
+          console.log('Error deleting items', error);
+        }
+    })
   }
 }
