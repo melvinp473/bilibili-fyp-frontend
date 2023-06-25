@@ -31,22 +31,36 @@
 				Select attributes to be inlcuded in training model
 			</mat-panel-description>
 		</mat-expansion-panel-header>
-		<section class="example-section">
-			<span class="example-list-section">
-				<mat-checkbox class="example-margin" [checked]="allSelected" [indeterminate]="someSelected()"
-					(change)="setAll($event.checked)">
-					Select All
-				</mat-checkbox>
-			</span>
-			<span class="example-list-section">
-				<ul>
-					<li *ngFor="let attribute of attributes">
-						<mat-checkbox [(ngModel)]="attribute.selected" (ngModelChange)="updateAllSelected()">
-							{{attribute.name}}
-						</mat-checkbox>
-					</li>
-				</ul>
-			</span>
+		<section>
+			<div>
+				Specify target variable
+			</div>
+			<mat-form-field appearance="fill">
+				<mat-label>Target Variable</mat-label>
+				<mat-select (selectionChange)="onSelectTarget()" [(value)]="targetVariable">
+					<mat-option *ngFor="let variable of variables" [value]="variable">
+						{{variable}}
+					</mat-option>
+				</mat-select>
+			</mat-form-field>
+			<section>
+				<div>Select independent variables </div>
+				<div *ngIf="targetVariable;else noTargetSelected">
+					<mat-checkbox [checked]="allSelected" [indeterminate]="someSelected()"
+						(change)="setAll($event.checked)">
+						Select All
+					</mat-checkbox>
+					<ul>
+						<li *ngFor="let variable of independentVariables">
+							<mat-checkbox [(ngModel)]="variable.selected" (ngModelChange)="updateAllSelected()">
+								{{variable.name}}
+							</mat-checkbox>
+						</li>
+					</ul>
+				</div>
+				<ng-template #noTargetSelected>Select a target variable to proceed</ng-template>
+				
+			</section>
 		</section>
 	</mat-expansion-panel>
 	<mat-expansion-panel>
