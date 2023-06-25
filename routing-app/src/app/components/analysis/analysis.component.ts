@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
+import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 
 @Component({
   selector: 'app-analysis',
@@ -14,6 +15,7 @@ export class AnalysisComponent {
   
   selectedAnalysisMethodId: any;
   imageSrc: any;
+  datasetId: any;
 
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>
@@ -22,6 +24,12 @@ export class AnalysisComponent {
       this.httpClient = httpClient;
   }
 
+  dataset$ = this.datasetStore.select(selectDataset);
+
+  sink = this.dataset$.subscribe((data) => {
+    this.datasetId = data._id;
+  });
+
   analysisMethods = [
     {id: "correlation coefficient", name: "Correlation Coefficient"}, 
   ]
@@ -29,14 +37,12 @@ export class AnalysisComponent {
   public runAnalysis(){
 
     const url = this.apiUrl + '/analysis'
-    console.log(url)
-    const request_body = {
-      // DATASET_ID: dataset_id, 
-      // analysis_code: analysis_code,
+    const body = {
+      DATASET_ID: this.datasetId, 
+      analysis_code: this.selectedAnalysisMethodId,
     } 
 
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { /* Include any necessary request body data */ };
     this.httpClient.post(url, body, {
       headers: headers,
       responseType: 'blob',
