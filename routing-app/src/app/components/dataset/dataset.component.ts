@@ -7,6 +7,7 @@ import { Observable, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
+import { DatasetService } from 'src/app/services/dataset-service';
 
 @Component({
   selector: 'app-dataset',
@@ -22,7 +23,8 @@ export class DatasetComponent {
 
   constructor(httpClient: HttpClient,
     private testConnectionStore: Store<TestConnectionState>,
-    private datasetStore: Store<DatasetState>
+    private datasetStore: Store<DatasetState>,
+    private datasetService: DatasetService
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
