@@ -37,15 +37,15 @@ export class DatasetService {
         
     }
 
-    public upload(file: any){
+    public upload(file: FormData) {
         const url = this.apiUrl + '/upload-dataset'
-        const request_body = {
-            user_id: file
-          }
+        // const request_body = {
+        //     user_id: file
+        //   }
 
         return this.httpClient.post<any>(
           url,
-          request_body,
+          file,
           this.getHttpHeader()
         )
         

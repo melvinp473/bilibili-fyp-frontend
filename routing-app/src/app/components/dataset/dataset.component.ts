@@ -66,9 +66,12 @@ export class DatasetComponent {
     const request_body = {
       user_id: "6435575578b04a2b1549c17b"
     }
-    this.rowData$ = this.httpClient
-      .post<any>(this.apiUrl + '/get-dataset', request_body, this.getHttpHeader())
-      .pipe(map(response => response.data))
+    // this.rowData$ = this.httpClient
+    //   .post<any>(this.apiUrl + '/get-dataset', request_body, this.getHttpHeader())
+    //   .pipe(map(response => response.data))
+
+    this.rowData$ = this.datasetService.getResponseDataset("6435575578b04a2b1549c17b")
+    .pipe(map(response => response.data)) 
   }
 
   // Example of consuming Grid Event
