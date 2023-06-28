@@ -9,6 +9,7 @@ import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
 import { DatasetService } from 'src/app/services/dataset-service';
 import { Comparators } from '../utilities/comparators';
+import { DeleteCellRendererComponent } from '../utilities/delete-cell-renderer/delete-cell-renderer.component';
 
 @Component({
   selector: 'app-dataset',
@@ -49,6 +50,14 @@ export class DatasetComponent {
     { 
       headerName: "MongoDB ID",
       field: '_id' 
+    },
+    { 
+      headerName: "Delete Action",
+      field: "_id",
+      cellRenderer: DeleteCellRendererComponent,
+      cellRendererParams: { 
+        service: this.datasetService, 
+      },
     },
   ];
 

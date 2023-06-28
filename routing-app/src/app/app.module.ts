@@ -28,6 +28,7 @@ import { WekaMLReducer } from './components/state-controllers/weka-machine-learn
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { ToolbarComponent } from './components/utilities/toolbar/toolbar.component';
+import { DeleteCellRendererComponent } from './components/utilities/delete-cell-renderer/delete-cell-renderer.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { ToolbarComponent } from './components/utilities/toolbar/toolbar.compone
     ResultsComponent,
     AnalysisComponent,
     ToolbarComponent,
+    DeleteCellRendererComponent,
   ],
   imports: [
     BrowserModule,

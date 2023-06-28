@@ -51,4 +51,11 @@ export class DatasetService {
         
     }
 
+	delete(id: string) {
+		const url = this.apiUrl + '/dataset/' + id;
+	
+		return this.httpClient.delete(
+		  url, 
+		);
+	  }
 }
