@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { Chart } from 'chart.js/auto';
 import { Observable, map } from 'rxjs';
 
@@ -89,6 +89,15 @@ export class ResultsComponent {
       .pipe(map(response => response.data))
   }
 
+  onFirstDataRendered(event: FirstDataRenderedEvent){
+    const allColumnIds: string[] = [];
+    this.columnApi.getColumns()!.forEach((column: any) => {
+      allColumnIds.push(column.getId());
+    });
+    console.log(allColumnIds)
+    this.columnApi.autoSizeColumns(allColumnIds, false);
+  }
+  
   onSelectionChanged(event: any){
     const selectedNodes = this.gridApi.getSelectedNodes()
     if (selectedNodes.length > 0){
