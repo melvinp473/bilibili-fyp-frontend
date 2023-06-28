@@ -2,8 +2,35 @@
     <app-toolbar currentPageTitle="Machine Learning" previousLink="/analysis" nextLink="/results"></app-toolbar>
 </div>
 
-<div style="padding: 10px;">
-	<mat-form-field appearance="fill">
+<div style="padding: 20px; display:flex;">
+
+	<button mat-raised-button [matMenuTriggerFor]="animals">Select ML algorithm</button>
+	<mat-menu #animals="matMenu">
+		<button mat-menu-item [matMenuTriggerFor]="regression">Regression</button>
+		<button mat-menu-item [matMenuTriggerFor]="classification">Classification</button>
+	</mat-menu>
+
+	<mat-menu #regression="matMenu">
+		<button mat-menu-item (click)="onSelectAlgo('Linear Regression', 'linear regression')">Linear Regression</button>
+		<button mat-menu-item (click)="onSelectAlgo('Decision Trees', 'decision trees')">Decision Trees</button>
+		<button mat-menu-item (click)="onSelectAlgo('K-Nearest Neighbours (KNN)', 'knn')">K-Nearest Neighbours (KNN)</button>
+		<button mat-menu-item (click)="onSelectAlgo('Support Vector Machines (SVM)', 'svm')">Support Vector Machines (SVM)</button>
+		<button mat-menu-item [matMenuTriggerFor]="regression_ensemble">Regression Ensemble</button>
+	</mat-menu>
+
+	<mat-menu #classification="matMenu">
+		<button disabled mat-menu-item>None</button>
+	</mat-menu>
+	
+	<mat-menu #regression_ensemble="matMenu">
+		<button mat-menu-item (click)="onSelectAlgo('Bagging (Regression)', 'bagging_regression')">Bagging</button>
+		<button mat-menu-item (click)="onSelectAlgo('Random Forest (Regression)', 'random_forest_regression')">Random Forest</button>
+		<button mat-menu-item (click)="onSelectAlgo('Voting (Regression)', 'voting_regression')">Voting</button>
+	</mat-menu>
+
+	<span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span>
+
+	<!-- <mat-form-field appearance="fill">
 		<mat-label>Select algorithm category</mat-label>
 		<mat-select [(value)]="algorithmCategory" (selectionChange)="selectCategory()">
 			<mat-option value="Classification">Classification</mat-option>
@@ -17,8 +44,9 @@
 				{{algorithm.name}}
 			</mat-option>
 		</mat-select>
-	</mat-form-field>
-	<button style="margin: 10px;" mat-raised-button color="accent" (click)="runAlgorithm()">RUN</button>
+	</mat-form-field> -->
+	<span class="flex-spacer"></span>
+	<button mat-raised-button color="accent" (click)="runAlgorithm()">RUN</button>
 </div>
 
 <mat-accordion multi>
@@ -83,7 +111,7 @@
 								[required]="field.required">
 							<input *ngSwitchCase="'number'" matInput type="number" [placeholder]="field.label"
 								[id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]"
-								[required]="field.required">
+								[required]="field.required" [min]="field.min" [max]="field.max" [step]="field.step">
 							<input *ngSwitchCase="'email'" matInput [placeholder]="field.label" [id]="field.name"
 								[name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
 							<textarea *ngSwitchCase="'textarea'" matInput [placeholder]="field.label" [id]="field.name"
@@ -123,7 +151,7 @@
 
 <h2>Results:</h2>
 <div *ngIf="results">
-	<div *ngIf="selectedAlgorithmId == 'linear regression'">
+	<div *ngIf="selectedAlgoId == 'linear regression'">
 		<p>Coefficients:</p>
 		<ul>
 			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
@@ -136,7 +164,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgorithmId == 'svm'">
+	<div *ngIf="selectedAlgoId == 'svm'">
 		<p>Coefficients:</p>
 		<ul>
 			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
@@ -149,7 +177,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgorithmId == 'decision trees'">
+	<div *ngIf="selectedAlgoId == 'decision trees'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
@@ -157,7 +185,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgorithmId == 'knn'">
+	<div *ngIf="selectedAlgoId == 'knn'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
@@ -165,7 +193,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgorithmId == 'ensemble'">
+	<div *ngIf="selectedAlgoId == 'ensemble'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
