@@ -132,8 +132,7 @@ export class PreprocessingComponent {
     // console.log('Run!')
     this.preprocessingService.runPreprocessing(this.datasetId, this.selectedPreprocessingMethodId).subscribe(
       (data) => {
-        console.log(data.response)
-        if (data.response) {
+        if (data.flag) {
           this.preprocessingService.getResponseData("6435575578b04a2b1549c17b", this.datasetId).subscribe( list => {
             console.log(list)
             list = list.data
@@ -147,6 +146,7 @@ export class PreprocessingComponent {
               }
               this.gridApi.setColumnDefs(this.columnDefs)
               this.rowData = list
+              console.log(data.body)
           })
         }
         // if(new_data.data.length > 0) {
