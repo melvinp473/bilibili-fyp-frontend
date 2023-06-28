@@ -6,6 +6,7 @@ import { map } from 'rxjs';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { Store } from '@ngrx/store';
+import { PreprocssingService } from 'src/app/services/preprocessing-services';
 @Component({
   selector: 'app-preprocessing',
   templateUrl: './preprocessing.component.html',
@@ -22,7 +23,8 @@ export class PreprocessingComponent {
   columnApi: any;
 
   constructor(httpClient: HttpClient,
-    private datasetStore: Store<DatasetState>
+    private datasetStore: Store<DatasetState>,
+    private preprocessingService: PreprocssingService
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -66,12 +68,9 @@ export class PreprocessingComponent {
       DATASET_ID: this.datasetId
     }
 
-    const responseData$ = this.httpClient
-      .post<any>(this.apiUrl + '/get-data', request_body, this.getHttpHeader())
-      .pipe(map(response => response.data))
-
-    responseData$.subscribe( list => {
+    const responseData = this.preprocessingService.getResponseData("6435575578b04a2b1549c17b", this.datasetId).subscribe( list => {
       console.log(list)
+      list = list.data
         const listItem = list[0]
         console.log(listItem)
         for (const key in listItem){
@@ -83,6 +82,24 @@ export class PreprocessingComponent {
         this.gridApi.setColumnDefs(this.columnDefs)
         this.rowData = list
     })
+
+    // const responseData$ = this.httpClient
+    //   .post<any>(this.apiUrl + '/get-data', request_body, this.getHttpHeader())
+    //   .pipe(map(response => response.data))
+
+    // responseData$.subscribe( list => {
+    //   console.log(list)
+    //     const listItem = list[0]
+    //     console.log(listItem)
+    //     for (const key in listItem){
+    //       this.columnDefs.push({
+    //         headerName: key,
+    //         field: key
+    //       })
+    //     }
+    //     this.gridApi.setColumnDefs(this.columnDefs)
+    //     this.rowData = list
+    // })
   }
 
   public getHttpHeader() {
@@ -112,7 +129,60 @@ export class PreprocessingComponent {
   }
 
   public runPreprocessing(){
-    this.runPreProcessingService(this.datasetId, this.selectedPreprocessingMethodId)
+    // console.log('Run!')
+    this.preprocessingService.runPreprocessing(this.datasetId, this.selectedPreprocessingMethodId).subscribe(
+      (data) => {
+        console.log(data.response)
+        if (data.response) {
+          this.preprocessingService.getResponseData("6435575578b04a2b1549c17b", this.datasetId).subscribe( list => {
+            console.log(list)
+            list = list.data
+              const listItem = list[0]
+              console.log(listItem)
+              for (const key in listItem){
+                this.columnDefs.push({
+                  headerName: key,
+                  field: key
+                })
+              }
+              this.gridApi.setColumnDefs(this.columnDefs)
+              this.rowData = list
+          })
+        }
+        // if(new_data.data.length > 0) {
+        //   // console.log(new_data)
+        //   // console.log('done!')
+        //   const list = new_data.data
+        //   const listItem = list[0]
+        //   console.log(listItem)
+        //   for (const key in listItem){
+        //     this.columnDefs.push({
+        //       headerName: key,
+        //       field: key
+        //     })
+        //   }
+        //   this.gridApi.setColumnDefs(this.columnDefs)
+        //   this.rowData = list
+        // }
+      }
+    )
+    // console.log('done!')
+
+    // const responseData = this.preprocessingService.getResponseData("6435575578b04a2b1549c17b", this.datasetId).subscribe( list => {
+    //   console.log(list)
+    //   list = list.data
+    //     const listItem = list[0]
+    //     console.log(listItem)
+    //     for (const key in listItem){
+    //       this.columnDefs.push({
+    //         headerName: key,
+    //         field: key
+    //       })
+    //     }
+    //     this.gridApi.setColumnDefs(this.columnDefs)
+    //     this.rowData = list
+    // })
+
   }
 
 }
