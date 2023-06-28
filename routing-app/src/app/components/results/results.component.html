@@ -22,7 +22,8 @@
 
     <ag-grid-angular style="width: 100%; height: 90%;" class="ag-theme-material" [columnDefs]="columnDefs"
         [defaultColDef]="defaultColDef" [rowData]="rowData$ | async" [rowSelection]="'multiple'"
-        [rowMultiSelectWithClick]="true" [animateRows]="true" (gridReady)="onGridReady($event)"
+        [rowMultiSelectWithClick]="true" [animateRows]="true" (gridReady)="onGridReady($event)" 
+        (firstDataRendered)="onFirstDataRendered($event)"
         (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
 </section>
 

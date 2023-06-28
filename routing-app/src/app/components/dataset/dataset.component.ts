@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridAngular } from 'ag-grid-angular';
-import { CellClickedEvent, ColDef, GridReadyEvent } from 'ag-grid-community';
-import { Observable, map } from 'rxjs';
+import { CellClickedEvent, ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { Observable, delay, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
@@ -22,6 +22,9 @@ export class DatasetComponent {
 
   datasetName: any;
   uploadedFile!: FormData;
+  
+  private gridApi!: GridApi;
+  columnApi!: ColumnApi;
 
   constructor(httpClient: HttpClient,
     private testConnectionStore: Store<TestConnectionState>,
@@ -65,6 +68,7 @@ export class DatasetComponent {
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+    resizable: true,
   };
 
   // Data that gets displayed in the grid
@@ -75,6 +79,9 @@ export class DatasetComponent {
 
   // Example load data from server
   onGridReady(params: GridReadyEvent) {
+    this.gridApi! = params.api;
+    this.columnApi = params.columnApi;
+
     const request_body = {
       user_id: "6435575578b04a2b1549c17b"
     }
@@ -84,6 +91,15 @@ export class DatasetComponent {
 
     this.rowData$ = this.datasetService.getResponseDataset("6435575578b04a2b1549c17b")
     .pipe(map(response => response.data)) 
+  }
+
+  onFirstDataRendered(event: FirstDataRenderedEvent){
+    const allColumnIds: string[] = [];
+    this.columnApi.getColumns()!.forEach((column: any) => {
+      allColumnIds.push(column.getId());
+    });
+    console.log(allColumnIds)
+    this.columnApi.autoSizeColumns(allColumnIds, false);
   }
 
   // Example of consuming Grid Event
