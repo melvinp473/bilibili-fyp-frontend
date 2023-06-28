@@ -7,6 +7,7 @@ import { Observable, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
+import { Comparators } from '../utilities/comparators';
 
 @Component({
   selector: 'app-dataset',
@@ -35,11 +36,13 @@ export class DatasetComponent {
     },
     { 
       headerName: "Date Uploaded",
-      field: 'create_date' 
+      field: 'create_date',
+      comparator: Comparators.dateComparator, 
     },
     { 
       headerName: "Last Updated",
-      field: 'update_date' 
+      field: 'update_date',
+      comparator: Comparators.dateComparator, 
     },
     { 
       headerName: "MongoDB ID",

@@ -6,6 +6,7 @@ import { Chart } from 'chart.js/auto';
 import { Observable, map } from 'rxjs';
 
 import { ChartService } from 'src/app/services/chart-service';
+import { Comparators } from '../utilities/comparators';
 
 
 @Component({
@@ -56,7 +57,8 @@ export class ResultsComponent {
     },
     { 
       headerName: "Created Date",
-      field: 'create_date' 
+      field: 'create_date',
+      comparator: Comparators.dateComparator,
     },
   ];
 
