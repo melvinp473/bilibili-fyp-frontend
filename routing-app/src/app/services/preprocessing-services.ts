@@ -38,7 +38,7 @@ export class PreprocssingService {
         
     }
 
-    public runPreprocessing(dataset_id: string, preprocessing_code: string){
+    public runPreprocessing(dataset_id: string, preprocessing_code: string, k?: string, regr_type?: string, target_attri?: string) {
         const url = this.apiUrl + '/preprocessing'
         const request_body = {
             DATASET_ID: dataset_id, 
