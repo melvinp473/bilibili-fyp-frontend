@@ -133,6 +133,10 @@ export class ResultsComponent {
             data: selected_data.map(row => row.metrics.mse)
           },
           {
+            label:'rmse',
+            data: selected_data.map(row => row.metrics.rmse)
+          },
+          {
             label:'mean absolute percentage',
             data: selected_data.map(row => row.metrics.mean_absolute_percentage)
           },

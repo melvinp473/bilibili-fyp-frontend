@@ -12,6 +12,10 @@ import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
 import { getResultMetrics } from '../state-controllers/weka-machine-learning-controller/selectors/weka-ml.selectors';
 
+export interface Variable {
+  name: string;
+  selected: boolean;
+}
 @Component({
   selector: 'app-machine-learning',
   templateUrl: './machine-learning.component.html',
@@ -21,15 +25,15 @@ export class MachineLearningComponent {
   apiUrl: string;
   httpClient: HttpClient;
 
-  algorithmCategory: any;
-  algorithms: any;
-  selectedAlgoId: any;
-  selectedAlgoName: any;
+  // algorithmCategory: any;
+  // algorithms: any;
   datasetId: any;
   user_id = '6435575578b04a2b1549c17b';
+  selectedAlgoId: any;
+  selectedAlgoName: any;
   results: any;
-  formFields: any;
-  formData: any;
+  additionalParamsFormFields: any;
+  additionalParamsFormData: any;
 
   targetVariable: any;
   independentVariables: Variable[] = [];
@@ -74,39 +78,39 @@ export class MachineLearningComponent {
   //   }
   // }
 
-  algorithmChange() {
-    this.results = null;
+  // algorithmChange() {
+  //   this.results = null;
 
-    if (this.selectedAlgoId == 'knn') {
-      this.formFields = [
-        {
-          label: 'No. of Neighbours',
-          type: 'number',
-          name: 'neighbours_count',
-          value: '',
-          required: true,
-        },
-      ];
-      this.formData = {
-        neighbours_count: 8,
-      };
-    } else if (this.selectedAlgoId == 'decision trees') {
-      this.formFields = [
-        {
-          label: 'Max Tree Depth',
-          type: 'number',
-          name: 'max_depth',
-          value: '',
-          required: true,
-        },
-      ];
-      this.formData = {
-        max_depth: 10,
-      };
-    } else {
-      this.formFields = [];
-    }
-  }
+  //   if (this.selectedAlgoId == 'knn') {
+  //     this.formFields = [
+  //       {
+  //         label: 'No. of Neighbours',
+  //         type: 'number',
+  //         name: 'neighbours_count',
+  //         value: '',
+  //         required: true,
+  //       },
+  //     ];
+  //     this.formData = {
+  //       neighbours_count: 8,
+  //     };
+  //   } else if (this.selectedAlgoId == 'decision trees') {
+  //     this.formFields = [
+  //       {
+  //         label: 'Max Tree Depth',
+  //         type: 'number',
+  //         name: 'max_depth',
+  //         value: '',
+  //         required: true,
+  //       },
+  //     ];
+  //     this.formData = {
+  //       max_depth: 10,
+  //     };
+  //   } else {
+  //     this.formFields = [];
+  //   }
+  // }
 
   runAlgorithm() {
     const selectedIndependentVariables = this.independentVariables
@@ -119,7 +123,7 @@ export class MachineLearningComponent {
       algo_type: this.selectedAlgoId,
       target_variable: this.targetVariable,
       independent_variables: selectedIndependentVariables,
-      additional_params: { ...this.formData },
+      additional_params: { ...this.additionalParamsFormData },
       result_logging: { ...this.resultLogForm.value },
     };
 
@@ -171,8 +175,6 @@ export class MachineLearningComponent {
     this.independentVariables.forEach((a) => (a.selected = selected));
   }
 
-
-
   onSelectAlgo(displayValue: string, algoId:string){
     console.log(displayValue)
     console.log(algoId)
@@ -184,47 +186,74 @@ export class MachineLearningComponent {
 
     // update algo specific parameters expansion
     if (this.selectedAlgoId == 'knn') {
-      this.formFields = [
+      this.additionalParamsFormFields = [
         {
           label: 'No. of Neighbours',
           type: 'number',
           name: 'neighbours_count',
-          value: '',
           min: 0,
           required: true,
         },
+        {
+          label: 'Weights (TODO: uniform or distance)',
+          type: 'text',
+          name: 'weights',
+          required: true,
+        },
       ];
-      this.formData = {
+      this.additionalParamsFormData = {
         neighbours_count: 8,
       };
     } else if (this.selectedAlgoId == 'decision trees') {
-      this.formFields = [
+      this.additionalParamsFormFields = [
         {
           label: 'Max Tree Depth',
           type: 'number',
           name: 'max_depth',
-          value: '',
           min: 0,
           required: true,
         },
+        {
+          label: 'Min number of samples to split an internal node',
+          type: 'number',
+          name: 'min_samples_split',
+          min: 0,
+          step: 0.01,
+          required: true,
+        },
+        {
+          label: 'Min number of samples in each leaf node',
+          type: 'number',
+          name: 'min_samples_leaf',
+          min: 0,
+          step: 0.01,
+          required: true,
+        },
+        
       ];
-      this.formData = {
+      this.additionalParamsFormData = {
         max_depth: 10,
+        min_samples_split: 2,
+        min_samples_leaf: 1,
       };
     } else if (this.selectedAlgoId == 'bagging_regression') {
-      this.formFields = [
+      this.additionalParamsFormFields = [
+        {
+          label: 'Estimator (TODO: let user choose one base regr algo)',
+          type: 'text',
+          name: 'estimator',
+          required: true,
+        },
         {
           label: 'No. of estimators',
           type: 'number',
           name: 'n_estimators',
-          value: '',
           required: true,
         },
         {
           label: 'Max samples',
           type: 'number',
           name: 'max_samples',
-          value: '',
           min: 0,
           step: 0.01,
           required: true,
@@ -233,41 +262,37 @@ export class MachineLearningComponent {
           label: 'Max features',
           type: 'number',
           name: 'max_features',
-          value: '',
           min: 0,
           step: 0.01,
           required: true,
         },
       ];
-      this.formData = {
+      this.additionalParamsFormData = {
         n_estimators: 10,
         max_samples: 1.0,
         max_features: 1.0,
       };
     } else if (this.selectedAlgoId == 'random_forest_regression') {
-      this.formFields = [
+      this.additionalParamsFormFields = [
         {
           label: 'No. of estimators',
           type: 'number',
           name: 'n_estimators',
-          value: '',
           required: true,
         },
         {
           label: 'Max depth',
           type: 'number',
           name: 'max_depth',
-          value: '',
-          min: 0,
-          step: 0.01,
           required: false,
         },
       ];
-      this.formData = {
+      this.additionalParamsFormData = {
+        n_estimators: 100,
         placeholder: 10,
       };
     } else if (this.selectedAlgoId == 'voting_regression') {
-      this.formFields = [
+      this.additionalParamsFormFields = [
         {
           label: 'Placeholder',
           type: 'number',
@@ -276,16 +301,13 @@ export class MachineLearningComponent {
           required: false,
         },
       ];
-      this.formData = {
+      this.additionalParamsFormData = {
         placeholder: 10,
       };
     } else {
-      this.formFields = [];
+      this.additionalParamsFormFields = [];
     }
+    console.log(this.additionalParamsFormData)
   }
 }
 
-export interface Variable {
-  name: string;
-  selected: boolean;
-}

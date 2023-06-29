@@ -102,20 +102,20 @@
 		</mat-expansion-panel-header>
 		<div>
 			<form #myForm="ngForm">
-				<div *ngFor="let field of formFields">
+				<div *ngFor="let field of additionalParamsFormFields">
 					<mat-form-field>
 						<mat-label>{{ field.label }}</mat-label>
 						<ng-container [ngSwitch]="field.type">
 							<input *ngSwitchCase="'text'" matInput type="text" [placeholder]="field.label"
-								[id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]"
+								[id]="field.name" [name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]"
 								[required]="field.required">
 							<input *ngSwitchCase="'number'" matInput type="number" [placeholder]="field.label"
-								[id]="field.name" [name]="field.name" [(ngModel)]="formData[field.name]"
+								[id]="field.name" [name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]"
 								[required]="field.required" [min]="field.min" [max]="field.max" [step]="field.step">
 							<input *ngSwitchCase="'email'" matInput [placeholder]="field.label" [id]="field.name"
-								[name]="field.name" [(ngModel)]="formData[field.name]" [required]="field.required">
+								[name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]" [required]="field.required">
 							<textarea *ngSwitchCase="'textarea'" matInput [placeholder]="field.label" [id]="field.name"
-								[name]="field.name" [(ngModel)]="formData[field.name]"
+								[name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]"
 								[required]="field.required"></textarea>
 						</ng-container>
 					</mat-form-field>
