@@ -29,6 +29,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { ToolbarComponent } from './components/utilities/toolbar/toolbar.component';
 import { DeleteCellRendererComponent } from './components/utilities/delete-cell-renderer/delete-cell-renderer.component';
+import { DecisionTreesParamsComponent } from './components/machine-learning/algo-parameters/regression/decision-trees-params/decision-trees-params.component';
+import { KnnParamsComponent as RegrKnnParamsComponent} from './components/machine-learning/algo-parameters/regression/knn-params/knn-params.component';
 
 
 @NgModule({
@@ -44,6 +46,8 @@ import { DeleteCellRendererComponent } from './components/utilities/delete-cell-
     AnalysisComponent,
     ToolbarComponent,
     DeleteCellRendererComponent,
+    DecisionTreesParamsComponent,
+    RegrKnnParamsComponent,
   ],
   imports: [
     BrowserModule,

@@ -91,7 +91,7 @@
 			</section>
 		</section>
 	</mat-expansion-panel>
-	<mat-expansion-panel>
+	<!-- <mat-expansion-panel>
 		<mat-expansion-panel-header>
 			<mat-panel-title>
 				Algorithm specific parameters
@@ -121,6 +121,20 @@
 					</mat-form-field>
 				</div>
 			</form>
+		</div>
+	</mat-expansion-panel> -->
+	<mat-expansion-panel>
+		<mat-expansion-panel-header>
+			<mat-panel-title>
+				Algorithm specific parameters
+			</mat-panel-title>
+			<mat-panel-description>
+				Set additional parameters of the machine learning algorithm
+			</mat-panel-description>
+		</mat-expansion-panel-header>
+		<div [ngSwitch]="selectedAlgoId">
+			<app-decision-trees-params *ngSwitchCase="'decision trees'" (valueChange)="onParamsChange($event)"></app-decision-trees-params>
+			<app-knn-params *ngSwitchCase="'knn'" (valueChange)="onParamsChange($event)"></app-knn-params> 
 		</div>
 	</mat-expansion-panel>
 	<mat-expansion-panel>
