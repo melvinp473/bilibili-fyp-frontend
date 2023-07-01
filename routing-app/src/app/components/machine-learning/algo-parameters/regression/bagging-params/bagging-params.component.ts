@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-regr-bagging-params',
@@ -17,15 +16,33 @@ export class BaggingParamsComponent {
     max_features: new FormControl(1),
   });
 
+  chosenEstimator!: string;
+
+  estimatorParamsData = {};
+
   constructor() { }
 
   ngOnInit(){
+    this.onChange()
     this.paramsForm.valueChanges.subscribe(() => {
       this.onChange()
     })
   }
 
   onChange(){
-    this.valueChange.emit(this.paramsForm.getRawValue()) 
+    const allParamData = {
+      ...this.paramsForm.getRawValue(),
+      estimator_params: this.estimatorParamsData
+    }
+    this.valueChange.emit(allParamData) 
+  }
+
+  onEstimatorChange(){
+    this.chosenEstimator = this.paramsForm.get('estimator')?.getRawValue()
+  }
+
+  onParamsChange(newValue: any){
+    this.estimatorParamsData = newValue
+    this.onChange()
   }
 }

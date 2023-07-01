@@ -19,6 +19,7 @@ export class DecisionTreesParamsComponent {
   constructor() { }
 
   ngOnInit(){
+    this.onChange()
     this.paramsForm.valueChanges.subscribe(() => {
       this.onChange()
     })

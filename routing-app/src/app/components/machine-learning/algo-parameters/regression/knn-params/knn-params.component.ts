@@ -7,7 +7,6 @@ import { FormControl, FormGroup } from '@angular/forms';
   styleUrls: ['./knn-params.component.css']
 })
 export class KnnParamsComponent {
-
   @Output() valueChange = new EventEmitter<any>()
 
   paramsForm = new FormGroup({
@@ -18,6 +17,7 @@ export class KnnParamsComponent {
   constructor() { }
 
   ngOnInit(){
+    this.onChange()
     this.paramsForm.valueChanges.subscribe(() => {
       this.onChange()
     })

@@ -21,6 +21,7 @@ export class RandomForestParamsComponent {
   constructor() { }
 
   ngOnInit(){
+    this.onChange()
     this.paramsForm.valueChanges.subscribe(() => {
       this.onChange()
     })

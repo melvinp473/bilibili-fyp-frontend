@@ -1,18 +1,35 @@
 <form [formGroup]="paramsForm">
-    <mat-form-field>
-        <mat-label>Estimator (TODO: let user choose one base regr algo)</mat-label>
-        <input matInput formControlName="estimator" type="text">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>No. of estimators</mat-label>
-        <input matInput formControlName="n_estimators" type="number">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Max samples</mat-label>
-        <input matInput formControlName="max_samples" type="number">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Max features</mat-label>
-        <input matInput formControlName="max_features" type="number">
-    </mat-form-field>
+    <div>
+        <mat-form-field>
+            <mat-label>Estimator (let user choose one base regr algo)</mat-label>
+            <mat-select formControlName="estimator" (selectionChange)="onEstimatorChange()">
+                <mat-option value="decision_trees_regr">Decision Trees</mat-option>
+                <mat-option value="knn_regr">K-Nearest Neighbours (KNN)</mat-option>
+              </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>No. of estimators</mat-label>
+            <input matInput formControlName="n_estimators" type="number">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Max samples</mat-label>
+            <input matInput formControlName="max_samples" type="number">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Max features</mat-label>
+            <input matInput formControlName="max_features" type="number">
+        </mat-form-field>
+    </div>
+    <br>
+    <div>
+        <span>Estimator algorithm params</span>
+        <span style="padding: 10px;">{{chosenEstimator}}</span>
+
+        <div *ngIf="chosenEstimator=='decision_trees_regr'">
+            <app-regr-decision-trees-params (valueChange)="onParamsChange($event)"></app-regr-decision-trees-params>
+        </div>
+        <div *ngIf="chosenEstimator=='knn_regr'">
+            <app-regr-knn-params (valueChange)="onParamsChange($event)"></app-regr-knn-params>
+        </div>
+    </div>
 </form>
