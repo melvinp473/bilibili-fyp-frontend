@@ -1,11 +1,14 @@
-<form [formGroup]="paramsForm" (change)="onChange()">
+<form [formGroup]="paramsForm">
     <mat-form-field>
         <mat-label>No. of Neighbours</mat-label>
         <input matInput formControlName="n_neighbors" type="number">
     </mat-form-field>
     <mat-form-field>
-        <mat-label>Weights (TODO: uniform or distance)</mat-label>
-        <input matInput formControlName="weights" type="text">
+        <mat-label>Weights</mat-label>
+        <mat-select formControlName="weights">
+            <mat-option value="uniform">uniform</mat-option>
+            <mat-option value="distance">distance</mat-option>
+          </mat-select>
     </mat-form-field>
 </form>
 

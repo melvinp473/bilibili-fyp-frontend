@@ -46,6 +46,13 @@ export class MachineLearningComponent {
     this.httpClient = httpClient;
   }
 
+  ngOnInit(){
+    this.mlWekaStore.select(getResultMetrics).subscribe((results) => {
+      console.log(results);
+      this.results = results.data;
+    });
+  }
+
   dataset$ = this.datasetStore.select(selectDataset);
 
   sink = this.dataset$.subscribe((data) => {
@@ -78,10 +85,6 @@ export class MachineLearningComponent {
         request_params: request_params,
       })
     );
-    this.mlWekaStore.select(getResultMetrics).subscribe((results) => {
-      console.log(results);
-      this.results = results.data;
-    });
   }
 
   onSelectTarget() {

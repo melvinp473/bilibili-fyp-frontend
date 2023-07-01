@@ -1,4 +1,4 @@
-<form [formGroup]="paramsForm" (change)="onChange()">
+<form [formGroup]="paramsForm">
     <mat-form-field>
         <mat-label>Estimator (TODO: let user choose one base regr algo)</mat-label>
         <input matInput formControlName="estimator" type="text">
@@ -16,10 +16,3 @@
         <input matInput formControlName="max_features" type="number">
     </mat-form-field>
 </form>
-
-<!-- 
-<mat-form-field>
-    <mat-label>Template</mat-label>
-    <input matInput formControlName="template" type="template">
-</mat-form-field>
- -->

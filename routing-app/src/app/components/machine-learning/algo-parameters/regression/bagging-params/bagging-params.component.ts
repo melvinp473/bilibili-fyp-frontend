@@ -20,7 +20,9 @@ export class BaggingParamsComponent {
   constructor() { }
 
   ngOnInit(){
-    this.valueChange.emit(this.paramsForm.getRawValue())
+    this.paramsForm.valueChanges.subscribe(() => {
+      this.onChange()
+    })
   }
 
   onChange(){
