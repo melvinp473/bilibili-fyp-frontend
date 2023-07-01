@@ -11,11 +11,12 @@
 	</mat-menu>
 
 	<mat-menu #regression="matMenu">
-		<button mat-menu-item (click)="onSelectAlgo('Linear Regression', 'linear regression')">Linear Regression</button>
-		<button mat-menu-item (click)="onSelectAlgo('Decision Trees', 'decision trees')">Decision Trees</button>
-		<button mat-menu-item (click)="onSelectAlgo('K-Nearest Neighbours (KNN)', 'knn')">K-Nearest Neighbours (KNN)</button>
-		<button mat-menu-item (click)="onSelectAlgo('Support Vector Machines (SVM)', 'svm')">Support Vector Machines (SVM)</button>
-		<button mat-menu-item [matMenuTriggerFor]="regression_ensemble">Regression Ensemble</button>
+		<button mat-menu-item (click)="onSelectAlgo('Linear Regression', 'linear_regr')">Linear Regression</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - Decision Trees', 'decision_trees_regr')">Decision Trees</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - K-Nearest Neighbours (KNN)', 'knn_regr')">K-Nearest Neighbours (KNN)</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - Support Vector Machines (SVM)', 'svm_regr')">Support Vector Machines (SVM)</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - Random Forest', 'random_forest_regr')">Random Forest</button>
+		<button mat-menu-item [matMenuTriggerFor]="regression_ensemble">Ensemble</button>
 	</mat-menu>
 
 	<mat-menu #classification="matMenu">
@@ -23,9 +24,9 @@
 	</mat-menu>
 	
 	<mat-menu #regression_ensemble="matMenu">
-		<button mat-menu-item (click)="onSelectAlgo('Bagging (Regression)', 'bagging_regression')">Bagging</button>
-		<button mat-menu-item (click)="onSelectAlgo('Random Forest (Regression)', 'random_forest_regression')">Random Forest</button>
-		<button mat-menu-item (click)="onSelectAlgo('Voting (Regression)', 'voting_regression')">Voting</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - Bagging', 'bagging_regr')">Bagging</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - Random Forest', 'random_forest_regr')">Random Forest</button>
+		<button mat-menu-item (click)="onSelectAlgo('Regr - Voting', 'voting_regr')">Voting</button>
 	</mat-menu>
 
 	<span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span>
@@ -133,8 +134,9 @@
 			</mat-panel-description>
 		</mat-expansion-panel-header>
 		<div [ngSwitch]="selectedAlgoId">
-			<app-decision-trees-params *ngSwitchCase="'decision trees'" (valueChange)="onParamsChange($event)"></app-decision-trees-params>
-			<app-knn-params *ngSwitchCase="'knn'" (valueChange)="onParamsChange($event)"></app-knn-params> 
+			<app-regr-decision-trees-params *ngSwitchCase="'decision_trees_regr'" (valueChange)="onParamsChange($event)"></app-regr-decision-trees-params>
+			<app-regr-knn-params *ngSwitchCase="'knn_regr'" (valueChange)="onParamsChange($event)"></app-regr-knn-params> 
+			<app-regr-random-forest-params *ngSwitchCase="'random_forest_regr'" (valueChange)="onParamsChange($event)"></app-regr-random-forest-params>
 		</div>
 	</mat-expansion-panel>
 	<mat-expansion-panel>
@@ -165,7 +167,7 @@
 
 <h2>Results:</h2>
 <div *ngIf="results">
-	<div *ngIf="selectedAlgoId == 'linear regression'">
+	<div *ngIf="selectedAlgoId == 'linear_regr'">
 		<p>Coefficients:</p>
 		<ul>
 			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
@@ -173,12 +175,13 @@
 		<p>Intercept: {{ results.Intercept }}</p>
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgoId == 'svm'">
+	<div *ngIf="selectedAlgoId == 'svm_regr'">
 		<p>Coefficients:</p>
 		<ul>
 			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
@@ -186,30 +189,43 @@
 		<p>Intercept: {{ results.Intercept }}</p>
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgoId == 'decision trees'">
+	<div *ngIf="selectedAlgoId == 'decision_trees_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgoId == 'knn'">
+	<div *ngIf="selectedAlgoId == 'knn_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgoId == 'ensemble'">
+	<div *ngIf="selectedAlgoId == 'random_forest_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
+		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
+		<p>Max Error: {{ results.max_error }}</p>
+		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
+
+	<div *ngIf="selectedAlgoId == 'voting_regr'">
+		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
+		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
+		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>

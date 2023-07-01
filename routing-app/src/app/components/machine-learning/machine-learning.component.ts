@@ -32,8 +32,8 @@ export class MachineLearningComponent {
   selectedAlgoId: any;
   selectedAlgoName: any;
   results: any;
-  additionalParamsFormFields: any;
-  additionalParamsFormData: any;
+  // additionalParamsFormFields: any;
+  // additionalParamsFormData: any;
   algoParamsFormData: any;
 
   targetVariable: any;
@@ -184,6 +184,8 @@ export class MachineLearningComponent {
     console.log(algoId)
     this.selectedAlgoId = algoId
     this.selectedAlgoName = displayValue
+
+    this.algoParamsFormData = null;
 
     // clear display of previous results
     this.results = null;

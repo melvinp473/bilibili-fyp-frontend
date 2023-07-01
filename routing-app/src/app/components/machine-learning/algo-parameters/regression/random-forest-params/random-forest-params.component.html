@@ -1,0 +1,22 @@
+<form [formGroup]="paramsForm" (change)="onChange()">
+    <mat-form-field>
+        <mat-label>No. of estimators</mat-label>
+        <input matInput formControlName="n_estimators" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Max depth</mat-label>
+        <input matInput formControlName="max_depth" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Min samples for split</mat-label>
+        <input matInput formControlName="min_samples_split" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Min samples at leaf</mat-label>
+        <input matInput formControlName="min_samples_leaf" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Min weighted fraction at leaf</mat-label>
+        <input matInput formControlName="min_weight_fraction_leaf" type="number">
+    </mat-form-field>
+</form>

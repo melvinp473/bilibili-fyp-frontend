@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-decision-trees-params',
+  selector: 'app-regr-decision-trees-params',
   templateUrl: './decision-trees-params.component.html',
   styleUrls: ['./decision-trees-params.component.css']
 })
