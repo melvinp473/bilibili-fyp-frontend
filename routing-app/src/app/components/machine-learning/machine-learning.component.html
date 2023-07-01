@@ -31,21 +31,6 @@
 
 	<span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span>
 
-	<!-- <mat-form-field appearance="fill">
-		<mat-label>Select algorithm category</mat-label>
-		<mat-select [(value)]="algorithmCategory" (selectionChange)="selectCategory()">
-			<mat-option value="Classification">Classification</mat-option>
-			<mat-option value="Regression">Regression</mat-option>
-		</mat-select>
-	</mat-form-field>
-	<mat-form-field appearance="fill" style="margin: 5px" *ngIf="algorithmCategory">
-		<mat-label>Select {{algorithmCategory}} algorithm</mat-label>
-		<mat-select [(value)]="selectedAlgorithmId" (selectionChange)="algorithmChange()">
-			<mat-option *ngFor="let algorithm of algorithms" [value]="algorithm.id">
-				{{algorithm.name}}
-			</mat-option>
-		</mat-select>
-	</mat-form-field> -->
 	<span class="flex-spacer"></span>
 	<button mat-raised-button color="accent" (click)="runAlgorithm()">RUN</button>
 </div>
@@ -92,38 +77,6 @@
 			</section>
 		</section>
 	</mat-expansion-panel>
-	<!-- <mat-expansion-panel>
-		<mat-expansion-panel-header>
-			<mat-panel-title>
-				Algorithm specific parameters
-			</mat-panel-title>
-			<mat-panel-description>
-				Set additional parameters of the machine learning algorithm
-			</mat-panel-description>
-		</mat-expansion-panel-header>
-		<div>
-			<form #myForm="ngForm">
-				<div *ngFor="let field of additionalParamsFormFields">
-					<mat-form-field>
-						<mat-label>{{ field.label }}</mat-label>
-						<ng-container [ngSwitch]="field.type">
-							<input *ngSwitchCase="'text'" matInput type="text" [placeholder]="field.label"
-								[id]="field.name" [name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]"
-								[required]="field.required">
-							<input *ngSwitchCase="'number'" matInput type="number" [placeholder]="field.label"
-								[id]="field.name" [name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]"
-								[required]="field.required" [min]="field.min" [max]="field.max" [step]="field.step">
-							<input *ngSwitchCase="'email'" matInput [placeholder]="field.label" [id]="field.name"
-								[name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]" [required]="field.required">
-							<textarea *ngSwitchCase="'textarea'" matInput [placeholder]="field.label" [id]="field.name"
-								[name]="field.name" [(ngModel)]="additionalParamsFormData[field.name]"
-								[required]="field.required"></textarea>
-						</ng-container>
-					</mat-form-field>
-				</div>
-			</form>
-		</div>
-	</mat-expansion-panel> -->
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
 			<mat-panel-title>
@@ -137,6 +90,7 @@
 			<app-regr-decision-trees-params *ngSwitchCase="'decision_trees_regr'" (valueChange)="onParamsChange($event)"></app-regr-decision-trees-params>
 			<app-regr-knn-params *ngSwitchCase="'knn_regr'" (valueChange)="onParamsChange($event)"></app-regr-knn-params> 
 			<app-regr-random-forest-params *ngSwitchCase="'random_forest_regr'" (valueChange)="onParamsChange($event)"></app-regr-random-forest-params>
+			<app-regr-bagging-params *ngSwitchCase="'bagging_regr'" (valueChange)="onParamsChange($event)"></app-regr-bagging-params>
 		</div>
 	</mat-expansion-panel>
 	<mat-expansion-panel>

@@ -1,0 +1,25 @@
+<form [formGroup]="paramsForm" (change)="onChange()">
+    <mat-form-field>
+        <mat-label>Estimator (TODO: let user choose one base regr algo)</mat-label>
+        <input matInput formControlName="estimator" type="text">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>No. of estimators</mat-label>
+        <input matInput formControlName="n_estimators" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Max samples</mat-label>
+        <input matInput formControlName="max_samples" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Max features</mat-label>
+        <input matInput formControlName="max_features" type="number">
+    </mat-form-field>
+</form>
+
+<!-- 
+<mat-form-field>
+    <mat-label>Template</mat-label>
+    <input matInput formControlName="template" type="template">
+</mat-form-field>
+ -->

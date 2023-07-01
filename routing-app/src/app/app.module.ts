@@ -33,6 +33,7 @@ import { DeleteCellRendererComponent } from './components/utilities/delete-cell-
 import { DecisionTreesParamsComponent as RegrDecisionTreesParamsComponent } from './components/machine-learning/algo-parameters/regression/decision-trees-params/decision-trees-params.component';
 import { KnnParamsComponent as RegrKnnParamsComponent} from './components/machine-learning/algo-parameters/regression/knn-params/knn-params.component';
 import { RandomForestParamsComponent as RegrRandomForestParamsComponent } from './components/machine-learning/algo-parameters/regression/random-forest-params/random-forest-params.component';
+import { BaggingParamsComponent as RegrBaggingParamsComponent } from './components/machine-learning/algo-parameters/regression/bagging-params/bagging-params.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { RandomForestParamsComponent as RegrRandomForestParamsComponent } from '
     RegrDecisionTreesParamsComponent,
     RegrKnnParamsComponent,
     RegrRandomForestParamsComponent,
+    RegrBaggingParamsComponent,
   ],
   imports: [
     BrowserModule,

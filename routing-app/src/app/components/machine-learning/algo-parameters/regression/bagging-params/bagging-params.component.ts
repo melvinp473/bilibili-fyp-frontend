@@ -3,17 +3,18 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-regr-decision-trees-params',
-  templateUrl: './decision-trees-params.component.html',
-  styleUrls: ['./decision-trees-params.component.css']
+  selector: 'app-regr-bagging-params',
+  templateUrl: './bagging-params.component.html',
+  styleUrls: ['./bagging-params.component.css']
 })
-export class DecisionTreesParamsComponent {
+export class BaggingParamsComponent {
   @Output() valueChange = new EventEmitter<any>()
 
   paramsForm = new FormGroup({
-    max_depth: new FormControl(10),
-    min_samples_split: new FormControl(2),
-    min_samples_leaf: new FormControl(1),
+    estimator: new FormControl(''),
+    n_estimators: new FormControl(10),
+    max_samples: new FormControl(1),
+    max_features: new FormControl(1),
   });
 
   constructor() { }
