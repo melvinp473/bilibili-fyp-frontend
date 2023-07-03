@@ -1,0 +1,20 @@
+<form [formGroup]="paramsForm">
+    <mat-form-field>
+        <mat-label>best attributes (1 - k)</mat-label>
+        <input matInput formControlName="k_best" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Selection Type</mat-label>
+        <mat-select formControlName="selection_type">
+            <mat-option value="mutual_info_regression">mutual info regression</mat-option>
+            <mat-option value="r_regression">r regression</mat-option>
+            <mat-option value="f_regression">f regression</mat-option>
+          </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Target Attribute</mat-label>
+        <mat-select formControlName="target_attribute">
+            <mat-option *ngFor="let attribute of dataset_attributes" value="attribute">{{attribute}}</mat-option>
+          </mat-select>
+    </mat-form-field>
+</form>

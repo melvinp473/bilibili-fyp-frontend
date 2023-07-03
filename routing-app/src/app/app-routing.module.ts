@@ -7,6 +7,7 @@ import { PreprocessingComponent } from './components/preprocessing/preprocessing
 import { MachineLearningComponent } from './components/machine-learning/machine-learning.component';
 import { ResultsComponent } from './components/results/results.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
+import { FeatureSelectionComponent } from './components/preprocessing/feature-selection/feature-selection.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'machine-learning', component: MachineLearningComponent },
   { path: 'results', component: ResultsComponent },
   { path: 'test-connection-component', component: TestConnectionComponent },
+  { path: 'feature-selection', component: FeatureSelectionComponent },
 ];
 
 @NgModule({
