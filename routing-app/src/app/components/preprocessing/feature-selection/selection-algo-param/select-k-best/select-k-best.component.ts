@@ -13,6 +13,7 @@ import { PreprocssingService } from 'src/app/services/preprocessing-services';
 export class SelectKBestComponent {
   @Output() valueChange = new EventEmitter<any>()
   dataset_attributes: any;
+  max_length: any
 
   paramsForm = new FormGroup({
     k_best: new FormControl(''),
@@ -29,7 +30,8 @@ export class SelectKBestComponent {
   ngOnInit(){
     this.datasetStore.select(selectDataset).subscribe((data) =>{
       this.dataset_attributes = data.attributes
-      console.log(this.dataset_attributes)
+      this.max_length = this.dataset_attributes.length - 1
+      // console.log(this.dataset_attributes)
     })
     this.onChange()
     this.paramsForm.valueChanges.subscribe(() => {

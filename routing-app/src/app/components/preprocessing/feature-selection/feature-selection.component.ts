@@ -11,7 +11,7 @@ import { selectDataset } from '../../state-controllers/dataset-controller/select
 })
 export class FeatureSelectionComponent {
 
-  selectedPreprocessingMethodId: any;
+  // selectedPreprocessingMethodId: any;
   datasetId: any;
 
   selectedAlgoId: any;
@@ -24,9 +24,9 @@ export class FeatureSelectionComponent {
     ) {
   }
 
-  preprocessingMethods = [
-    {id: "feature selection", name: "Feature Selection"},
-  ]
+  // preprocessingMethods = [
+  //   {id: "feature selection", name: "Feature Selection"},
+  // ]
 
   dataset$ = this.datasetStore.select(selectDataset);
   sink = this.dataset$.subscribe((data) =>{
@@ -46,7 +46,12 @@ export class FeatureSelectionComponent {
 
 
   runPreprocessing() {
-    console.log('feature selection works')
+    // console.log(typeof(this.algoParamsFormData))
+    this.preprocessingService.runPreprocessing(this.datasetId, this.selectedAlgoId, this.algoParamsFormData).subscribe(data => {
+      if(data.flag) {
+        console.log(data)
+      }
+    })
   }
 
 }

@@ -1,7 +1,7 @@
 <form [formGroup]="paramsForm">
     <mat-form-field>
         <mat-label>best attributes (1 - k)</mat-label>
-        <input matInput formControlName="k_best" type="number">
+        <input matInput formControlName="k_best" type="number" min="0" max={{max_length}}>
     </mat-form-field>
     <mat-form-field>
         <mat-label>Selection Type</mat-label>
@@ -14,7 +14,7 @@
     <mat-form-field>
         <mat-label>Target Attribute</mat-label>
         <mat-select formControlName="target_attribute">
-            <mat-option *ngFor="let attribute of dataset_attributes" value="attribute">{{attribute}}</mat-option>
+            <mat-option *ngFor="let attribute of dataset_attributes" value={{attribute}}>{{attribute}}</mat-option>
           </mat-select>
     </mat-form-field>
 </form>
