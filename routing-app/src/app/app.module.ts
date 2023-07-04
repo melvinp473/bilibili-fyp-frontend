@@ -56,6 +56,9 @@ import { SelectKBestComponent } from './components/preprocessing/feature-selecti
     RegrKnnParamsComponent,
     RegrRandomForestParamsComponent,
     RegrBaggingParamsComponent,
+    RegrVotingParamsComponent,
+    FeatureSelectionComponent,
+    SelectKBestComponent,
   ],
   imports: [
     BrowserModule,
