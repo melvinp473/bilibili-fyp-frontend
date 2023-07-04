@@ -1,20 +1,51 @@
 <form [formGroup]="paramsForm">
     <mat-form-field>
+        <mat-label>Selection Type</mat-label>
+        <mat-select formControlName="model">
+            <mat-option value="regression">Regression</mat-option>
+            <mat-option value="classification">Classification</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field>
         <mat-label>best attributes (1 - k)</mat-label>
         <input matInput formControlName="k_best" type="number" min="0" max={{max_length}}>
     </mat-form-field>
-    <mat-form-field>
+
+    <mat-form-field *ngIf="!is_regression && !is_classification">
+        <mat-label>None</mat-label>
+        <mat-select formControlName="selection_type">
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="is_regression">
+        <mat-label>Selection Type</mat-label>
+        <mat-select formControlName="selection_type">
+            <mat-option value="mutual_info_regression">mutual info regression</mat-option>
+            <mat-option value="r_regression">r regression</mat-option>
+            <mat-option value="f_regression">f regression</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="is_classification">
+        <mat-label>Selection Type</mat-label>
+        <mat-select formControlName="selection_type">
+            <mat-option value="mutual_info_classif">mutual info classification</mat-option>
+            <mat-option value="chi2">chi2</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <!-- <mat-form-field>
         <mat-label>Selection Type</mat-label>
         <mat-select formControlName="selection_type">
             <mat-option value="mutual_info_regression">mutual info regression</mat-option>
             <mat-option value="r_regression">r regression</mat-option>
             <mat-option value="f_regression">f regression</mat-option>
           </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-form-field>
         <mat-label>Target Attribute</mat-label>
         <mat-select formControlName="target_attribute">
             <mat-option *ngFor="let attribute of dataset_attributes" value={{attribute}}>{{attribute}}</mat-option>
-          </mat-select>
+        </mat-select>
     </mat-form-field>
 </form>

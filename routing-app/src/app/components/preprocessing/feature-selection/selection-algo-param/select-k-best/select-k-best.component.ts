@@ -14,11 +14,14 @@ export class SelectKBestComponent {
   @Output() valueChange = new EventEmitter<any>()
   dataset_attributes: any;
   max_length: any
+  is_regression = false;
+  is_classification = false;
 
   paramsForm = new FormGroup({
     k_best: new FormControl(''),
     selection_type: new FormControl(''),
-    target_attribute: new FormControl('')
+    target_attribute: new FormControl(''),
+    model: new FormControl('')
   });
 
   constructor(
@@ -39,9 +42,22 @@ export class SelectKBestComponent {
     })
   }
 
+  changeOptions(formData: any) {
+    console.log(formData)
+    if (formData == "regression") {
+      this.is_regression = true
+      this.is_classification = false
+    }
+
+    else if (formData == "classification") {
+      this.is_regression = false
+      this.is_classification = true
+    }
+  }
 
 
   onChange(){
+    this.changeOptions(this.paramsForm.getRawValue()['model'])
     this.valueChange.emit(this.paramsForm.getRawValue()) 
   }
 }
