@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
@@ -9,13 +9,19 @@ import { selectDataset } from '../state-controllers/dataset-controller/selectors
   templateUrl: './analysis.component.html',
   styleUrls: ['./analysis.component.css']
 })
-export class AnalysisComponent {
+export class AnalysisComponent implements OnInit{
   apiUrl: string;
   httpClient: HttpClient;
   
   selectedAnalysisMethodId: any;
   imageSrc: any;
   datasetId: any;
+
+  analysisMethods = [
+    {id: "correlation coefficient", name: "Correlation Coefficient"}, 
+  ]
+
+  dataset$ = this.datasetStore.select(selectDataset);
 
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>
@@ -24,15 +30,11 @@ export class AnalysisComponent {
       this.httpClient = httpClient;
   }
 
-  dataset$ = this.datasetStore.select(selectDataset);
-
-  sink = this.dataset$.subscribe((data) => {
-    this.datasetId = data._id;
-  });
-
-  analysisMethods = [
-    {id: "correlation coefficient", name: "Correlation Coefficient"}, 
-  ]
+  ngOnInit(){
+    this.dataset$.subscribe((data) => {
+      this.datasetId = data._id;
+    });
+  }
 
   public runAnalysis(){
 

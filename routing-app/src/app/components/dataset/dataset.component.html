@@ -8,16 +8,9 @@
     <mat-grid-tile colspan="1" style="display: flex; justify-content: center; align-items: center;"> 
         <input hidden type="file" class="file-input" accept=".csv" (change)="onFileSelected($event)" #fileUpload>
         <div class="file-upload">
-
             {{datasetName}}
-
-            <!-- <button mat-mini-fab color="primary" class="upload-btn"
-            (click)="fileUpload.click()">
-                <mat-icon>attach_file</mat-icon>
-            </button> -->
             <button mat-raised-button color="accent" (click)="fileUpload.click()">Upload dataset</button>
         </div>
-        <!-- <button mat-raised-button color="basic" (click)="upload()">Upload selected file as new dataset</button> -->
     </mat-grid-tile>
     <mat-grid-tile colspan="1"> 
     </mat-grid-tile>
@@ -25,10 +18,6 @@
 
 <div style="display: flex; justify-content: center; align-items: center; height: 100%; width: 100%;">
     <div style="height: 100%; width: 80%;">
-        <!-- Button to clear selection -->
-        <!-- <button (click)="clearSelection()">Clear Selection</button> -->
-        <!-- <button (click)="refresh()">Refresh</button> -->
-        <!-- AG Grid Angular Component -->
         <ag-grid-angular
         style="width: 100%; height: 100%; align-content: center; text-align: center;" 
         class="ag-theme-alpine"

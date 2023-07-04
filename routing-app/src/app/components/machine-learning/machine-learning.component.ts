@@ -1,12 +1,9 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component } from '@angular/core';
-import { ThemePalette } from '@angular/material/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { Observable, map } from 'rxjs';
-import { TestConnectionState } from 'src/app/test-connection/store/states';
+import { map } from 'rxjs';
 
-import { MlWekaService } from 'src/app/services/ml-weka-service';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
@@ -21,9 +18,11 @@ export interface Variable {
   templateUrl: './machine-learning.component.html',
   styleUrls: ['./machine-learning.component.css'],
 })
-export class MachineLearningComponent {
+export class MachineLearningComponent implements OnInit{
   apiUrl: string;
   httpClient: HttpClient;
+
+  dataset$ = this.datasetStore.select(selectDataset);
 
   datasetId: any;
   user_id = '6435575578b04a2b1549c17b';
@@ -35,11 +34,16 @@ export class MachineLearningComponent {
   targetVariable: any;
   independentVariables: Variable[] = [];
 
+  variables: any[] = [];
+  allSelected: boolean = false;
+
+  resultLogForm = new FormGroup({
+    runName: new FormControl(''),
+  });
+
   constructor(
     httpClient: HttpClient,
-    private testConnectionStore: Store<TestConnectionState>,
     private datasetStore: Store<DatasetState>,
-    private mlWekaService: MlWekaService,
     private mlWekaStore: Store
   ) {
     this.apiUrl = 'http://127.0.0.1:5000/';
@@ -51,17 +55,16 @@ export class MachineLearningComponent {
       console.log(results);
       this.results = results.data;
     });
+
+    this.dataset$.subscribe((data) => {
+      this.datasetId = data._id;
+    });
+
+    this.dataset$.pipe(map((data) => data.attributes))
+    .subscribe((variables) => {
+      this.variables = variables;
+    });
   }
-
-  dataset$ = this.datasetStore.select(selectDataset);
-
-  sink = this.dataset$.subscribe((data) => {
-    this.datasetId = data._id;
-  });
-
-  resultLogForm = new FormGroup({
-    runName: new FormControl(''),
-  });
 
   runAlgorithm() {
     const selectedIndependentVariables = this.independentVariables
@@ -87,6 +90,15 @@ export class MachineLearningComponent {
     );
   }
 
+  onSelectAlgo(displayValue: string, algoId:string){
+    this.selectedAlgoId = algoId
+    this.selectedAlgoName = displayValue
+
+    this.algoParamsFormData = null;
+
+    this.results = null;
+  }
+
   onSelectTarget() {
     this.independentVariables = []
     this.variables
@@ -98,16 +110,6 @@ export class MachineLearningComponent {
         });
       });
   }
-
-  variables: any[] = [];
-
-  sink2 = this.dataset$
-    .pipe(map((data) => data.attributes))
-    .subscribe((variables) => {
-      this.variables = variables;
-    });
-
-  allSelected: boolean = false;
 
   updateAllSelected() {
     this.allSelected = this.independentVariables.every((a) => a.selected);
@@ -122,15 +124,6 @@ export class MachineLearningComponent {
   setAll(selected: boolean) {
     this.allSelected = selected;
     this.independentVariables.forEach((a) => (a.selected = selected));
-  }
-
-  onSelectAlgo(displayValue: string, algoId:string){
-    this.selectedAlgoId = algoId
-    this.selectedAlgoName = displayValue
-
-    this.algoParamsFormData = null;
-
-    this.results = null;
   }
 
   onParamsChange(newValue: any){

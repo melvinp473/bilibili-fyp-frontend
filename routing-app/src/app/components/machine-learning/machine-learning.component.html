@@ -2,15 +2,14 @@
     <app-toolbar currentPageTitle="Machine Learning" previousLink="/feature-selection" nextLink="/results"></app-toolbar>
 </div>
 
-<div style="padding: 20px; display:flex;">
-
+<div style="padding: 20px; display:flex;">	
 	<button mat-raised-button [matMenuTriggerFor]="animals">Select ML algorithm</button>
-	<mat-menu #animals="matMenu">
+	<mat-menu #animals>
 		<button mat-menu-item [matMenuTriggerFor]="regression">Regression</button>
 		<button mat-menu-item [matMenuTriggerFor]="classification">Classification</button>
 	</mat-menu>
 
-	<mat-menu #regression="matMenu">
+	<mat-menu #regression>
 		<button mat-menu-item (click)="onSelectAlgo('Linear Regression', 'linear_regr')">Linear Regression</button>
 		<button mat-menu-item (click)="onSelectAlgo('Regr - Decision Trees', 'decision_trees_regr')">Decision Trees</button>
 		<button mat-menu-item (click)="onSelectAlgo('Regr - K-Nearest Neighbours (KNN)', 'knn_regr')">K-Nearest Neighbours (KNN)</button>
@@ -18,11 +17,11 @@
 		<button mat-menu-item [matMenuTriggerFor]="regression_ensemble">Ensemble</button>
 	</mat-menu>
 
-	<mat-menu #classification="matMenu">
+	<mat-menu #classification>
 		<button disabled mat-menu-item>None</button>
 	</mat-menu>
 	
-	<mat-menu #regression_ensemble="matMenu">
+	<mat-menu #regression_ensemble>
 		<button mat-menu-item (click)="onSelectAlgo('Regr - Bagging', 'bagging_regr')">Bagging</button>
 		<button mat-menu-item (click)="onSelectAlgo('Regr - Random Forest', 'random_forest_regr')">Random Forest</button>
 		<button mat-menu-item (click)="onSelectAlgo('Regr - Voting', 'voting_regr')">Voting</button>
@@ -37,17 +36,13 @@
 <mat-accordion multi>
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
-			<mat-panel-title>
-				Attribute selection
-			</mat-panel-title>
+			<mat-panel-title>Attribute selection</mat-panel-title>
 			<mat-panel-description>
 				Select attributes to be inlcuded in training model
 			</mat-panel-description>
 		</mat-expansion-panel-header>
 		<section>
-			<div>
-				Specify target variable
-			</div>
+			<div>Specify target variable</div>
 			<mat-form-field appearance="fill">
 				<mat-label>Target Variable</mat-label>
 				<mat-select (selectionChange)="onSelectTarget()" [(value)]="targetVariable">
@@ -56,8 +51,10 @@
 					</mat-option>
 				</mat-select>
 			</mat-form-field>
+			
 			<section>
 				<div>Select independent variables </div>
+				<br>
 				<div *ngIf="targetVariable;else noTargetSelected">
 					<mat-checkbox [checked]="allSelected" [indeterminate]="someSelected()"
 						(change)="setAll($event.checked)">
@@ -71,16 +68,13 @@
 						</li>
 					</ul>
 				</div>
-				<ng-template #noTargetSelected>Select a target variable to proceed</ng-template>
-				
+				<ng-template #noTargetSelected>No target selected! Select a target variable to proceed</ng-template>
 			</section>
 		</section>
 	</mat-expansion-panel>
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
-			<mat-panel-title>
-				Algorithm specific parameters
-			</mat-panel-title>
+			<mat-panel-title>Algorithm specific parameters</mat-panel-title>
 			<mat-panel-description>
 				Set parameters of the machine learning algorithm
 			</mat-panel-description>
@@ -95,9 +89,7 @@
 	</mat-expansion-panel>
 	<mat-expansion-panel>
 		<mat-expansion-panel-header>
-			<mat-panel-title>
-				Result logging Information
-			</mat-panel-title>
+			<mat-panel-title>Result logging Information</mat-panel-title>
 			<mat-panel-description>
 				Configure the logging of results
 			</mat-panel-description>

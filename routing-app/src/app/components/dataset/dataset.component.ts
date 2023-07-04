@@ -27,8 +27,13 @@ export class DatasetComponent {
   private gridApi!: GridApi;
   columnApi!: ColumnApi;
 
+  // Data that gets displayed in the grid
+  public rowData$!: Observable<any[]>;
+
+  // For accessing the Grid's API
+  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
+
   constructor(httpClient: HttpClient,
-    private testConnectionStore: Store<TestConnectionState>,
     private datasetStore: Store<DatasetState>,
     private datasetService: DatasetService
     ) {
@@ -77,23 +82,9 @@ export class DatasetComponent {
     resizable: true,
   };
 
-  // Data that gets displayed in the grid
-  public rowData$!: Observable<any[]>;
-
-  // For accessing the Grid's API
-  @ViewChild(AgGridAngular) agGrid!: AgGridAngular;
-
-  // Example load data from server
   onGridReady(params: GridReadyEvent) {
     this.gridApi! = params.api;
     this.columnApi = params.columnApi;
-
-    const request_body = {
-      user_id: "6435575578b04a2b1549c17b"
-    }
-    // this.rowData$ = this.httpClient
-    //   .post<any>(this.apiUrl + '/get-dataset', request_body, this.getHttpHeader())
-    //   .pipe(map(response => response.data))
 
     this.rowData$ = this.datasetService.getResponseDataset("6435575578b04a2b1549c17b")
     .pipe(map(response => response.data)) 
