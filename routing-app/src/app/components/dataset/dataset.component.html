@@ -37,6 +37,8 @@
         [rowData]="rowData$ | async"
         [rowSelection]="'single'"
         [animateRows]="true"
+        [enableCellTextSelection]="true"
+        [ensureDomOrder]="true"
         (gridReady)="onGridReady($event)"
         (firstDataRendered)="onFirstDataRendered($event)"
         (cellClicked)="onCellClicked($event)"

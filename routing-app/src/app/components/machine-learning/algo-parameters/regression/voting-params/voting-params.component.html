@@ -1,0 +1,24 @@
+<form >
+    <div>
+        <button mat-stroked-button color="primary" (click)="addChild()">Add Estimator Algo</button>
+    </div>
+    <br>
+    <div *ngFor="let item of paramsData; let i = index">
+        <div>{{item.algo_id}}</div>
+        <mat-form-field>
+            <mat-label>Select Estimator Algo</mat-label>
+            <mat-select (selectionChange)="onAlgoChange(i, $event)">
+                <mat-option value="decision_trees_regr">Decision Trees</mat-option>
+                <mat-option value="knn_regr">K-Nearest Neighbours (KNN)</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-stroked-button color="warn" [id]="i" (click)="deleteChild(i)">Delete</button>
+        <div *ngIf="item.algo_id=='decision_trees_regr'">
+            <app-regr-decision-trees-params (valueChange)="onParamsChange(i, $event)"></app-regr-decision-trees-params>
+        </div>
+        <div *ngIf="item.algo_id=='knn_regr'">
+            <app-regr-knn-params (valueChange)="onParamsChange(i, $event)"></app-regr-knn-params>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</form>

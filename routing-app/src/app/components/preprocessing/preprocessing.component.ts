@@ -34,6 +34,7 @@ export class PreprocessingComponent {
     {id: "mean imputation", name: "Mean Imputation"}, 
     {id: "median imputation", name: "Median Imputation"}, 
     {id: "standardization", name: "Standardization"},
+    {id: "normalization", name: "Normalization"},
     {id: "label encoding", name: "Label Encoding"},
   ]
 
@@ -50,6 +51,7 @@ export class PreprocessingComponent {
   public defaultColDef: ColDef = {
     sortable: true,
     filter: true,
+    resizable: true,
   };
 
   // Data that gets displayed in the grid

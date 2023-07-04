@@ -34,6 +34,7 @@ import { DecisionTreesParamsComponent as RegrDecisionTreesParamsComponent } from
 import { KnnParamsComponent as RegrKnnParamsComponent} from './components/machine-learning/algo-parameters/regression/knn-params/knn-params.component';
 import { RandomForestParamsComponent as RegrRandomForestParamsComponent } from './components/machine-learning/algo-parameters/regression/random-forest-params/random-forest-params.component';
 import { BaggingParamsComponent as RegrBaggingParamsComponent } from './components/machine-learning/algo-parameters/regression/bagging-params/bagging-params.component';
+import { VotingParamsComponent as RegrVotingParamsComponent } from './components/machine-learning/algo-parameters/regression/voting-params/voting-params.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { BaggingParamsComponent as RegrBaggingParamsComponent } from './componen
     RegrKnnParamsComponent,
     RegrRandomForestParamsComponent,
     RegrBaggingParamsComponent,
+    RegrVotingParamsComponent,
   ],
   imports: [
     BrowserModule,

@@ -90,6 +90,7 @@
 			<app-regr-knn-params *ngSwitchCase="'knn_regr'" (valueChange)="onParamsChange($event)"></app-regr-knn-params> 
 			<app-regr-random-forest-params *ngSwitchCase="'random_forest_regr'" (valueChange)="onParamsChange($event)"></app-regr-random-forest-params>
 			<app-regr-bagging-params *ngSwitchCase="'bagging_regr'" (valueChange)="onParamsChange($event)"></app-regr-bagging-params>
+			<app-voting-params *ngSwitchCase="'voting_regr'" (valueChange)="onParamsChange($event)"></app-voting-params>
 		</div>
 	</mat-expansion-panel>
 	<mat-expansion-panel>
@@ -166,7 +167,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="selectedAlgoId == 'random_forest_regr'">
+	<div *ngIf="selectedAlgoId == 'random_forest_regr' || selectedAlgoId == 'bagging_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
