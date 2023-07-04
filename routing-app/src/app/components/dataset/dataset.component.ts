@@ -2,14 +2,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AgGridAngular } from 'ag-grid-angular';
-import { CellClickedEvent, ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { CellClickedEvent, ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
 import { Observable, delay, map } from 'rxjs';
 import { TestConnectionState } from 'src/app/test-connection/store/states';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { DatasetActions } from '../state-controllers/dataset-controller/actions';
 import { DatasetService } from 'src/app/services/dataset-service';
 import { Comparators } from '../utilities/comparators';
-import { DeleteCellRendererComponent } from '../utilities/delete-cell-renderer/delete-cell-renderer.component';
+import { DeleteCellRendererComponent, DeleteCellRendererParams } from '../utilities/delete-cell-renderer/delete-cell-renderer.component';
 
 @Component({
   selector: 'app-dataset',
@@ -19,6 +19,7 @@ import { DeleteCellRendererComponent } from '../utilities/delete-cell-renderer/d
 export class DatasetComponent {
   apiUrl: string;
   httpClient: HttpClient;
+  gridOptions: GridOptions;
 
   datasetName: any;
   uploadedFile!: FormData;
@@ -33,6 +34,11 @@ export class DatasetComponent {
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
+      this.gridOptions = <GridOptions>{
+        context: {
+            componentParent: this
+        }
+    };
   }
 
   columnDefs: ColDef[] = [
@@ -60,7 +66,7 @@ export class DatasetComponent {
       cellRenderer: DeleteCellRendererComponent,
       cellRendererParams: { 
         service: this.datasetService, 
-      },
+      } as DeleteCellRendererParams,
     },
   ];
 
@@ -102,13 +108,18 @@ export class DatasetComponent {
     this.columnApi.autoSizeColumns(allColumnIds, false);
   }
 
-  // Example of consuming Grid Event
   onCellClicked( e: CellClickedEvent): void {
     console.log('cellClicked', e);
     const data = e.data
-    //TODO: dataset id
-    // this.store.dispatch(DatasetActions.loadSelectedDatasetId({dataset: data}))
     this.datasetStore.dispatch(DatasetActions.loadSelectedDatasetInit({ data: data }))
+  }
+
+  onDeleteCompleted(response: any){
+    console.log(response)
+    if (response.flag) {
+      this.rowData$ = this.datasetService.getResponseDataset("6435575578b04a2b1549c17b")
+      .pipe(map(response => response.data)) 
+    }
   }
 
   // Example using Grid's API
@@ -125,10 +136,6 @@ export class DatasetComponent {
         })
       };
       return httpOptions;
-  }
-
-  upload(){
-    console.log(this.uploadedFile)
   }
 
   onFileSelected(event:any){
