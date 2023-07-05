@@ -34,6 +34,10 @@ import { BaggingParamsComponent as RegrBaggingParamsComponent } from './componen
 import { VotingParamsComponent as RegrVotingParamsComponent } from './components/machine-learning/algo-parameters/regression/voting-params/voting-params.component';
 import { FeatureSelectionComponent } from './components/preprocessing/feature-selection/feature-selection.component';
 import { SelectKBestComponent } from './components/preprocessing/feature-selection/selection-algo-param/select-k-best/select-k-best.component';
+import { DecisionTreesParamsComponent as ClsDecisionTreesParamsComponent} from './components/machine-learning/algo-parameters/classification/decision-trees-params/decision-trees-params.component';
+import { RandomForestParamsComponent as ClsRandomForestParamsComponent} from './components/machine-learning/algo-parameters/classification/random-forest-params/random-forest-params.component';
+import { KNearestNeighborParamsComponent as ClsKNearestNeighborParamsComponent} from './components/machine-learning/algo-parameters/classification/k-nearest-neighbor-params/k-nearest-neighbor-params.component';
+
 
 
 @NgModule({
@@ -56,6 +60,9 @@ import { SelectKBestComponent } from './components/preprocessing/feature-selecti
     RegrVotingParamsComponent,
     FeatureSelectionComponent,
     SelectKBestComponent,
+    ClsDecisionTreesParamsComponent,
+    ClsRandomForestParamsComponent,
+    ClsKNearestNeighborParamsComponent,
   ],
   imports: [
     BrowserModule,

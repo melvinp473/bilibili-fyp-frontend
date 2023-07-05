@@ -1,0 +1,14 @@
+<form [formGroup]="paramsForm">
+    <mat-form-field>
+        <mat-label>Max Tree Depth</mat-label>
+        <input matInput formControlName="max_depth" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Min number of samples to split an internal node</mat-label>
+        <input matInput formControlName="min_samples_split" type="number">
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Min number of samples in each leaf node</mat-label>
+        <input matInput formControlName="min_samples_leaf" type="number">
+    </mat-form-field>
+</form>

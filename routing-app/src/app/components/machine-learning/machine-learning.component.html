@@ -18,7 +18,9 @@
 	</mat-menu>
 
 	<mat-menu #classification>
-		<button disabled mat-menu-item>None</button>
+		<button mat-menu-item (click)="onSelectAlgo('Cls - Random Forest', 'random_forest_cls')">Random Forest</button>
+		<button mat-menu-item (click)="onSelectAlgo('Cls - Decision Trees', 'decision_trees_cls')">Decision Trees</button>
+		<button mat-menu-item (click)="onSelectAlgo('Cls - K-Nearest Neighbours (KNN)', 'knn_cls')">K-Nearest Neighbours (KNN)</button>
 	</mat-menu>
 	
 	<mat-menu #regression_ensemble>
@@ -85,6 +87,9 @@
 			<app-regr-random-forest-params *ngSwitchCase="'random_forest_regr'" (valueChange)="onParamsChange($event)"></app-regr-random-forest-params>
 			<app-regr-bagging-params *ngSwitchCase="'bagging_regr'" (valueChange)="onParamsChange($event)"></app-regr-bagging-params>
 			<app-voting-params *ngSwitchCase="'voting_regr'" (valueChange)="onParamsChange($event)"></app-voting-params>
+			<app-cls-decision-trees-params *ngSwitchCase="'decision_trees_cls'"(valueChange)="onParamsChange($event)" ></app-cls-decision-trees-params>
+			<app-cls-random-forest-params *ngSwitchCase="'random_forest_cls'"(valueChange)="onParamsChange($event)" ></app-cls-random-forest-params>
+            <app-cls-k-nearest-neighbor-params *ngSwitchCase="'knn_cls'"(valueChange)="onParamsChange($event)" ></app-cls-k-nearest-neighbor-params>
 		</div>
 	</mat-expansion-panel>
 	<mat-expansion-panel>
@@ -175,5 +180,23 @@
 		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage }}</p>
 		<p>Max Error: {{ results.max_error }}</p>
 		<p>R2 Score: {{ results.r2_score }}</p>
+	</div>
+
+	<div *ngIf="selectedAlgoId == 'decision_trees_cls'">
+		<p>AUC-ROC: {{ results.auc }}</p>
+		<p>Precision: {{ results.precision }}</p>
+		<p>Accuracy: {{ results.accuracy }}</p>
+	</div>
+
+	<div *ngIf="selectedAlgoId == 'random_forest_cls'">
+		<p>AUC-ROC: {{ results.auc }}</p>
+		<p>Precision: {{ results.precision }}</p>
+		<p>Accuracy: {{ results.accuracy }}</p>
+	</div>
+
+	<div *ngIf="selectedAlgoId == 'knn_cls'">
+		<p>AUC-ROC: {{ results.auc }}</p>
+		<p>Precision: {{ results.precision }}</p>
+		<p>Accuracy: {{ results.accuracy }}</p>
 	</div>
 </div>
