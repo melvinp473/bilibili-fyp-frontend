@@ -165,6 +165,11 @@ export class ResultsComponent {
     this.chartService.delete(doc_ids).subscribe({
         next: () => {
           console.log('Items deleted successfully');
+          const request_body = {
+            user_id: this.user_id
+          }
+          this.rowData$ = this.chartService.getResults(request_body)
+          .pipe(map(response => response.data))
         },
         error: (error) => {
           console.log('Error deleting items', error);
