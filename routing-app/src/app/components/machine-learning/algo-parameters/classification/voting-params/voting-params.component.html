@@ -1,0 +1,40 @@
+<form >
+    <mat-form-field>
+        <mat-label>Voting Rule</mat-label>
+        <mat-select (selectionChange)="algo_params.voting_params['voting'] = $event.value; onChange()">
+            <mat-option value="hard">Hard</mat-option>
+            <mat-option value="soft">Soft</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div>
+        <button mat-stroked-button color="primary" (click)="addChild()">Add Estimator Algo</button>
+    </div>
+    <br>
+    <div *ngFor="let item of algo_params.estimators_list; let i = index">
+        <div>{{item.algo_id}}</div>
+        <mat-form-field>
+            <mat-label>Select Estimator Algo</mat-label>
+            <mat-select (selectionChange)="onAlgoChange(i, $event)">
+                <mat-option value="decision_trees_cls">Decision Trees</mat-option>
+                <mat-option value="knn_cls">K-Nearest Neighbours (KNN)</mat-option>
+                <mat-option value="random_forest_cls">Random Forest</mat-option>
+                <mat-option value="gauss_naive_bayes_cls">Gaussian Naive Bayes</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-stroked-button color="warn" [id]="i" (click)="deleteChild(i)">Delete</button>
+        <div *ngIf="item.algo_id=='decision_trees_cls'">
+            <app-cls-decision-trees-params (valueChange)="onEstimatorParamsChange(i, $event)"></app-cls-decision-trees-params>
+        </div>
+        <div *ngIf="item.algo_id=='knn_cls'">
+            <app-cls-knn-params (valueChange)="onEstimatorParamsChange(i, $event)"></app-cls-knn-params>
+        </div>
+        <div *ngIf="item.algo_id=='random_forest_cls'">
+            <app-cls-random-forest-params (valueChange)="onEstimatorParamsChange(i, $event)"></app-cls-random-forest-params>
+        </div>
+        <div *ngIf="item.algo_id=='gauss_naive_bayes_cls'">
+            <div>No parameter tuning required for selected algo</div>
+            <br>
+        </div>
+        <mat-divider></mat-divider>
+    </div>
+</form>

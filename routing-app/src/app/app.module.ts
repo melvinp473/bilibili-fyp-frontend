@@ -36,7 +36,8 @@ import { FeatureSelectionComponent } from './components/preprocessing/feature-se
 import { SelectKBestComponent } from './components/preprocessing/feature-selection/selection-algo-param/select-k-best/select-k-best.component';
 import { DecisionTreesParamsComponent as ClsDecisionTreesParamsComponent} from './components/machine-learning/algo-parameters/classification/decision-trees-params/decision-trees-params.component';
 import { RandomForestParamsComponent as ClsRandomForestParamsComponent} from './components/machine-learning/algo-parameters/classification/random-forest-params/random-forest-params.component';
-import { KNearestNeighborParamsComponent as ClsKNearestNeighborParamsComponent} from './components/machine-learning/algo-parameters/classification/k-nearest-neighbor-params/k-nearest-neighbor-params.component';
+import { KnnParamsComponent as ClsKnnParamsComponent } from './components/machine-learning/algo-parameters/classification/knn-params/knn-params.component';
+import { VotingParamsComponent as ClsVotingParamsComponent } from './components/machine-learning/algo-parameters/classification/voting-params/voting-params.component';
 
 
 
@@ -61,8 +62,9 @@ import { KNearestNeighborParamsComponent as ClsKNearestNeighborParamsComponent} 
     FeatureSelectionComponent,
     SelectKBestComponent,
     ClsDecisionTreesParamsComponent,
+    ClsKnnParamsComponent,
     ClsRandomForestParamsComponent,
-    ClsKNearestNeighborParamsComponent,
+    ClsVotingParamsComponent,
   ],
   imports: [
     BrowserModule,

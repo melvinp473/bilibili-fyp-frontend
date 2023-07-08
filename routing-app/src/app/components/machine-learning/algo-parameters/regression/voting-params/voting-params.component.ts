@@ -1,6 +1,4 @@
-import { Component, ComponentRef, EventEmitter, Output, ViewChild, ViewContainerRef } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { KnnParamsComponent } from '../knn-params/knn-params.component';
+import { Component, EventEmitter, Output, } from '@angular/core';
 
 @Component({
   selector: 'app-voting-params',
