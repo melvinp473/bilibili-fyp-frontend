@@ -34,6 +34,7 @@
         <app-select-k-best *ngSwitchCase="'select_k_best'" (valueChange)="onParamsChange($event)"></app-select-k-best> 
     </div>
 </mat-expansion-panel>
+<button style="margin: 10px;" mat-raised-button color="accent" (click)="saveSelectionData()">SAVE SELECTION</button>
 
 <div style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
     <canvas id="canvas">{{ chart }}</canvas>
