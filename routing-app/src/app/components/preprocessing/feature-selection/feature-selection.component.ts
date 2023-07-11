@@ -102,6 +102,7 @@ export class FeatureSelectionComponent {
 
   public saveSelectionData() {
     const data = []
+    data.push(this.algoParamsFormData.target_attribute)
     for (let i = 0; i < this.selectionData.length; i++) {
       data.push(this.selectionData[i][0])
     }

@@ -4,10 +4,11 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 
-import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
+import { selectDataset, selectFeatures } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
 import { getResultMetrics } from '../state-controllers/weka-machine-learning-controller/selectors/weka-ml.selectors';
+import { set } from 'lodash';
 
 export interface Variable {
   name: string;
@@ -64,6 +65,35 @@ export class MachineLearningComponent implements OnInit{
     .subscribe((variables) => {
       this.variables = variables;
     });
+
+    this.datasetStore.select(selectFeatures).subscribe((results) => {
+      if (results != null && results.length != 0) {
+        this.targetVariable = results[0]
+        // console.log(results)
+        // console.log(this.variables)
+        const set2 = new Set(results)
+        const diff = this.variables.filter(v => !set2.delete(v));
+        // console.log(diff)
+        diff
+        .forEach((variable: any) => {
+          this.independentVariables.push({
+            name: variable,
+            selected: false,
+          });
+        });
+
+        results
+        .slice(1)
+        .forEach((variable: any) => {
+          this.independentVariables.push({
+            name: variable,
+            selected: true,
+          });
+        });
+
+        
+      }
+    })
   }
 
   runAlgorithm() {
