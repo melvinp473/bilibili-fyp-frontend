@@ -39,6 +39,7 @@ import { RandomForestParamsComponent as ClsRandomForestParamsComponent} from './
 import { KnnParamsComponent as ClsKnnParamsComponent } from './components/machine-learning/algo-parameters/classification/knn-params/knn-params.component';
 import { VotingParamsComponent as ClsVotingParamsComponent } from './components/machine-learning/algo-parameters/classification/voting-params/voting-params.component';
 import { WarningPopupComponent } from './components/machine-learning/warning-popup/warning-popup.component';
+import { ArcgisComponent } from './components/arcgis/arcgis.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
 
@@ -68,6 +69,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ClsRandomForestParamsComponent,
     ClsVotingParamsComponent,
     WarningPopupComponent,
+    ArcgisComponent,
   ],
   imports: [
     BrowserModule,
