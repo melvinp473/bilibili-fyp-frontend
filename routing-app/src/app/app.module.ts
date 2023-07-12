@@ -38,6 +38,7 @@ import { DecisionTreesParamsComponent as ClsDecisionTreesParamsComponent} from '
 import { RandomForestParamsComponent as ClsRandomForestParamsComponent} from './components/machine-learning/algo-parameters/classification/random-forest-params/random-forest-params.component';
 import { KnnParamsComponent as ClsKnnParamsComponent } from './components/machine-learning/algo-parameters/classification/knn-params/knn-params.component';
 import { VotingParamsComponent as ClsVotingParamsComponent } from './components/machine-learning/algo-parameters/classification/voting-params/voting-params.component';
+import { ArcgisComponent } from './components/arcgis/arcgis.component';
 
 
 
@@ -65,6 +66,7 @@ import { VotingParamsComponent as ClsVotingParamsComponent } from './components/
     ClsKnnParamsComponent,
     ClsRandomForestParamsComponent,
     ClsVotingParamsComponent,
+    ArcgisComponent,
   ],
   imports: [
     BrowserModule,
