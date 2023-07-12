@@ -9,6 +9,8 @@ import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
 import { getResultMetrics } from '../state-controllers/weka-machine-learning-controller/selectors/weka-ml.selectors';
 import { set } from 'lodash';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningPopupComponent } from '../machine-learning/warning-popup/warning-popup.component';
 
 export interface Variable {
   name: string;
@@ -22,6 +24,9 @@ export interface Variable {
 export class MachineLearningComponent implements OnInit{
   apiUrl: string;
   httpClient: HttpClient;
+  rfcPlot: string | null = null;
+  dispPlot: string | null = null;
+  cmPlot: string | null = null;
 
   dataset$ = this.datasetStore.select(selectDataset);
 
@@ -45,7 +50,8 @@ export class MachineLearningComponent implements OnInit{
   constructor(
     httpClient: HttpClient,
     private datasetStore: Store<DatasetState>,
-    private mlWekaStore: Store
+    private mlWekaStore: Store,
+    private dialog: MatDialog
   ) {
     this.apiUrl = 'http://127.0.0.1:5000/';
     this.httpClient = httpClient;
@@ -54,7 +60,16 @@ export class MachineLearningComponent implements OnInit{
   ngOnInit(){
     this.mlWekaStore.select(getResultMetrics).subscribe((results) => {
       console.log(results);
+
+      if(results.hasOwnProperty('error')){
+        this.openWarningDialog(results.error)
+      }
+
       this.results = results.data;
+      this.rfcPlot = this.decodeAndDisplayImage(this.results.rfc_plot);
+      this.dispPlot = this.decodeAndDisplayImage(this.results.disp_plot);
+      this.cmPlot = this.decodeAndDisplayImage(this.results.cm_plot);
+
     });
 
     this.dataset$.subscribe((data) => {
@@ -160,5 +175,32 @@ export class MachineLearningComponent implements OnInit{
     this.algoParamsFormData = newValue
     console.log(this.algoParamsFormData)
   }
+
+  decodeAndDisplayImage(encodedImage: string): string {
+    const decodedImage = atob(encodedImage);
+    const buffer = new Uint8Array(decodedImage.length);
+    for (let i = 0; i < decodedImage.length; i++) {
+      buffer[i] = decodedImage.charCodeAt(i);
+    }
+    const blob = new Blob([buffer], { type: 'image/png' });
+    const url = URL.createObjectURL(blob);
+    return url;
+  }
+
+  openWarningDialog(messaage: string): void {
+    const dialogRef = this.dialog.open(WarningPopupComponent, {
+      width: '500px',
+      data: {
+        title: 'Error',
+        message: messaage,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('close');
+    });
+  }
+
+  
 }
 
