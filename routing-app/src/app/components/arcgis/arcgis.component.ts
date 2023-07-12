@@ -133,13 +133,35 @@ export class ArcgisComponent {
 
 
 
-    // Create a FeatureLayer for the states of Australia
-    var statesLayer = new FeatureLayer({
-      url: "https://geo.abs.gov.au/arcgis/rest/services/ASGS2016/SA2/MapServer"
+    const statisticalArea2Labels = <any>{
+      symbol: {
+        type: "text",
+        color: "#FFFFFF",
+        haloColor: "#5E8D74",
+        haloSize: "2px",
+        font: {
+          size: "12px",
+          family: "Noto Sans",
+          style: "italic",
+          weight: "normal"
+        }
+      },
+
+      labelPlacement: "above-center",
+      labelExpressionInfo: {
+        expression: "$feature.PHA_CODE16"
+        // expression: "$feature.SA2_MAINCODE_2016" + ": " + "$feature.SA2_NAME_2016"
+      }
+    };
+
+    // Create a FeatureLayer for the SA2 of Australia
+    var statisticalArea2Layer = new FeatureLayer({
+      url: "https://services7.arcgis.com/nMBRP09Dx4VqvXeZ/arcgis/rest/services/HSVD_prevalence_PHA/FeatureServer/0",
+      labelingInfo: [statisticalArea2Labels],
     });
 
     // Add the states layer to the map
-    map.add(statesLayer);
+    map.add(statisticalArea2Layer);
 
     // Create a Popup template
     var popupTemplate2 = {
@@ -156,7 +178,7 @@ export class ArcgisComponent {
       }
     });
     // Set the popup template for the states layer
-    statesLayer.popupTemplate = <any>popupTemplate2;
+    statisticalArea2Layer.popupTemplate = <any>popupTemplate2;
 
     // Enable popups for the states layer
     view.popup = popup;
