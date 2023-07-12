@@ -120,13 +120,13 @@ export class PreprocessingComponent implements OnInit{
           .subscribe(response => {
             console.log(response)
             const data = response.data
-            for (const key in data[0]){
-              this.columnDefs.push({
-                headerName: key,
-                field: key
-              })
-            }
-            this.gridApi.setColumnDefs(this.columnDefs)
+            // for (const key in data[0]){
+            //   this.columnDefs.push({
+            //     headerName: key,
+            //     field: key
+            //   })
+            // }
+            // this.gridApi.setColumnDefs(this.columnDefs)
             this.rowData = data
           })
         }
