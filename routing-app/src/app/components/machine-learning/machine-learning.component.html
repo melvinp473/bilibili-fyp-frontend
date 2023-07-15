@@ -1,6 +1,18 @@
 <div>    
     <app-toolbar currentPageTitle="Machine Learning" previousLink="/feature-selection" nextLink="/results"></app-toolbar>
 </div>
+
+<br>
+
+<div *ngIf="datasetName; else noDataset" style="text-align: center; font-size: 20px;">
+	Currently selected dataset: {{datasetName}}
+</div>
+<ng-template #noDataset>
+	<div style="text-align: center; font-size: 20px; color: red;">
+		No dataset selected
+	</div>
+</ng-template>
+
 <div style="padding: 20px; display:flex;">	
 	<button mat-raised-button [matMenuTriggerFor]="animals">Select ML algorithm</button>
 	<mat-menu #animals>

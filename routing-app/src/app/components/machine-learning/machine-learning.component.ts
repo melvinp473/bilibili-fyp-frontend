@@ -31,6 +31,7 @@ export class MachineLearningComponent implements OnInit{
   dataset$ = this.datasetStore.select(selectDataset);
 
   datasetId: any;
+  datasetName: any;
   user_id = '6435575578b04a2b1549c17b';
   selectedAlgoId: any;
   selectedAlgoName: any;
@@ -75,6 +76,7 @@ export class MachineLearningComponent implements OnInit{
 
     this.dataset$.subscribe((data) => {
       this.datasetId = data._id;
+      this.datasetName = data.name;
     });
 
     this.dataset$.pipe(map((data) => data.attributes))

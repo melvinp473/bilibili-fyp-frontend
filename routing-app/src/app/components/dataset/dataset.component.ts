@@ -11,6 +11,8 @@ import { DatasetService } from 'src/app/services/dataset-service';
 import { Comparators } from '../utilities/comparators';
 import { DeleteCellRendererComponent, DeleteCellRendererParams } from '../utilities/delete-cell-renderer/delete-cell-renderer.component';
 
+import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
+
 @Component({
   selector: 'app-dataset',
   templateUrl: './dataset.component.html',
@@ -20,6 +22,9 @@ export class DatasetComponent {
   apiUrl: string;
   httpClient: HttpClient;
   gridOptions: GridOptions;
+
+  dataset$ = this.datasetStore.select(selectDataset);
+  datasetId: any;
 
   datasetName: any;
   uploadedFile!: FormData;
@@ -82,6 +87,12 @@ export class DatasetComponent {
     resizable: true,
   };
 
+  ngOnInit(){
+    this.dataset$.subscribe((data) => {
+      this.datasetId = data._id;
+    });
+  }
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi! = params.api;
     this.columnApi = params.columnApi;
@@ -97,6 +108,12 @@ export class DatasetComponent {
     });
     console.log(allColumnIds)
     this.columnApi.autoSizeColumns(allColumnIds, false);
+
+    this.gridApi.forEachNode(node => {
+        if (node.data._id == this.datasetId){
+          node.setSelected(true);
+        }
+    })
   }
 
   onCellClicked( e: CellClickedEvent): void {
