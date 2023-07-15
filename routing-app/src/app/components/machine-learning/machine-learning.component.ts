@@ -44,6 +44,7 @@ export class MachineLearningComponent implements OnInit{
   allSelected: boolean = false;
 
   resultLogForm = new FormGroup({
+    save_results: new FormControl(''),
     runName: new FormControl(''),
   });
 

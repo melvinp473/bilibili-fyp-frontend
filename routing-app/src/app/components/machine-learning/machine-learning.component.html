@@ -107,6 +107,10 @@
 		</mat-expansion-panel-header>
 		<div style="padding: 10px;">
 			<form [formGroup]="resultLogForm">
+				<div>
+					<mat-checkbox formControlName="save_results">Save results</mat-checkbox>
+				</div>
+				<br>
 				<mat-form-field>
 					<mat-label>Run Name</mat-label>
 					<input matInput type="text" formControlName="runName">
