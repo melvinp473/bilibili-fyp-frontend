@@ -7,6 +7,9 @@ import { Observable, map } from 'rxjs';
 
 import { ChartService } from 'src/app/services/chart-service';
 import { Comparators } from '../utilities/comparators';
+import { DatasetState } from '../state-controllers/dataset-controller/states';
+import { Store } from '@ngrx/store';
+import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 
 
 @Component({
@@ -19,6 +22,8 @@ export class ResultsComponent {
   httpClient: HttpClient;
 
   user_id = "6435575578b04a2b1549c17b";
+
+  dataset$ = this.datasetStore.select(selectDataset);
   
   private gridApi!: GridApi;
   columnApi: any;
@@ -29,7 +34,8 @@ export class ResultsComponent {
   displayActionToolbar: any;
 
   constructor(httpClient: HttpClient,
-    private chartService: ChartService
+    private datasetStore: Store<DatasetState>,
+    private chartService: ChartService,
   ) {
     this.apiUrl = 'http://127.0.0.1:5000/'
     this.httpClient = httpClient;
@@ -81,12 +87,17 @@ export class ResultsComponent {
     this.gridApi! = params.api;
     this.columnApi = params.columnApi;
 
-    const request_body = {
-      user_id: this.user_id
-    }
-
-    this.rowData$ = this.chartService.getResults(request_body)
+    this.dataset$.subscribe((data) => {
+      const datasetId = data._id;
+      const request_body = {
+        user_id: this.user_id,
+        dataset_id: datasetId,
+      }
+      this.rowData$ = this.chartService.getResults(request_body)
       .pipe(map(response => response.data))
+    });
+
+    
   }
 
   onFirstDataRendered(event: FirstDataRenderedEvent){

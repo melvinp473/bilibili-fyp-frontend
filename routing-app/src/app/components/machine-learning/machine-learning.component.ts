@@ -62,7 +62,7 @@ export class MachineLearningComponent implements OnInit{
   ngOnInit(){
     this.mlWekaStore.select(getResultMetrics).subscribe((results) => {
       console.log(results);
-
+      
       if(results.hasOwnProperty('error')){
         this.openWarningDialog(results.error)
       }
@@ -75,13 +75,10 @@ export class MachineLearningComponent implements OnInit{
     });
 
     this.dataset$.subscribe((data) => {
+      console.log(data)
       this.datasetId = data._id;
       this.datasetName = data.name;
-    });
-
-    this.dataset$.pipe(map((data) => data.attributes))
-    .subscribe((variables) => {
-      this.variables = variables;
+      this.variables = data.attributes;
     });
 
     this.datasetStore.select(selectFeatures).subscribe((results) => {
