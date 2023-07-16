@@ -2,15 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 
 import { selectDataset, selectFeatures } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { WekaMLActions } from '../state-controllers/weka-machine-learning-controller/actions';
 import { getResultMetrics } from '../state-controllers/weka-machine-learning-controller/selectors/weka-ml.selectors';
-import { set } from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { WarningPopupComponent } from '../machine-learning/warning-popup/warning-popup.component';
+import { SubSink } from 'subsink';
 
 export interface Variable {
   name: string;
@@ -29,6 +28,8 @@ export class MachineLearningComponent implements OnInit{
   cmPlot: string | null = null;
 
   dataset$ = this.datasetStore.select(selectDataset);
+  features$ = this.datasetStore.select(selectFeatures);
+  mlWekaStore$ = this.mlWekaStore.select(getResultMetrics);
 
   datasetId: any;
   datasetName: any;
@@ -49,6 +50,8 @@ export class MachineLearningComponent implements OnInit{
     runName: new FormControl(''),
   });
 
+  private subs = new SubSink();
+
   constructor(
     httpClient: HttpClient,
     private datasetStore: Store<DatasetState>,
@@ -60,7 +63,7 @@ export class MachineLearningComponent implements OnInit{
   }
 
   ngOnInit(){
-    this.mlWekaStore.select(getResultMetrics).subscribe((results) => {
+    this.subs.sink = this.mlWekaStore$.subscribe((results) => {
       console.log(results);
       
       if(results.hasOwnProperty('error')){
@@ -74,14 +77,14 @@ export class MachineLearningComponent implements OnInit{
 
     });
 
-    this.dataset$.subscribe((data) => {
+    this.subs.sink = this.dataset$.subscribe((data) => {
       console.log(data)
       this.datasetId = data._id;
       this.datasetName = data.name;
       this.variables = data.attributes;
     });
 
-    this.datasetStore.select(selectFeatures).subscribe((results) => {
+    this.subs.sink = this.features$.subscribe((results) => {
       if (results != null && results.length != 0) {
         this.targetVariable = results[0]
         // console.log(results)
@@ -201,6 +204,8 @@ export class MachineLearningComponent implements OnInit{
     });
   }
 
-  
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }
 
