@@ -24,6 +24,8 @@ export class FeatureSelectionComponent {
 
   chart: any;
 
+  displaySave = false;
+
   constructor(
     private datasetStore: Store<DatasetState>,
     private preprocessingService: PreprocssingService
@@ -73,6 +75,7 @@ export class FeatureSelectionComponent {
       if(response.flag) {
         this.selectionData = response.body
         this.displayData(this.sortScore(this.selectionData))
+        this.displaySave = true
         // console.log(data)
       }
     })

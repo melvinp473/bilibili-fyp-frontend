@@ -50,6 +50,7 @@ export class PreprocessingComponent implements OnInit{
     {id: "standardization", name: "Standardization"},
     {id: "normalization", name: "Normalization"},
     {id: "label encoding", name: "Label Encoding"},
+    {id: "outlier", name: "Outliers Removal"},
   ]
 
   dataset$ = this.datasetStore.select(selectDataset);
