@@ -59,6 +59,7 @@ export class DatasetComponent {
     { 
       headerName: "Date Uploaded",
       field: 'create_date',
+      sort: 'desc',
       comparator: Comparators.dateComparator, 
     },
     { 
@@ -112,6 +113,7 @@ export class DatasetComponent {
     this.gridApi.forEachNode(node => {
         if (node.data._id == this.datasetId){
           node.setSelected(true);
+          this.gridApi.ensureNodeVisible(node)
         }
     })
   }
