@@ -15,7 +15,7 @@
 
 <form [formGroup]="mainForm">
 	<div style="padding: 20px; display:flex;">	
-		<button mat-raised-button [matMenuTriggerFor]="animals">Select ML algorithm</button>
+		<button mat-raised-button [matMenuTriggerFor]="animals" color="accent">Select ML algorithm</button>
 		<mat-menu #animals>
 			<button mat-menu-item [matMenuTriggerFor]="regression">Regression</button>
 			<button mat-menu-item [matMenuTriggerFor]="classification">Classification</button>
