@@ -3,12 +3,14 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { catchError, concatMap, map, of } from "rxjs";
 import { MlWekaService } from "src/app/services/ml-weka-service";
 import { WekaMLActions } from "../actions";
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class WekaMLEffects{
     constructor(
         private action$: Actions,
-        private MlWekaService: MlWekaService){
+        private MlWekaService: MlWekaService,
+        private toaster: ToastrService){
         }
 
     wekaMLAlgoInit$ = createEffect(() =>
@@ -20,6 +22,14 @@ export class WekaMLEffects{
                     map(result => {
                         if (result != null){
                             console.log(result)
+                            if (result.error != null) {
+                                this.toaster.error(
+                                    result.error
+                                  );
+                                
+                                return WekaMLActions.wekaMLAlgoFailed({error: result})
+                                
+                            }
                             return WekaMLActions.wekaMLAlgoSuccess({data: result})
                         }
                         else {
