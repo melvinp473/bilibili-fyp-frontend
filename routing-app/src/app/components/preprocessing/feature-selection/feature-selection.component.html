@@ -12,7 +12,6 @@
 		<button mat-menu-item [matMenuTriggerFor]="featureSelection">Feature Selection</button>
 		<button mat-menu-item [matMenuTriggerFor]="pca">Principle Component Analysis</button>
 	</mat-menu>
-    <button style="margin: 10px;" mat-raised-button color="accent" (click)="runPreprocessing()">RUN</button>
     <mat-menu #featureSelection="matMenu">
 		<button mat-menu-item (click)="onSelectAlgo('Feature Selection (select k best)', 'select_k_best')">Select Best Attributes</button>
 		<button mat-menu-item (click)="onSelectAlgo('Feature Selection (perentile)', 'percentile')">Percentile</button>
@@ -23,6 +22,7 @@
 	</mat-menu>
 
     <!-- <span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span> -->
+    <button style="float: right;" mat-raised-button color="accent" (click)="runPreprocessing()">RUN</button>
 </div>
 
 <mat-expansion-panel>
