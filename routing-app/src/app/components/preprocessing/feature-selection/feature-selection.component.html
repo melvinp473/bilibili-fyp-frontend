@@ -3,7 +3,11 @@
 </div>
 
 <div style="padding: 10px;">
-	<button mat-raised-button [matMenuTriggerFor]="algo">Attribute Selection Algorithms</button>
+    <button *ngIf="!selectedAlgoName; else selected" mat-raised-button [matMenuTriggerFor]="algo" color="accent">Attribute Selection Algorithms</button>
+    <ng-template #selected>
+        <button mat-raised-button [matMenuTriggerFor]="algo" color="primary">{{selectedAlgoName}}</button>
+    </ng-template>
+	<!-- <button mat-raised-button [matMenuTriggerFor]="algo" color="accent">Attribute Selection Algorithms</button> -->
 	<mat-menu #algo="matMenu">
 		<button mat-menu-item [matMenuTriggerFor]="featureSelection">Feature Selection</button>
 		<button mat-menu-item [matMenuTriggerFor]="pca">Principle Component Analysis</button>
@@ -18,7 +22,7 @@
 		<button mat-menu-item (click)="onSelectAlgo('PCA (decomposition)', 'decomposition')">Decomposition</button>
 	</mat-menu>
 
-    <span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span>
+    <!-- <span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span> -->
 </div>
 
 <mat-expansion-panel>
