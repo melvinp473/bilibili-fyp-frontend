@@ -233,4 +233,8 @@
 		<p>Precision: {{ results.precision }}</p>
 		<p>Accuracy: {{ results.accuracy }}</p>
 	</div>
+
+	<!-- FEATURE IMPORTANCES -->
+	<img *ngIf="results.feature_imp_plot" src="data:image/png;base64,{{results.feature_imp_plot}}">
+
 </div>
