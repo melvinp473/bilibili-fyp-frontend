@@ -42,6 +42,7 @@ import { WarningPopupComponent } from './components/machine-learning/warning-pop
 import { ArcgisComponent } from './components/arcgis/arcgis.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from "ngx-toastr";
+import { WrapperComponent } from './components/preprocessing/feature-selection/selection-algo-param/wrapper/wrapper.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { ToastrModule } from "ngx-toastr";
     ClsVotingParamsComponent,
     WarningPopupComponent,
     ArcgisComponent,
+    WrapperComponent,
   ],
   imports: [
     BrowserModule,

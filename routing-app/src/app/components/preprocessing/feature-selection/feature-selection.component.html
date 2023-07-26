@@ -10,16 +10,16 @@
 	<!-- <button mat-raised-button [matMenuTriggerFor]="algo" color="accent">Attribute Selection Algorithms</button> -->
 	<mat-menu #algo="matMenu">
 		<button mat-menu-item [matMenuTriggerFor]="featureSelection">Feature Selection</button>
-		<button mat-menu-item [matMenuTriggerFor]="pca">Principle Component Analysis</button>
+		<!-- <button mat-menu-item [matMenuTriggerFor]="pca">Principle Component Analysis</button> -->
 	</mat-menu>
     <mat-menu #featureSelection="matMenu">
 		<button mat-menu-item (click)="onSelectAlgo('Feature Selection (select k best)', 'select_k_best')">Select Best Attributes</button>
-		<button mat-menu-item (click)="onSelectAlgo('Feature Selection (perentile)', 'percentile')">Percentile</button>
+		<!-- <button mat-menu-item (click)="onSelectAlgo('Feature Selection (perentile)', 'percentile')">Percentile</button> -->
+        <button mat-menu-item (click)="onSelectAlgo('Feature (wrapper)', 'wrapper')">Wrapper</button>
 	</mat-menu>
-    <mat-menu #pca="matMenu">
-        <button mat-menu-item (click)="onSelectAlgo('PCA (wrapper)', 'wrapper')">Wrapper</button>
+    <!-- <mat-menu #pca="matMenu">
 		<button mat-menu-item (click)="onSelectAlgo('PCA (decomposition)', 'decomposition')">Decomposition</button>
-	</mat-menu>
+	</mat-menu> -->
 
     <!-- <span style="padding: 10px;" *ngIf="selectedAlgoId">{{selectedAlgoName}}</span> -->
     <button style="float: right;" mat-raised-button color="accent" (click)="runPreprocessing()">RUN</button>
