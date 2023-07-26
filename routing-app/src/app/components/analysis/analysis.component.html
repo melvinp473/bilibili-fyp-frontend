@@ -14,4 +14,4 @@
     <button style="margin: 10px;" mat-raised-button color="accent" (click)="runAnalysis()">RUN</button>
 </div>
 
-<img [src]="imageSrc" alt="Image">
+<img *ngIf="imageSrc" [src]="imageSrc" alt="Image">

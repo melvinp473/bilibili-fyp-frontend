@@ -67,10 +67,10 @@ export class DatasetComponent {
       field: 'update_date',
       comparator: Comparators.dateComparator, 
     },
-    { 
-      headerName: "MongoDB ID",
-      field: '_id' 
-    },
+    // { 
+    //   headerName: "MongoDB ID",
+    //   field: '_id' 
+    // },
     { 
       headerName: "Delete Action",
       field: "_id",

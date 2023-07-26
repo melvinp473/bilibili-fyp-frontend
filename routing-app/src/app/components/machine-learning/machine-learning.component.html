@@ -36,7 +36,6 @@
 		</mat-menu>
 
 		<mat-menu #classification>
-			<button mat-menu-item (click)="onSelectAlgo('Cls - Random Forest', 'random_forest_cls')">Random Forest</button>
 			<button mat-menu-item (click)="onSelectAlgo('Cls - Decision Trees', 'decision_trees_cls')">Decision Trees</button>
 			<button mat-menu-item (click)="onSelectAlgo('Cls - K-Nearest Neighbours (KNN)', 'knn_cls')">K-Nearest Neighbours (KNN)</button>
 			<button mat-menu-item (click)="onSelectAlgo('Cls - Gaussian Naive Bayes', 'gauss_naive_bayes_cls')">Gaussian Naive Bayes</button>
@@ -50,6 +49,7 @@
 		</mat-menu>
 
 		<mat-menu #classification_ensemble>
+			<button mat-menu-item (click)="onSelectAlgo('Cls - Random Forest', 'random_forest_cls')">Random Forest</button>
 			<button mat-menu-item (click)="onSelectAlgo('Cls - Voting', 'voting_cls')">Voting</button>
 		</mat-menu>
 

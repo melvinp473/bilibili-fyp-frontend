@@ -93,6 +93,9 @@ export class PreprocessingComponent implements OnInit{
       console.log(response)
       const data = response.data
       for (const key in data[0]){
+        if (["DATASET_ID", "_id"].includes(key)){
+          continue
+        }
         this.columnDefs.push({
           headerName: key,
           field: key
@@ -120,15 +123,7 @@ export class PreprocessingComponent implements OnInit{
           this.preprocessingService.getResponseData("6435575578b04a2b1549c17b", this.datasetId)
           .subscribe(response => {
             console.log(response)
-            const data = response.data
-            // for (const key in data[0]){
-            //   this.columnDefs.push({
-            //     headerName: key,
-            //     field: key
-            //   })
-            // }
-            // this.gridApi.setColumnDefs(this.columnDefs)
-            this.rowData = data
+            this.rowData = response.data
           })
         }
       })
