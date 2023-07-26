@@ -25,6 +25,7 @@ export class FeatureSelectionComponent {
   chart: any;
 
   displaySave = false;
+  table = false;
 
   constructor(
     private datasetStore: Store<DatasetState>,
@@ -74,9 +75,19 @@ export class FeatureSelectionComponent {
     this.preprocessingService.runPreprocessing(this.datasetId, this.selectedAlgoId, this.algoParamsFormData).subscribe(response => {
       if(response.flag) {
         this.selectionData = response.body
-        this.displayData(this.sortScore(this.selectionData))
         this.displaySave = true
-        // console.log(data)
+        if (this.selectedAlgoId == 'select_k_best') {
+          this.table = false
+          this.displayData(this.sortScore(this.selectionData))
+        }
+        else {
+          if (this.chart != null) {
+            this.chart.destroy()
+          }
+          this.table = true
+          console.log(this.selectionData)
+          // this.chart.destroy()
+        }
       }
     })
   }
