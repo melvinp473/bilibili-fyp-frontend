@@ -217,15 +217,14 @@
 		<p>Specificity: {{ results.specificity }}</p>
 		<p>F1 Score: {{ results.f1 }}</p>
 		<div>
-		<img [src]="cmPlot" alt="Confusion Matrix Plot">
+			<img *ngIf="results.cm_plot" src="data:image/png;base64,{{results.cm_plot}}" alt="Confusion Matrix Plot">
 		</div>
 		<div>
-		<img [src]="rfcPlot" alt="ROC curve Plot">
-	    </div>
+			<img *ngIf="results.roc_plot" src="data:image/png;base64,{{results.roc_plot}}"  alt="ROC curve Plot">
+		</div>
 		<div>
-        <img [src]="dispPlot" alt="Precision-Recall Curve Plot">
-	    </div>
-
+			<img *ngIf="results.pr_plot" src="data:image/png;base64,{{results.pr_plot}}"  alt="Precision-Recall Curve Plot">
+		</div>
 	</div>
 
 	<div *ngIf="['voting_cls'].includes(mainForm.get('algo_type')?.value)">

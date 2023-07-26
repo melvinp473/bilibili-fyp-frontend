@@ -23,9 +23,9 @@ export interface Variable {
 export class MachineLearningComponent implements OnInit{
   apiUrl: string;
   httpClient: HttpClient;
-  rfcPlot: string | null = null;
-  dispPlot: string | null = null;
-  cmPlot: string | null = null;
+  // rocPlot: string | null = null;
+  // prPlot: string | null = null;
+  // cmPlot: string | null = null;
 
   dataset$ = this.datasetStore.select(selectDataset);
   features$ = this.datasetStore.select(selectFeatures);
@@ -79,9 +79,9 @@ export class MachineLearningComponent implements OnInit{
       }
 
       this.results = results.data;
-      this.rfcPlot = this.decodeAndDisplayImage(this.results.rfc_plot);
-      this.dispPlot = this.decodeAndDisplayImage(this.results.disp_plot);
-      this.cmPlot = this.decodeAndDisplayImage(this.results.cm_plot);
+      // this.rocPlot = this.decodeAndDisplayImage(this.results.roc_plot);
+      // this.prPlot = this.decodeAndDisplayImage(this.results.pr_plot);
+      // this.cmPlot = this.decodeAndDisplayImage(this.results.cm_plot);
 
     });
 
