@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectDataset } from '../../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { Chart } from 'chart.js/auto';
 import { DatasetActions } from '../../state-controllers/dataset-controller/actions';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-feature-selection',
@@ -29,7 +30,8 @@ export class FeatureSelectionComponent {
 
   constructor(
     private datasetStore: Store<DatasetState>,
-    private preprocessingService: PreprocssingService
+    private preprocessingService: PreprocssingService,
+    private toaster: ToastrService
     ) {
   }
 
@@ -74,6 +76,7 @@ export class FeatureSelectionComponent {
     // console.log(typeof(this.algoParamsFormData))
     this.preprocessingService.runPreprocessing(this.datasetId, this.selectedAlgoId, this.algoParamsFormData).subscribe(response => {
       if(response.flag) {
+        this.toaster.success('Features Selected')
         this.selectionData = response.body
         this.displaySave = true
         if (this.selectedAlgoId == 'select_k_best') {
@@ -88,6 +91,9 @@ export class FeatureSelectionComponent {
           console.log(this.selectionData)
           // this.chart.destroy()
         }
+      }
+      else {
+        this.toaster.show('Feature Selection Failed')
       }
     })
   }

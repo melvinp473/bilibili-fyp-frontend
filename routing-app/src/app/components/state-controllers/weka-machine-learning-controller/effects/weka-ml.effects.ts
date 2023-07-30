@@ -21,18 +21,23 @@ export class WekaMLEffects{
                 .pipe(
                     map(result => {
                         if (result != null){
-                            console.log(result)
+
                             if (result.error != null) {
                                 this.toaster.error(
                                     result.error
                                   );
-                                
                                 return WekaMLActions.wekaMLAlgoFailed({error: result})
                                 
                             }
+
+                            console.log(result)
+                            this.toaster.success('Successfully Run');
                             return WekaMLActions.wekaMLAlgoSuccess({data: result})
                         }
                         else {
+                            this.toaster.error(
+                                "Internal Server Error"
+                              );
                             return WekaMLActions.wekaMLAlgoFailed({error: result})
                         }
                     }),

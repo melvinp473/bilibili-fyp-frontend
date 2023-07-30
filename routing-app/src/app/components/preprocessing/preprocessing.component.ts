@@ -7,6 +7,7 @@ import { DatasetState } from '../state-controllers/dataset-controller/states';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { Store } from '@ngrx/store';
 import { PreprocssingService } from 'src/app/services/preprocessing-services';
+import { ToastrService } from 'ngx-toastr';
 
 export interface Variable {
   name: string;
@@ -38,7 +39,8 @@ export class PreprocessingComponent implements OnInit{
 
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>,
-    private preprocessingService: PreprocssingService
+    private preprocessingService: PreprocssingService,
+    private toaster: ToastrService
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -120,11 +122,15 @@ export class PreprocessingComponent implements OnInit{
     this.preprocessingService.runPreprocessing(this.datasetId, this.selectedPreprocessingMethodId, null, variables)
       .subscribe((response) => {
         if (response.flag) {
+          this.toaster.success('Preprocessing Completed')
           this.preprocessingService.getResponseData("6435575578b04a2b1549c17b", this.datasetId)
           .subscribe(response => {
             console.log(response)
             this.rowData = response.data
           })
+        }
+        else {
+          this.toaster.error('Preprocessing Failed')
         }
       })
   }

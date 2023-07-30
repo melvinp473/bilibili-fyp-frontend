@@ -10,7 +10,7 @@ import { DatasetActions } from '../state-controllers/dataset-controller/actions'
 import { DatasetService } from 'src/app/services/dataset-service';
 import { Comparators } from '../utilities/comparators';
 import { DeleteCellRendererComponent, DeleteCellRendererParams } from '../utilities/delete-cell-renderer/delete-cell-renderer.component';
-
+import { ToastrService } from 'ngx-toastr';
 import { selectDataset } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 
 @Component({
@@ -40,7 +40,8 @@ export class DatasetComponent {
 
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>,
-    private datasetService: DatasetService
+    private datasetService: DatasetService,
+    private toaster: ToastrService
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -163,8 +164,12 @@ export class DatasetComponent {
       this.datasetService.upload(this.uploadedFile).subscribe(response => {
         console.log(response)
         if (response.flag) {
+          this.toaster.success('Uploaded Successfully')
           this.rowData$ = this.datasetService.getResponseDataset("6435575578b04a2b1549c17b")
           .pipe(map(response => response.data)) 
+        }
+        else {
+          this.toaster.error('Upload Failed')
         }
       })
     }
