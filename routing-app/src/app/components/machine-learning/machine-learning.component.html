@@ -28,29 +28,29 @@
 		</mat-menu>
 
 		<mat-menu #regression>
-			<button mat-menu-item (click)="onSelectAlgo('Linear Regression', 'linear_regr')">Linear Regression</button>
-			<button mat-menu-item (click)="onSelectAlgo('Regr - Decision Trees', 'decision_trees_regr')">Decision Trees</button>
-			<button mat-menu-item (click)="onSelectAlgo('Regr - K-Nearest Neighbours (KNN)', 'knn_regr')">K-Nearest Neighbours (KNN)</button>
-			<button mat-menu-item (click)="onSelectAlgo('Regr - Support Vector Machines (SVM)', 'svm_regr')">Support Vector Machines (SVM)</button>
+			<button mat-menu-item (click)="onSelectAlgo('Linear Regression', 'linear_regr','regr')">Linear Regression</button>
+			<button mat-menu-item (click)="onSelectAlgo('Regr - Decision Trees', 'decision_trees_regr','regr')">Decision Trees</button>
+			<button mat-menu-item (click)="onSelectAlgo('Regr - K-Nearest Neighbours (KNN)', 'knn_regr','regr')">K-Nearest Neighbours (KNN)</button>
+			<button mat-menu-item (click)="onSelectAlgo('Regr - Support Vector Machines (SVM)', 'svm_regr','regr')">Support Vector Machines (SVM)</button>
 			<button mat-menu-item [matMenuTriggerFor]="regression_ensemble">Ensemble</button>
 		</mat-menu>
 
 		<mat-menu #classification>
-			<button mat-menu-item (click)="onSelectAlgo('Cls - Decision Trees', 'decision_trees_cls')">Decision Trees</button>
-			<button mat-menu-item (click)="onSelectAlgo('Cls - K-Nearest Neighbours (KNN)', 'knn_cls')">K-Nearest Neighbours (KNN)</button>
-			<button mat-menu-item (click)="onSelectAlgo('Cls - Gaussian Naive Bayes', 'gauss_naive_bayes_cls')">Gaussian Naive Bayes</button>
+			<button mat-menu-item (click)="onSelectAlgo('Cls - Decision Trees', 'decision_trees_cls','cls')">Decision Trees</button>
+			<button mat-menu-item (click)="onSelectAlgo('Cls - K-Nearest Neighbours (KNN)', 'knn_cls','cls')">K-Nearest Neighbours (KNN)</button>
+			<button mat-menu-item (click)="onSelectAlgo('Cls - Gaussian Naive Bayes', 'gauss_naive_bayes_cls','cls')">Gaussian Naive Bayes</button>
 			<button mat-menu-item [matMenuTriggerFor]="classification_ensemble">Ensemble</button>
 		</mat-menu>
 		
 		<mat-menu #regression_ensemble>
-			<button mat-menu-item (click)="onSelectAlgo('Regr - Bagging', 'bagging_regr')">Bagging</button>
-			<button mat-menu-item (click)="onSelectAlgo('Regr - Random Forest', 'random_forest_regr')">Random Forest</button>
-			<button mat-menu-item (click)="onSelectAlgo('Regr - Voting', 'voting_regr')">Voting</button>
+			<button mat-menu-item (click)="onSelectAlgo('Regr - Bagging', 'bagging_regr','regr')">Bagging</button>
+			<button mat-menu-item (click)="onSelectAlgo('Regr - Random Forest', 'random_forest_regr','regr')">Random Forest</button>
+			<button mat-menu-item (click)="onSelectAlgo('Regr - Voting', 'voting_regr','regr')">Voting</button>
 		</mat-menu>
 
 		<mat-menu #classification_ensemble>
-			<button mat-menu-item (click)="onSelectAlgo('Cls - Random Forest', 'random_forest_cls')">Random Forest</button>
-			<button mat-menu-item (click)="onSelectAlgo('Cls - Voting', 'voting_cls')">Voting</button>
+			<button mat-menu-item (click)="onSelectAlgo('Cls - Random Forest', 'random_forest_cls','cls')">Random Forest</button>
+			<button mat-menu-item (click)="onSelectAlgo('Cls - Voting', 'voting_cls','cls')">Voting</button>
 		</mat-menu>
 
 		<!-- <span style="padding: 10px;" *ngIf="mainForm.get('algo_type')?.value">{{selectedAlgoName}}</span> -->
@@ -107,7 +107,7 @@
 					Set parameters of the machine learning algorithm
 				</mat-panel-description>
 			</mat-expansion-panel-header>
-			<div [ngSwitch]="mainForm.get('algo_type')?.value">
+			<div [ngSwitch]="mainForm.get('algo_name')?.value">
 				<app-regr-decision-trees-params *ngSwitchCase="'decision_trees_regr'" (valueChange)="onParamsChange($event)"></app-regr-decision-trees-params>
 				<app-regr-knn-params *ngSwitchCase="'knn_regr'" (valueChange)="onParamsChange($event)"></app-regr-knn-params> 
 				<app-regr-random-forest-params *ngSwitchCase="'random_forest_regr'" (valueChange)="onParamsChange($event)"></app-regr-random-forest-params>
@@ -145,7 +145,7 @@
 <br>
 <h2>Results:</h2>
 <div *ngIf="results">
-	<div *ngIf="mainForm.get('algo_type')?.value == 'linear_regr'">
+	<div *ngIf="mainForm.get('algo_name')?.value == 'linear_regr'">
 		<p>Coefficients:</p>
 		<ul>
 			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
@@ -159,7 +159,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="mainForm.get('algo_type')?.value == 'svm_regr'">
+	<div *ngIf="mainForm.get('algo_name')?.value == 'svm_regr'">
 		<p>Coefficients:</p>
 		<ul>
 			<li *ngFor="let coefficient of results.Coefficients">{{ coefficient }}</li>
@@ -173,7 +173,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="mainForm.get('algo_type')?.value == 'decision_trees_regr'">
+	<div *ngIf="mainForm.get('algo_name')?.value == 'decision_trees_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
@@ -182,7 +182,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="mainForm.get('algo_type')?.value == 'knn_regr'">
+	<div *ngIf="mainForm.get('algo_name')?.value == 'knn_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
@@ -191,7 +191,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="mainForm.get('algo_type')?.value == 'random_forest_regr' || mainForm.get('algo_type')?.value == 'bagging_regr'">
+	<div *ngIf="mainForm.get('algo_name')?.value == 'random_forest_regr' || mainForm.get('algo_name')?.value == 'bagging_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
@@ -200,7 +200,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="mainForm.get('algo_type')?.value == 'voting_regr'">
+	<div *ngIf="mainForm.get('algo_name')?.value == 'voting_regr'">
 		<p>Mean Absolute Error (MAE): {{ results.mae }}</p>
 		<p>Mean Squared Error (MSE): {{ results.mse }}</p>
 		<p>Root Mean Squared Error (RMSE): {{ results.rmse }}</p>
@@ -209,7 +209,7 @@
 		<p>R2 Score: {{ results.r2_score }}</p>
 	</div>
 
-	<div *ngIf="['decision_trees_cls', 'random_forest_cls', 'knn_cls', 'gauss_naive_bayes_cls'].includes(mainForm.get('algo_type')?.value)">
+	<div *ngIf="['decision_trees_cls', 'random_forest_cls', 'knn_cls', 'gauss_naive_bayes_cls'].includes(mainForm.get('algo_name')?.value)">
 		<p>AUC-ROC: {{ results.auc }}</p>
 		<p>Precision: {{ results.precision }}</p>
 		<p>Accuracy: {{ results.accuracy }}</p>
@@ -227,7 +227,7 @@
 		</div>
 	</div>
 
-	<div *ngIf="['voting_cls'].includes(mainForm.get('algo_type')?.value)">
+	<div *ngIf="['voting_cls'].includes(mainForm.get('algo_name')?.value)">
 		<p>AUC-ROC: {{ results.auc }}</p>
 		<p>Precision: {{ results.precision }}</p>
 		<p>Accuracy: {{ results.accuracy }}</p>

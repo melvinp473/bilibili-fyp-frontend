@@ -67,6 +67,7 @@ export class MachineLearningComponent implements OnInit{
       dataset_id: ['', Validators.required],
       user_id: [this.user_id, Validators.required],
       algo_type: ['', Validators.required],
+      algo_name: ['', Validators.required],
       target_variable: ['', Validators.required],
       independent_variables: ['',],
     });
@@ -132,6 +133,7 @@ export class MachineLearningComponent implements OnInit{
       DATASET_ID: this.mainForm.controls['dataset_id'].value,
       user_id: this.mainForm.controls['user_id'].value,
       algo_type: this.mainForm.controls['algo_type'].value,
+      algo_name: this.mainForm.controls['algo_name'].value,
       target_variable: this.mainForm.controls['target_variable'].value,
       independent_variables: selectedIndependentVariables,
       algo_params: {...this.algoParamsFormData},
@@ -147,8 +149,9 @@ export class MachineLearningComponent implements OnInit{
     );
   }
 
-  onSelectAlgo(displayValue: string, algoId:string){
-    this.mainForm.patchValue({algo_type: algoId})
+  onSelectAlgo(displayValue: string, algoId:string, algoType:string){
+    this.mainForm.patchValue({algo_type: algoType})
+    this.mainForm.patchValue({algo_name: algoId})
     this.selectedAlgoName = displayValue
 
     this.algoParamsFormData = null;
