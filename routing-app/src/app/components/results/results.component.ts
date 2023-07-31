@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -24,6 +25,9 @@ export class ResultsComponent {
   user_id = "6435575578b04a2b1549c17b";
 
   dataset$ = this.datasetStore.select(selectDataset);
+  roc_plot: any[] = [] 
+  pr_plot : any[] = [] 
+  cm_plot : any[] = [] 
   
   private gridApi!: GridApi;
   columnApi: any;
@@ -163,10 +167,29 @@ export class ResultsComponent {
         }
     })
   }
+  
+  public compareCls(selected_data: any[]){
+    this.roc_plot = []
+    this.pr_plot = []
+    this.cm_plot = []
+
+    for (const data of selected_data){
+        this.roc_plot.push(data.metrics.roc_plot)
+        this.pr_plot.push(data.metrics.pr_plot)
+        this.cm_plot.push(data.metrics.cm_plot)
+    }
+
+  }
 
   public displayData(){
     if (this.chart != null) {
       this.chart.destroy()
+    }
+    if (this.selectedData[0].algo_type == 'cls'){
+      this.compareCls(this.selectedData)
+    }
+    else{
+      
     }
     this.plotGraph(this.selectedData)
   }
