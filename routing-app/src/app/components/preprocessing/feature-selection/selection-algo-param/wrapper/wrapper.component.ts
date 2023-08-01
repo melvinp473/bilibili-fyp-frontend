@@ -18,7 +18,7 @@ export class WrapperComponent {
   estimatorParamsData = {};
 
   paramsForm = new FormGroup({
-    k_best: new FormControl(''),
+    k_best: new FormControl('5'),
     selection_type: new FormControl(''),
     target_attribute: new FormControl(''),
     estimator_type: new FormControl(''),

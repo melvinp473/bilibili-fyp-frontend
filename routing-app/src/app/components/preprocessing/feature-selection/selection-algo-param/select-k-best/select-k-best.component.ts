@@ -18,7 +18,7 @@ export class SelectKBestComponent {
   is_classification = false;
 
   paramsForm = new FormGroup({
-    k_best: new FormControl(''),
+    k_best: new FormControl('5'),
     selection_type: new FormControl(''),
     target_attribute: new FormControl(''),
     model: new FormControl('')

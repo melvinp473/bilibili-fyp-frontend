@@ -123,9 +123,18 @@ export class FeatureSelectionComponent {
   public saveSelectionData() {
     const data = []
     data.push(this.algoParamsFormData.target_attribute)
-    for (let i = 0; i < this.selectionData.length; i++) {
-      data.push(this.selectionData[i][0])
+    if (this.selectedAlgoId == 'select_k_best') {
+      for (let i = 0; i < this.selectionData.length; i++) {
+        data.push(this.selectionData[i][0])
+      }
+
     }
+    else if (this.selectedAlgoId == 'wrapper') {
+      for (let i = 0; i < this.selectionData.length; i++) {
+        data.push(this.selectionData[i])
+      }
+    }
+
     console.log(data)
     this.datasetStore.dispatch(DatasetActions.loadSelectedFeatureInit({ data: data }))
   }
