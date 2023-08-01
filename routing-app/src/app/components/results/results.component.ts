@@ -34,6 +34,7 @@ export class ResultsComponent {
 
   chart: any;
   selectedData: any[] = [];
+  selected_id: any;
 
   displayActionToolbar: any;
 
@@ -93,6 +94,7 @@ export class ResultsComponent {
 
     this.dataset$.subscribe((data) => {
       const datasetId = data._id;
+      this.selected_id = data._id
       const request_body = {
         user_id: this.user_id,
         dataset_id: datasetId,
@@ -208,8 +210,11 @@ export class ResultsComponent {
         next: () => {
           console.log('Items deleted successfully');
           const request_body = {
-            user_id: this.user_id
+            user_id: this.user_id,
+            dataset_id: this.selected_id
           }
+          this.selectedData = []
+          this.displayActionToolbar = false
           this.rowData$ = this.chartService.getResults(request_body)
           .pipe(map(response => response.data))
         },
