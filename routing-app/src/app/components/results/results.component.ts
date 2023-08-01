@@ -132,6 +132,14 @@ export class ResultsComponent {
   public plotGraph(selected_data: any[]) {
     this.chart = new Chart('canvas', {
       type: 'bar',
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Metrics Comparison'
+            }
+        }
+    },
       data: {
         labels: selected_data.map(row => row.run_name + " (" + row.run_id + ")"),
         datasets:[
