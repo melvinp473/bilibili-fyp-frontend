@@ -36,6 +36,7 @@ export class MachineLearningComponent implements OnInit{
   user_id = '6435575578b04a2b1549c17b';
   selectedAlgoName: any;
   results: any;
+  splitDataset: boolean = false;
   algoParamsFormData: any;
 
   independentVariables: Variable[] = [];
@@ -68,6 +69,7 @@ export class MachineLearningComponent implements OnInit{
       user_id: [this.user_id, Validators.required],
       algo_type: ['', Validators.required],
       algo_name: ['', Validators.required],
+      split_variable: ['',],
       target_variable: ['', Validators.required],
       independent_variables: ['',],
     });
@@ -134,6 +136,7 @@ export class MachineLearningComponent implements OnInit{
       user_id: this.mainForm.controls['user_id'].value,
       algo_type: this.mainForm.controls['algo_type'].value,
       algo_name: this.mainForm.controls['algo_name'].value,
+      split_variable: this.splitDataset ? this.mainForm.controls['split_variable'].value: null,
       target_variable: this.mainForm.controls['target_variable'].value,
       independent_variables: selectedIndependentVariables,
       algo_params: {...this.algoParamsFormData},
@@ -159,16 +162,36 @@ export class MachineLearningComponent implements OnInit{
     this.results = null;
   }
 
-  onSelectTarget() {
+  onSelectSplitVar(){
     this.independentVariables = []
     this.variables
-      .filter((a) => a != this.mainForm.get("target_variable")?.value)
+      .filter((a) => ![this.mainForm.get("target_variable")?.value, this.mainForm.get("split_variable")?.value].includes(a))
       .forEach((variable: any) => {
         this.independentVariables.push({
           name: variable,
           selected: false,
         });
       });
+  }
+
+  isSplitVarDisabled(variable: string){
+    return this.mainForm.get("target_variable")?.value == variable;
+  }
+
+  onSelectTarget() {
+    this.independentVariables = []
+    this.variables
+      .filter((a) => ![this.mainForm.get("target_variable")?.value, this.mainForm.get("split_variable")?.value].includes(a))
+      .forEach((variable: any) => {
+        this.independentVariables.push({
+          name: variable,
+          selected: false,
+        });
+      });
+  }
+
+  isTargetVarDisabled(variable: string){
+    return this.mainForm.get("split_variable")?.value == variable;
   }
 
   updateAllSelected() {
