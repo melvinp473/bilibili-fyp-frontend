@@ -135,6 +135,9 @@ export class MachineLearningComponent implements OnInit{
   }
 
   runAlgorithm() {
+    if (this.chart != null) {
+      this.chart.destroy()
+    }
     const selectedIndependentVariables = this.independentVariables
       .filter((variable) => variable.selected == true)
       .map((variable) => variable.name);
