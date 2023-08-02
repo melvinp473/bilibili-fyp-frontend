@@ -98,10 +98,15 @@ export class PreprocessingComponent implements OnInit{
         if (["DATASET_ID", "_id"].includes(key)){
           continue
         }
-        this.columnDefs.push({
+        const columnDef: ColDef = {
           headerName: key,
-          field: key
-        })
+          field: key,
+        };
+        if(!Number.isNaN(parseFloat(data[0][key]))){
+          columnDef.valueParser = (params) => parseFloat(params.newValue);
+          columnDef.valueFormatter = (params) => parseFloat(params.value).toFixed(4);
+        }
+        this.columnDefs.push(columnDef)
       }
       this.gridApi.setColumnDefs(this.columnDefs)
       this.rowData = data
