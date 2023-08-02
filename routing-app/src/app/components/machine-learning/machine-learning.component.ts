@@ -11,6 +11,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { WarningPopupComponent } from '../machine-learning/warning-popup/warning-popup.component';
 import { SubSink } from 'subsink';
 
+import { Chart } from 'chart.js/auto';
+
 export interface Variable {
   name: string;
   selected: boolean;
@@ -37,6 +39,8 @@ export class MachineLearningComponent implements OnInit{
   selectedAlgoName: any;
   results: any;
   algoParamsFormData: any;
+
+  chart: any;
 
   independentVariables: Variable[] = [];
 
@@ -80,6 +84,10 @@ export class MachineLearningComponent implements OnInit{
       }
 
       this.results = results.data;
+
+      if (this.results.importance_values) {
+        this.displayData()
+      } 
       // this.rocPlot = this.decodeAndDisplayImage(this.results.roc_plot);
       // this.prPlot = this.decodeAndDisplayImage(this.results.pr_plot);
       // this.cmPlot = this.decodeAndDisplayImage(this.results.cm_plot);
@@ -219,5 +227,36 @@ export class MachineLearningComponent implements OnInit{
   ngOnDestroy() {
     this.subs.unsubscribe();
   }
+
+  public displayData(){
+    if (this.chart != null) {
+      this.chart.destroy()
+    }
+    this.plotGraph(this.results.importance_values, this.results.independent_variables)
+  }
+
+  public plotGraph(importance_values: any[], independent_variables: any[]) {
+    const data = {
+      labels: independent_variables,
+      datasets:[{
+        label: this.mainForm.controls['algo_name'].value,
+        data: importance_values
+      }]
+    }
+    this.chart = new Chart('canvas', {
+      type: 'radar',
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Feature Importance'
+            }
+        }
+    },
+      data: data
+    })
+
+  }
+
 }
 
