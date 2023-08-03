@@ -88,7 +88,10 @@ export class MachineLearningComponent implements OnInit{
       this.results = results.data;
 
       if (this.results.importance_values) {
-        this.displayData()
+        setTimeout(() => {
+          this.displayData();
+        }, 2000);
+        // this.displayData()
       } 
       // this.rocPlot = this.decodeAndDisplayImage(this.results.roc_plot);
       // this.prPlot = this.decodeAndDisplayImage(this.results.pr_plot);
