@@ -159,6 +159,9 @@
 
 <br>
 <h2>Results:</h2>
+
+<!-- <canvas id="canvas">{{ chart }}</canvas> -->
+
 <div *ngIf="results">
 	<div *ngIf="['decision_trees_cls', 'random_forest_cls', 'knn_cls', 'gauss_naive_bayes_cls'].includes(mainForm.get('algo_name')?.value)">
 		<p>AUC-ROC: {{ results.auc | number: '1.4-4' }}</p>
@@ -206,6 +209,7 @@
 		<div *ngIf="mainForm.get('algo_type')?.value == 'regr'">
 
 			<!-- YU JING TODO SPIDER CHART -->
+			<canvas id="canvas">{{ chart }}</canvas>
 			<p>Mean Absolute Error (MAE): {{ results.mae | number: '1.4-4' }}</p>
 			<p>Mean Squared Error (MSE): {{ results.mse | number: '1.4-4' }}</p>
 			<p>Root Mean Squared Error (RMSE): {{ results.rmse | number: '1.4-4' }}</p>
