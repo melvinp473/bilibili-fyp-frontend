@@ -87,7 +87,7 @@
 				<mat-form-field appearance="fill">
 					<mat-label>Target Variable</mat-label>
 					<mat-select (selectionChange)="onSelectTarget()" formControlName="target_variable">
-						<mat-option *ngFor="let variable of variables" [value]="variable" [disabled]="isTargetVarDisabled(variable)">
+						<mat-option *ngFor="let variable of variables" [value]="variable" [disabled]="isTargetVarDisabled(variable)"[disabled]="isTargetVarDisabled(variable)">
 							{{variable}}
 						</mat-option>
 					</mat-select>
@@ -178,54 +178,68 @@
 		</div>
 	</div>
 
-	<div *ngIf="['voting_cls'].includes(mainForm.get('algo_name')?.value)">
-		<p>AUC-ROC: {{ results.auc | number: '1.4-4' }}</p>
-		<p>Precision: {{ results.precision | number: '1.4-4' }}</p>
-		<p>Accuracy: {{ results.accuracy | number: '1.4-4' }}</p>
-	</div>
-
 	<!-- FEATURE IMPORTANCES -->
-	<img *ngIf="results.feature_imp_plot" src="data:image/png;base64,{{results.feature_imp_plot}}">
+	<!-- <img *ngIf="results.feature_imp_plot" src="data:image/png;base64,{{results.feature_imp_plot}}"> -->
 
-
-
-	<!--  REGRESSION METRICS  -->
-	<div *ngIf="mainForm.get('algo_type')?.value == 'regr'">
-
-		<!-- YU JING TODO SPIDER CHART -->
-		<p>Mean Absolute Error (MAE): {{ results.mae | number: '1.4-4' }}</p>
-		<p>Mean Squared Error (MSE): {{ results.mse | number: '1.4-4' }}</p>
-		<p>Root Mean Squared Error (RMSE): {{ results.rmse | number: '1.4-4' }}</p>
-		<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage | number: '1.4-4' }}</p>
-		<p>Max Error: {{ results.max_error| number: '1.4-4'  }}</p>
-		<p>R2 Score: {{ results.r2_score | number: '1.4-4' }}</p>
+	<div *ngIf="['voting_cls', 'voting_regr'].includes(mainForm.get('algo_name')?.value); else elseStandardResults">
 		
-		<div class="image-container">
-			<img *ngFor="let result of results" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
+		<h2>Voting Results</h2>
+		<p>Accuracy: {{ results.accuracy | number: '1.4-4' }}</p>
+		<p>Recall: {{ results.recall | number: '1.4-4' }}</p>
+		<p>Specificity: {{ results.specificity | number: '1.4-4' }}</p>
+		<p>AUC-ROC: {{ results.auc | number: '1.4-4' }}</p>
+		<br>
+		
+		<h2>Individual Estimator Results</h2>
+		<div *ngFor="let estimatorResult of results.estimator_results">
+			<p>Estimator: {{ estimatorResult.est_name}}</p>
+			<p>Accuracy: {{ estimatorResult.accuracy | number: '1.4-4' }}</p>
+			<p>Recall: {{ estimatorResult.recall | number: '1.4-4' }}</p>
+			<p>Specificity: {{ estimatorResult.specificity | number: '1.4-4' }}</p>
+			<p>AUC-ROC: {{ estimatorResult.auc | number: '1.4-4' }}</p>
+			<br>
 		</div>
 	</div>
 
-	<!--  CLASSIFICATION METRICS  -->
-	<div *ngIf="mainForm.get('algo_type')?.value == 'cls'">
+	<ng-template #elseStandardResults>
+		<!--  REGRESSION METRICS  -->
+		<div *ngIf="mainForm.get('algo_type')?.value == 'regr'">
 
-		<!-- YU JING TODO SPIDER CHART -->
-
-		<div *ngIf="mainForm.get('algo_name')?.value != 'voting_cls'">
-			<div class="image-container">
-				<img *ngFor="let result of results" src="data:image/png;base64,{{result.cm_plot}}" alt="Confusion matrix">
-			</div>
-			<div class="image-container">
-				<img *ngFor="let result of results" src="data:image/png;base64,{{result.roc_plot}}" alt="ROC curve">
-			</div>
-			<div class="image-container">
-				<img *ngFor="let result of results" src="data:image/png;base64,{{result.pr_plot}}" alt="Precision recall curve">
-			</div>
+			<!-- YU JING TODO SPIDER CHART -->
+			<p>Mean Absolute Error (MAE): {{ results.mae | number: '1.4-4' }}</p>
+			<p>Mean Squared Error (MSE): {{ results.mse | number: '1.4-4' }}</p>
+			<p>Root Mean Squared Error (RMSE): {{ results.rmse | number: '1.4-4' }}</p>
+			<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage | number: '1.4-4' }}</p>
+			<p>Max Error: {{ results.max_error| number: '1.4-4'  }}</p>
+			<p>R2 Score: {{ results.r2_score | number: '1.4-4' }}</p>
+			
 			<div class="image-container">
 				<img *ngFor="let result of results" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
 			</div>
 		</div>
-	</div>
-</div>
+
+		<!--  CLASSIFICATION METRICS  -->
+		<div *ngIf="mainForm.get('algo_type')?.value == 'cls'">
+
+			<!-- YU JING TODO SPIDER CHART -->
+
+			<div *ngIf="mainForm.get('algo_name')?.value != 'voting_cls'">
+				<div class="image-container">
+					<img *ngFor="let result of results" src="data:image/png;base64,{{result.cm_plot}}" alt="Confusion matrix">
+				</div>
+				<div class="image-container">
+					<img *ngFor="let result of results" src="data:image/png;base64,{{result.roc_plot}}" alt="ROC curve">
+				</div>
+				<div class="image-container">
+					<img *ngFor="let result of results" src="data:image/png;base64,{{result.pr_plot}}" alt="Precision recall curve">
+				</div>
+				<div class="image-container">
+					<img *ngFor="let result of results" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
+				</div>
+			</div>
+		</div>
+	</ng-template>
+	
 
 <div class="image-container">
 	<!-- Add your images here -->
