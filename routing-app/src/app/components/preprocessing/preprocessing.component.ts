@@ -135,7 +135,9 @@ export class PreprocessingComponent implements OnInit{
           })
         }
         else {
-          this.toaster.error('Preprocessing Failed')
+          this.toaster.error(
+            response.error
+          );
         }
       })
   }

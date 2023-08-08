@@ -93,7 +93,9 @@ export class FeatureSelectionComponent {
         }
       }
       else {
-        this.toaster.show('Feature Selection Failed')
+        this.toaster.error(
+          response.error
+        );
       }
     })
   }

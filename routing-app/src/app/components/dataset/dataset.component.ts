@@ -169,7 +169,9 @@ export class DatasetComponent {
           .pipe(map(response => response.data)) 
         }
         else {
-          this.toaster.error('Upload Failed')
+          this.toaster.error(
+            response.error
+          );
         }
       })
     }
