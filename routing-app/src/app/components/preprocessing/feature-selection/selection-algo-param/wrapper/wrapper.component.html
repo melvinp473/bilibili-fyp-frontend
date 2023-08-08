@@ -17,13 +17,28 @@
         <mat-label>best attributes (1 - k)</mat-label>
         <input matInput formControlName="k_best" type="number" min="0" max={{max_length}}>
     </mat-form-field>
-    <mat-form-field>
+    <div [ngSwitch]="paramsForm.controls.selection_type.getRawValue()">
+        <mat-form-field *ngSwitchCase="'sfs'">
+            <mat-label>algorithm</mat-label>
+            <mat-select formControlName="estimator_type" (selectionChange)="onEstimatorChange()">
+                <mat-option value="lin_regr">Linear Regression</mat-option>
+                <mat-option value="knn">K-Nearest Neighbours (KNN)</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngSwitchCase="'rfe'">
+            <mat-label>algorithm</mat-label>
+            <mat-select formControlName="estimator_type" (selectionChange)="onEstimatorChange()">
+                <mat-option value="lin_regr">Linear Regression</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <!-- <mat-form-field>
         <mat-label>algorithm</mat-label>
         <mat-select formControlName="estimator_type" (selectionChange)="onEstimatorChange()">
             <mat-option value="lin_regr">Linear Regression</mat-option>
             <mat-option value="knn">K-Nearest Neighbours (KNN)</mat-option>
         </mat-select>
-    </mat-form-field>
+    </mat-form-field> -->
     <mat-form-field>
         <mat-label>Target Attribute</mat-label>
         <mat-select formControlName="target_attribute">
