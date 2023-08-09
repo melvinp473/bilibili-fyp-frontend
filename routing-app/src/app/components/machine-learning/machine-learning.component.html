@@ -209,7 +209,13 @@
 		<div *ngIf="mainForm.get('algo_type')?.value == 'regr'">
 
 			<!-- YU JING TODO SPIDER CHART -->
-			<canvas id="canvas">{{ chart }}</canvas>
+			<div *ngIf="results[0]" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+				<canvas  id="regr_metrics">{{ chart }}</canvas>
+			</div>
+			<div *ngIf="results[0].importance_values" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+				<canvas  id="importance">{{ chart }}</canvas>
+			</div>
+			
 			<p>Mean Absolute Error (MAE): {{ results.mae | number: '1.4-4' }}</p>
 			<p>Mean Squared Error (MSE): {{ results.mse | number: '1.4-4' }}</p>
 			<p>Root Mean Squared Error (RMSE): {{ results.rmse | number: '1.4-4' }}</p>
