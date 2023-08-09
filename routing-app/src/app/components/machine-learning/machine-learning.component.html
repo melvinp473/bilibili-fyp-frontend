@@ -240,7 +240,7 @@
 				<div class="image-container">
 					<div *ngFor="let result of results">
 						<div style="text-align: center;">{{result.split_value}}</div>
-						<img style="max-width: 550px;" src="data:image/png;base64,{{result.roc_plot}}" alt="ROC curve">
+						<img style="margin: 0px 20px; max-width: 550px;" src="data:image/png;base64,{{result.roc_plot}}" alt="ROC curve">
 					</div>
 				</div>
 				<br>
@@ -248,7 +248,7 @@
 				<div class="image-container">
 					<div *ngFor="let result of results">
 						<div style="text-align: center;">{{result.split_value}}</div>
-						<img style="max-width: 550px;" src="data:image/png;base64,{{result.pr_plot}}" alt="Precision recall curve">
+						<img style="margin: 0px 20px; max-width: 550px;" src="data:image/png;base64,{{result.pr_plot}}" alt="Precision recall curve">
 					</div>
 				</div>
 				<br>
@@ -257,7 +257,7 @@
 					<div *ngFor="let result of results">
 						<div *ngIf="result.feature_imp_plot">
 							<div style="text-align: center;">{{result.split_value}}</div>
-							<img style="max-width: 550px;" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
+							<img style="margin: 0px 20px; max-width: 550px;" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
 						</div>
 					</div>
 				</div>
