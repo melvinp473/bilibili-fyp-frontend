@@ -127,7 +127,7 @@ export class MachineLearningComponent implements OnInit{
             },
             {
               label: 'rmse',
-              data: this.results.map((row: { rsme: any; }) => row.rsme)
+              data: this.results.map((row: { rmse: any; }) => row.rmse)
             },
             {
               label: 'mean absolute percentage',
