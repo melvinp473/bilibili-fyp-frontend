@@ -41,7 +41,8 @@ export class MachineLearningComponent implements OnInit{
   splitDataset: boolean = false;
   algoParamsFormData: any;
 
-  chart: any;
+  chart_radar: any;
+  chart_bar: any;
 
   independentVariables: Variable[] = [];
 
@@ -87,12 +88,66 @@ export class MachineLearningComponent implements OnInit{
 
       this.results = results.data;
 
-      if (this.results.importance_values) {
+      if (this.results[0].importance_values) {
         setTimeout(() => {
-          this.displayData();
+          const type = 'radar'
+          const values = []
+          const variables = this.results[0].independent_variables
+
+          for (const result of this.results){
+            values.push(
+              {
+                data: result.importance_values,
+                label: result.split_value
+              }
+              )
+          }
+          this.displayData(values, variables, type);
         }, 2000);
         // this.displayData()
       } 
+
+      if (this.mainForm!.get('algo_type')?.value == 'regr')
+      {
+        setTimeout(() => {
+          const type = 'bar'
+          const values = []
+          let variables: any[] = []
+          for (const result of this.results){
+            variables.push(result.split_value)
+          }
+
+          values.push(
+            {
+              label: 'mae',
+              data: this.results.map((row: { mae: any; }) => row.mae)
+            },
+            {
+              label: 'mse',
+              data: this.results.map((row: { mse: any; }) => row.mse)
+            },
+            {
+              label: 'rmse',
+              data: this.results.map((row: { rmse: any; }) => row.rmse)
+            },
+            {
+              label: 'mean absolute percentage',
+              data: this.results.map((row: { mean_absolute_percentage: any; }) => row.mean_absolute_percentage)
+            },
+            {
+              label: 'max error',
+              data: this.results.map((row: { max_error: any; }) => row.max_error)
+            },
+            {
+              label: 'r2 score',
+              data: this.results.map((row: { r2_score: any; }) => row.r2_score)
+            })
+  
+            this.displayData(values, variables, type)
+        }, 2000);
+      }
+
+
       // this.rocPlot = this.decodeAndDisplayImage(this.results.roc_plot);
       // this.prPlot = this.decodeAndDisplayImage(this.results.pr_plot);
       // this.cmPlot = this.decodeAndDisplayImage(this.results.cm_plot);
@@ -138,8 +193,11 @@ export class MachineLearningComponent implements OnInit{
   }
 
   runAlgorithm() {
-    if (this.chart != null) {
-      this.chart.destroy()
+    if (this.chart_bar != null) {
+      this.chart_bar.destroy()
+    }
+    if (this.chart_radar != null) {
+      this.chart_radar.destroy()
     }
     const selectedIndependentVariables = this.independentVariables
       .filter((variable) => variable.selected == true)
@@ -264,28 +322,61 @@ export class MachineLearningComponent implements OnInit{
     this.subs.unsubscribe();
   }
 
-  public displayData(){
-    if (this.chart != null) {
-      this.chart.destroy()
+  public displayData(values: any[], variables: any[], type: string){
+
+    if (type == 'radar') {
+      if (this.chart_radar != null) {
+        this.chart_radar.destroy()
+      }
+      this.plotRadarGraph(values, variables)
     }
-    this.plotGraph(this.results.importance_values, this.results.independent_variables)
+    else if (type == 'bar') {
+      if (this.chart_bar != null) {
+        this.chart_bar.destroy()
+      }
+      this.plotBarGraph(values, variables)
+    }
+    
   }
 
-  public plotGraph(importance_values: any[], independent_variables: any[]) {
+  public plotRadarGraph(values: any[], variables: any[]) {    
     const data = {
-      labels: independent_variables,
-      datasets:[{
-        label: this.mainForm.controls['algo_name'].value,
-        data: importance_values
-      }]
+      labels: variables,
+      datasets: [{data: 0}]
     }
-    this.chart = new Chart('canvas', {
+
+    data.datasets = values
+  
+    this.chart_radar = new Chart('importance', {
       type: 'radar',
       options: {
         plugins: {
             title: {
                 display: true,
                 text: 'Feature Importance'
+            }
+        }
+    },
+      data: data
+    })
+
+  }
+
+  public plotBarGraph(values: any[], variables: any[]) {    
+    const data = {
+      labels: variables,
+      datasets: [{data: 0}]
+    }
+
+    data.datasets = values
+  
+    this.chart_bar = new Chart('regr_metrics', {
+      type: 'bar',
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Metrics Results'
             }
         }
     },
