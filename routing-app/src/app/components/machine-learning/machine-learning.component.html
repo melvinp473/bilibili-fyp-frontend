@@ -210,10 +210,10 @@
 
 			<!-- YU JING TODO SPIDER CHART -->
 			<div *ngIf="results[0]" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
-				<canvas  id="regr_metrics">{{ chart }}</canvas>
+				<canvas  id="regr_metrics">{{ chart_bar }}</canvas>
 			</div>
 			<div *ngIf="results[0].importance_values" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
-				<canvas  id="importance">{{ chart }}</canvas>
+				<canvas  id="importance">{{ chart_radar }}</canvas>
 			</div>
 			
 			<p>Mean Absolute Error (MAE): {{ results.mae | number: '1.4-4' }}</p>

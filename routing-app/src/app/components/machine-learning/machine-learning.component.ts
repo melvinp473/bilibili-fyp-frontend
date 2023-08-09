@@ -41,7 +41,8 @@ export class MachineLearningComponent implements OnInit{
   splitDataset: boolean = false;
   algoParamsFormData: any;
 
-  chart: any;
+  chart_radar: any;
+  chart_bar: any;
 
   independentVariables: Variable[] = [];
 
@@ -192,8 +193,11 @@ export class MachineLearningComponent implements OnInit{
   }
 
   runAlgorithm() {
-    if (this.chart != null) {
-      this.chart.destroy()
+    if (this.chart_bar != null) {
+      this.chart_bar.destroy()
+    }
+    if (this.chart_radar != null) {
+      this.chart_radar.destroy()
     }
     const selectedIndependentVariables = this.independentVariables
       .filter((variable) => variable.selected == true)
@@ -319,13 +323,17 @@ export class MachineLearningComponent implements OnInit{
   }
 
   public displayData(values: any[], variables: any[], type: string){
-    if (this.chart != null) {
-      this.chart.destroy()
-    }
+
     if (type == 'radar') {
+      if (this.chart_radar != null) {
+        this.chart_radar.destroy()
+      }
       this.plotRadarGraph(values, variables)
     }
     else if (type == 'bar') {
+      if (this.chart_bar != null) {
+        this.chart_bar.destroy()
+      }
       this.plotBarGraph(values, variables)
     }
     
@@ -339,7 +347,7 @@ export class MachineLearningComponent implements OnInit{
 
     data.datasets = values
   
-    this.chart = new Chart('importance', {
+    this.chart_radar = new Chart('importance', {
       type: 'radar',
       options: {
         plugins: {
@@ -362,7 +370,7 @@ export class MachineLearningComponent implements OnInit{
 
     data.datasets = values
   
-    this.chart = new Chart('regr_metrics', {
+    this.chart_bar = new Chart('regr_metrics', {
       type: 'bar',
       options: {
         plugins: {
