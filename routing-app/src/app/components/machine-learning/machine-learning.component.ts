@@ -93,15 +93,25 @@ export class MachineLearningComponent implements OnInit{
           const type = 'radar'
           const values = []
           const variables = this.results[0].independent_variables
-
-          for (const result of this.results){
+          if (this.results.length > 1) {
+            for (const result of this.results){
+              values.push(
+                {
+                  data: result.importance_values,
+                  label: result.split_value
+                }
+                )
+            }
+          }
+          else if (this.results.length == 1) {
             values.push(
               {
-                data: result.importance_values,
-                label: result.split_value
+                data: this.results[0].importance_values,
+                label: 'region results'
               }
               )
           }
+
           this.displayData(values, variables, type);
         }, 2000);
         // this.displayData()
@@ -113,8 +123,14 @@ export class MachineLearningComponent implements OnInit{
           const type = 'bar'
           const values = []
           let variables: any[] = []
-          for (const result of this.results){
-            variables.push(result.split_value)
+          if (this.results.length > 1) {
+            for (const result of this.results){
+              variables.push(result.split_value)
+            }
+          }
+          else if (this.results.length == 1) {
+            // Jia Hao can help push the state name into 
+            variables.push('region results')
           }
 
           values.push(
@@ -141,6 +157,51 @@ export class MachineLearningComponent implements OnInit{
             {
               label: 'r2 score',
               data: this.results.map((row: { r2_score: any; }) => row.r2_score)
+            })
+  
+            this.displayData(values, variables, type)
+        }, 2000);
+      }
+
+      else if (this.mainForm!.get('algo_type')?.value == 'cls') {
+        setTimeout(() => {
+          const type = 'bar'
+          const values = []
+          let variables: any[] = []
+          if (this.results.length > 1) {
+            for (const result of this.results){
+              variables.push(result.split_value)
+            }
+          }
+          else if (this.results.length == 1) {
+            // Jia Hao can help push the state name into 
+            variables.push('region results')
+          }
+
+          values.push(
+            {
+              label: 'accuracy',
+              data: this.results.map((row: { accuracy: any; }) => row.accuracy)
+            },
+            {
+              label: 'auc',
+              data: this.results.map((row: { auc: any; }) => row.auc)
+            },
+            {
+              label: 'f1',
+              data: this.results.map((row: { f1: any; }) => row.f1)
+            },
+            {
+              label: 'precision',
+              data: this.results.map((row: { precision: any; }) => row.precision)
+            },
+            {
+              label: 'recall',
+              data: this.results.map((row: { recall: any; }) => row.recall)
+            },
+            {
+              label: 'specificity',
+              data: this.results.map((row: { specificity: any; }) => row.specificity)
             })
   
             this.displayData(values, variables, type)
@@ -362,7 +423,7 @@ export class MachineLearningComponent implements OnInit{
 
   }
 
-  public plotBarGraph(values: any[], variables: any[]) {    
+  public plotBarGraph(values: any[], variables: any[]) {
     const data = {
       labels: variables,
       datasets: [{data: 0}]

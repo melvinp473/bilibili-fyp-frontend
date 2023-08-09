@@ -232,7 +232,12 @@
 		<div *ngIf="mainForm.get('algo_type')?.value == 'cls'">
 
 			<!-- YU JING TODO SPIDER CHART -->
-
+			<div *ngIf="results[0]" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+				<canvas  id="regr_metrics">{{ chart_bar }}</canvas>
+			</div>
+			<div *ngIf="results[0].importance_values" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+				<canvas  id="importance">{{ chart_radar }}</canvas>
+			</div>
 			<div *ngIf="mainForm.get('algo_name')?.value != 'voting_cls'">
 				<h2>Confusion Matrix</h2>
 				<div class="image-container">
