@@ -176,6 +176,13 @@ export class MachineLearningComponent implements OnInit{
     this.results = null;
   }
 
+  onToggleSplit($event: any){
+    if (!$event.checked){
+      this.mainForm.patchValue({split_variable: null})
+    }
+    this.onSelectSplitVar()
+  }
+
   onSelectSplitVar(){
     this.independentVariables = []
     this.variables

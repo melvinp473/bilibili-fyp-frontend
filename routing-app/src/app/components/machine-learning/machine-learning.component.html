@@ -59,7 +59,7 @@
 		<button mat-raised-button color="accent" (click)="runAlgorithm()" [disabled]="mainForm.invalid">RUN</button>
 	</div>
 
-	<mat-checkbox [(ngModel)]="splitDataset" [ngModelOptions]="{standalone: true}">
+	<mat-checkbox (change)="onToggleSplit($event)" [(ngModel)]="splitDataset" [ngModelOptions]="{standalone: true}">
 		Split dataset by attribute
 	</mat-checkbox>
 
@@ -163,7 +163,7 @@
 <!-- <canvas id="canvas">{{ chart }}</canvas> -->
 
 <div *ngIf="results">
-	<div *ngIf="['decision_trees_cls', 'random_forest_cls', 'knn_cls', 'gauss_naive_bayes_cls'].includes(mainForm.get('algo_name')?.value)">
+	<!-- <div *ngIf="['decision_trees_cls', 'random_forest_cls', 'knn_cls', 'gauss_naive_bayes_cls'].includes(mainForm.get('algo_name')?.value)">
 		<p>AUC-ROC: {{ results.auc | number: '1.4-4' }}</p>
 		<p>Precision: {{ results.precision | number: '1.4-4' }}</p>
 		<p>Accuracy: {{ results.accuracy | number: '1.4-4' }}</p>
@@ -179,7 +179,7 @@
 		<div>
 			<img *ngIf="results.pr_plot" src="data:image/png;base64,{{results.pr_plot}}"  alt="Precision-Recall Curve Plot">
 		</div>
-	</div>
+	</div> -->
 
 	<!-- FEATURE IMPORTANCES -->
 	<!-- <img *ngIf="results.feature_imp_plot" src="data:image/png;base64,{{results.feature_imp_plot}}"> -->
@@ -187,19 +187,19 @@
 	<div *ngIf="['voting_cls', 'voting_regr'].includes(mainForm.get('algo_name')?.value); else elseStandardResults">
 		
 		<h2>Voting Results</h2>
-		<p>Accuracy: {{ results.accuracy | number: '1.4-4' }}</p>
-		<p>Recall: {{ results.recall | number: '1.4-4' }}</p>
-		<p>Specificity: {{ results.specificity | number: '1.4-4' }}</p>
-		<p>AUC-ROC: {{ results.auc | number: '1.4-4' }}</p>
+		<p>Accuracy: {{ results[0].accuracy | number: '1.4-4' }}</p>
+		<p>Recall: {{ results[0].recall | number: '1.4-4' }}</p>
+		<p>Specificity: {{ results[0].specificity | number: '1.4-4' }}</p>
+		<p *ngIf="results[0].auc">AUC-ROC: {{ results[0].auc | number: '1.4-4' }}</p>
 		<br>
 		
 		<h2>Individual Estimator Results</h2>
-		<div *ngFor="let estimatorResult of results.estimator_results">
+		<div *ngFor="let estimatorResult of results[0].estimator_results">
 			<p>Estimator: {{ estimatorResult.est_name}}</p>
 			<p>Accuracy: {{ estimatorResult.accuracy | number: '1.4-4' }}</p>
 			<p>Recall: {{ estimatorResult.recall | number: '1.4-4' }}</p>
 			<p>Specificity: {{ estimatorResult.specificity | number: '1.4-4' }}</p>
-			<p>AUC-ROC: {{ estimatorResult.auc | number: '1.4-4' }}</p>
+			<p *ngIf="estimatorResult.auc">AUC-ROC: {{ estimatorResult.auc | number: '1.4-4' }}</p>
 			<br>
 		</div>
 	</div>
@@ -228,30 +228,40 @@
 			<!-- YU JING TODO SPIDER CHART -->
 
 			<div *ngIf="mainForm.get('algo_name')?.value != 'voting_cls'">
+				<h2>Confusion Matrix</h2>
 				<div class="image-container">
-					<img *ngFor="let result of results" src="data:image/png;base64,{{result.cm_plot}}" alt="Confusion matrix">
+					<div *ngFor="let result of results">
+						<div style="text-align: center;">{{result.split_value}}</div>
+						<img style="max-width: 550px;" src="data:image/png;base64,{{result.cm_plot}}" alt="Confusion matrix">
+					</div>
 				</div>
+				<br>
+				<h2>ROC Curve</h2>
 				<div class="image-container">
-					<img *ngFor="let result of results" src="data:image/png;base64,{{result.roc_plot}}" alt="ROC curve">
+					<div *ngFor="let result of results">
+						<div style="text-align: center;">{{result.split_value}}</div>
+						<img style="max-width: 550px;" src="data:image/png;base64,{{result.roc_plot}}" alt="ROC curve">
+					</div>
 				</div>
+				<br>
+				<h2>Precision Recall Curve</h2>
 				<div class="image-container">
-					<img *ngFor="let result of results" src="data:image/png;base64,{{result.pr_plot}}" alt="Precision recall curve">
+					<div *ngFor="let result of results">
+						<div style="text-align: center;">{{result.split_value}}</div>
+						<img style="max-width: 550px;" src="data:image/png;base64,{{result.pr_plot}}" alt="Precision recall curve">
+					</div>
 				</div>
+				<br>
+				<h2>Feature Importances</h2>
 				<div class="image-container">
-					<img *ngFor="let result of results" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
+					<div *ngFor="let result of results">
+						<div *ngIf="result.feature_imp_plot">
+							<div style="text-align: center;">{{result.split_value}}</div>
+							<img style="max-width: 550px;" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</ng-template>
-	
-
-<div class="image-container">
-	<!-- Add your images here -->
-	<img src="https://th.bing.com/th/id/OIP.lzY4hawcFINfbAPl0ZbbFAHaHa?pid=ImgDet&rs=1" alt="Image 1">
-	<img src="https://th.bing.com/th/id/OIP.lzY4hawcFINfbAPl0ZbbFAHaHa?pid=ImgDet&rs=1" alt="Image 2">
-	<img src="https://th.bing.com/th/id/OIP.lzY4hawcFINfbAPl0ZbbFAHaHa?pid=ImgDet&rs=1" alt="Image 3">
-	<img src="https://th.bing.com/th/id/OIP.lzY4hawcFINfbAPl0ZbbFAHaHa?pid=ImgDet&rs=1" alt="Image 1">
-	<img src="https://th.bing.com/th/id/OIP.lzY4hawcFINfbAPl0ZbbFAHaHa?pid=ImgDet&rs=1" alt="Image 2">
-	<img src="https://th.bing.com/th/id/OIP.lzY4hawcFINfbAPl0ZbbFAHaHa?pid=ImgDet&rs=1" alt="Image 3">
-	<!-- Add more images as needed -->
 </div>
