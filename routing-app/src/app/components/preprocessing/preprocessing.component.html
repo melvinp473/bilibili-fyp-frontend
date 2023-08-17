@@ -11,8 +11,20 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+
+
     <button style="margin: 10px;" mat-raised-button color="accent" (click)="runPreprocessing()">RUN</button>
 </div>
+
+<!-- <div *ngIf="selectedPreprocessingMethodId == 'split dataset'">
+        <mat-form-field appearance="fill">
+            <mat-label>Split Variable</mat-label>
+            <mat-select formControlName="split_variable">
+            <mat-option *ngFor="let variable of variables" [value]="variable">{{variable.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+</div> -->
+
 
 <mat-accordion multi>
 	<mat-expansion-panel>

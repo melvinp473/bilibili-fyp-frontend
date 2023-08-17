@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { map } from 'rxjs';
@@ -8,15 +8,17 @@ import { selectDataset } from '../state-controllers/dataset-controller/selectors
 import { Store } from '@ngrx/store';
 import { PreprocssingService } from 'src/app/services/preprocessing-services';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup } from '@angular/forms';
 
 export interface Variable {
   name: string;
   selected: boolean;
+  
 }
 @Component({
   selector: 'app-preprocessing',
   templateUrl: './preprocessing.component.html',
-  styleUrls: ['./preprocessing.component.css']
+  styleUrls: ['./preprocessing.component.css'],
 })
 export class PreprocessingComponent implements OnInit{
   apiUrl: string;
@@ -28,6 +30,8 @@ export class PreprocessingComponent implements OnInit{
   variables: Variable[] = [];
   allVariablesSelected: boolean = true;
 
+  mainForm!: FormGroup;
+  independentVariables: Variable[] = [];
   private gridApi!: GridApi;
   columnApi: any;
   
@@ -40,7 +44,8 @@ export class PreprocessingComponent implements OnInit{
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>,
     private preprocessingService: PreprocssingService,
-    private toaster: ToastrService
+    private toaster: ToastrService,
+    private cdr: ChangeDetectorRef
     ) {
       this.apiUrl = 'http://127.0.0.1:5000/'
       this.httpClient = httpClient;
@@ -53,6 +58,7 @@ export class PreprocessingComponent implements OnInit{
     {id: "normalization", name: "Normalization"},
     {id: "label encoding", name: "Label Encoding"},
     {id: "outlier", name: "Outliers Removal"},
+    {id: "split dataset", name:"Split Dataset"}
   ]
 
   dataset$ = this.datasetStore.select(selectDataset);
@@ -113,6 +119,11 @@ export class PreprocessingComponent implements OnInit{
     })
   }
 
+  onSelectPreprocessingMethod(methodId: string) {
+    this.selectedPreprocessingMethodId = methodId;
+    this.cdr.detectChanges();
+  }
+
   public getHttpHeader() {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -120,6 +131,21 @@ export class PreprocessingComponent implements OnInit{
       })
     };
     return httpOptions;
+}
+onSelectSplitVar(){
+  this.independentVariables = []
+  this.variables
+    .filter((a) => ![this.mainForm.get("target_variable")?.value, this.mainForm.get("split_variable")?.value].includes(a))
+    .forEach((variable: any) => {
+      this.independentVariables.push({
+        name: variable,
+        selected: false,
+      });
+    });
+}
+
+isSplitVarDisabled(variable: any){
+  return this.mainForm.get("target_variable")?.value == variable;
 }
 
   public runPreprocessing(){
