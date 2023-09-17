@@ -19,9 +19,9 @@ export class WrapperComponent {
 
   paramsForm = new FormGroup({
     k_best: new FormControl(5),
-    selection_type: new FormControl(''),
+    selection_type: new FormControl('sfs'),
     target_attribute: new FormControl(''),
-    estimator_type: new FormControl(''),
+    estimator_type: new FormControl('lin_regr'),
     model: new FormControl(''),
   });
 

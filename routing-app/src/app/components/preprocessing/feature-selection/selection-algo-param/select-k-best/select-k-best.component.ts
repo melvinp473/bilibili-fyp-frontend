@@ -47,11 +47,13 @@ export class SelectKBestComponent {
     if (formData == "regression") {
       this.is_regression = true
       this.is_classification = false
+      this.paramsForm.controls['selection_type'].setValue('mutual_info_regression')
     }
 
     else if (formData == "classification") {
       this.is_regression = false
       this.is_classification = true
+      this.paramsForm.controls['selection_type'].setValue('mutual_info_classif')
     }
   }
 
