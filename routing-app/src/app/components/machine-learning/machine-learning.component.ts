@@ -437,7 +437,7 @@ export class MachineLearningComponent implements OnInit{
         plugins: {
             title: {
                 display: true,
-                text: 'Metrics Results'
+                text: 'Metrics Obtained on Test Set'
             }
         }
     },
