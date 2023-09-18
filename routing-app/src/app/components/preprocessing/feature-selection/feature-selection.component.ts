@@ -25,6 +25,8 @@ export class FeatureSelectionComponent {
 
   chart: any;
 
+  score: any;
+
   displaySave = false;
   table = false;
 
@@ -88,6 +90,7 @@ export class FeatureSelectionComponent {
             this.chart.destroy()
           }
           this.table = true
+          this.score = this.selectionData.pop()
           console.log(this.selectionData)
           // this.chart.destroy()
         }

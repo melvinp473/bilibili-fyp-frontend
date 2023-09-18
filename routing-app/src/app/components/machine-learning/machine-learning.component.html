@@ -59,9 +59,9 @@
 		<button mat-raised-button color="accent" (click)="runAlgorithm()" [disabled]="mainForm.invalid">RUN</button>
 	</div>
 
-	<mat-checkbox (change)="onToggleSplit($event)" [(ngModel)]="splitDataset" [ngModelOptions]="{standalone: true}">
+	<!-- <mat-checkbox (change)="onToggleSplit($event)" [(ngModel)]="splitDataset" [ngModelOptions]="{standalone: true}">
 		Split dataset by attribute
-	</mat-checkbox>
+	</mat-checkbox> -->
 
 	<div *ngIf="splitDataset">
 		<mat-form-field appearance="fill">
@@ -209,19 +209,12 @@
 		<div *ngIf="mainForm.get('algo_type')?.value == 'regr'">
 
 			<!-- YU JING TODO SPIDER CHART -->
-			<div *ngIf="results[0]" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+			<div *ngIf="results[0]" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 25px">
 				<canvas  id="regr_metrics">{{ chart_bar }}</canvas>
 			</div>
-			<div *ngIf="results[0].importance_values" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+			<div *ngIf="results[0].importance_values" style="position: relative; margin: auto; height:80vh; width:80vw; padding: 25px">
 				<canvas  id="importance">{{ chart_radar }}</canvas>
 			</div>
-			
-			<p>Mean Absolute Error (MAE): {{ results.mae | number: '1.4-4' }}</p>
-			<p>Mean Squared Error (MSE): {{ results.mse | number: '1.4-4' }}</p>
-			<p>Root Mean Squared Error (RMSE): {{ results.rmse | number: '1.4-4' }}</p>
-			<p>Mean Absolute Percentage: {{ results.mean_absolute_percentage | number: '1.4-4' }}</p>
-			<p>Max Error: {{ results.max_error| number: '1.4-4'  }}</p>
-			<p>R2 Score: {{ results.r2_score | number: '1.4-4' }}</p>
 			
 			<div class="image-container">
 				<img *ngFor="let result of results" src="data:image/png;base64,{{result.feature_imp_plot}}" alt="Feature Importance plot">
@@ -265,6 +258,9 @@
 				<br>
 				<h2>Feature Importances</h2>
 				<div class="image-container">
+					<div *ngIf="!results[0].feature_imp_plot">
+						No feature importances to display
+					</div>
 					<div *ngFor="let result of results">
 						<div *ngIf="result.feature_imp_plot">
 							<div style="text-align: center;">{{result.split_value}}</div>
