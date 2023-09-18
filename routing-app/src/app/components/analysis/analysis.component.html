@@ -2,7 +2,7 @@
     <app-toolbar currentPageTitle="Analysis" previousLink="/preprocessing" nextLink="/feature-selection"></app-toolbar>
 </div>
 
-<div style="padding: 10px;">
+<div style="padding: 10px; display:flex;">
     <mat-form-field appearance="fill">
         <mat-label>Select analysis method</mat-label>
         <mat-select [(value)]="selectedAnalysisMethodId">
@@ -11,6 +11,7 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
+    <span class="flex-spacer"></span>
     <button style="margin: 10px;" mat-raised-button color="accent" (click)="runAnalysis()">RUN</button>
 </div>
 

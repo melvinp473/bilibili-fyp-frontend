@@ -37,6 +37,9 @@
     <div [ngSwitch]="selectedAlgoId">
         <app-select-k-best *ngSwitchCase="'select_k_best'" (valueChange)="onParamsChange($event)"></app-select-k-best> 
         <app-wrapper *ngSwitchCase="'wrapper'" (valueChange)="onParamsChange($event)"></app-wrapper>
+        <div *ngSwitchCase="">
+            <div style="color: red;" >Select a feature selection method from the dropdown</div>
+        </div>
     </div>
 </mat-expansion-panel>
 <div *ngIf="table" style="padding: 10px;">
