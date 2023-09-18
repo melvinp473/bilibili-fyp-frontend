@@ -135,7 +135,50 @@ export class ResultsComponent {
     this.gridApi.deselectAll()
   }
 
-  public plotGraph(selected_data: any[]) {
+  public plotClsGraph(selected_data: any[]) {
+    this.chart = new Chart('canvas', {
+      type: 'bar',
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Metrics Comparison'
+            }
+        }
+    },
+      data: {
+        labels: selected_data.map(row => row.run_name + " (" + row.run_id + ")"),
+        datasets:[
+          {
+            label:'auc',
+            data: selected_data.map(row => row.metrics.auc)
+          },
+          {
+            label:'precision',
+            data: selected_data.map(row => row.metrics.precision)
+          },
+          {
+            label:'accuracy',
+            data: selected_data.map(row => row.metrics.accuracy)
+          },
+          {
+            label:'recall',
+            data: selected_data.map(row => row.metrics.recall)
+          },
+          {
+            label:'specificity',
+            data: selected_data.map(row => row.metrics.specificity)
+          },
+          {
+            label:'f1',
+            data: selected_data.map(row => row.metrics.f1)
+          },
+        ]
+        }
+    })
+  }
+
+  public plotRegrGraph(selected_data: any[]) {
     this.chart = new Chart('canvas', {
       type: 'bar',
       options: {
@@ -200,12 +243,13 @@ export class ResultsComponent {
       this.chart.destroy()
     }
     if (this.selectedData[0].algo_type == 'cls'){
-      this.compareCls(this.selectedData)
+      console.log(this.selectedData)
+      this.plotClsGraph(this.selectedData)
     }
     else{
       
     }
-    this.plotGraph(this.selectedData)
+    this.plotRegrGraph(this.selectedData)
   }
   
   onDeleteRows(){

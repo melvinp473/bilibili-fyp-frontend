@@ -40,6 +40,7 @@
 
 <div *ngIf="this.selectedData[0]?.algo_type == 'cls'">
     <div style="position: relative; margin: auto; height:80vh; width:80vw; padding: 50px">
+        <canvas id="canvas">{{ chart }}</canvas>
         <img *ngFor="let item of roc_plot" src="data:image/png;base64,{{item}}" alt="ROC curve Plot">
         <img *ngFor="let item of pr_plot" src="data:image/png;base64,{{item}}" alt="Precision-Recall Curve Plot">
         <img *ngFor="let item of cm_plot" src="data:image/png;base64,{{item}}" alt="Confusion Matrix Plot">
