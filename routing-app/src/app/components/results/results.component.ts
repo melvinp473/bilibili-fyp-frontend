@@ -37,6 +37,7 @@ export class ResultsComponent {
   selected_id: any;
 
   displayActionToolbar: any;
+  chartData: any;
 
   constructor(httpClient: HttpClient,
     private datasetStore: Store<DatasetState>,
@@ -101,6 +102,9 @@ export class ResultsComponent {
       }
       this.rowData$ = this.chartService.getResults(request_body)
       .pipe(map(response => response.data))
+      this.rowData$.subscribe(data => {
+        this.chartData = data
+      })
     });
 
     
