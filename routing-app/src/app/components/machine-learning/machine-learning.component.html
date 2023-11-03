@@ -188,6 +188,7 @@
 		
 		<h2>Voting Results</h2>
 		<p>Accuracy: {{ results[0].accuracy | number: '1.4-4' }}</p>
+		<p>Precision: {{ results[0].precision | number: '1.4-4' }}</p>
 		<p>Recall: {{ results[0].recall | number: '1.4-4' }}</p>
 		<p>Specificity: {{ results[0].specificity | number: '1.4-4' }}</p>
 		<p *ngIf="results[0].auc">AUC-ROC: {{ results[0].auc | number: '1.4-4' }}</p>

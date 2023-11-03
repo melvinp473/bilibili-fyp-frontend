@@ -56,7 +56,7 @@ export class PreprocessingComponent implements OnInit{
     {id: "median imputation", name: "Median Imputation"}, 
     {id: "standardization", name: "Standardization"},
     {id: "normalization", name: "Normalization"},
-    {id: "label encoding", name: "Label Encoding"},
+    // {id: "label encoding", name: "Label Encoding"},
     {id: "outlier", name: "Outliers Removal"},
     {id: "split dataset", name:"Split Dataset"}
   ]

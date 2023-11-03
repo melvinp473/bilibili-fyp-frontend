@@ -130,7 +130,7 @@ export class MachineLearningComponent implements OnInit{
           }
           else if (this.results.length == 1) {
             // Jia Hao can help push the state name into 
-            variables.push('region results')
+            variables.push('metrics')
           }
 
           values.push(
@@ -175,32 +175,32 @@ export class MachineLearningComponent implements OnInit{
           }
           else if (this.results.length == 1) {
             // Jia Hao can help push the state name into 
-            variables.push('region results')
+            variables.push('metrics')
           }
 
           values.push(
             {
-              label: 'accuracy',
+              label: 'Accuracy',
               data: this.results.map((row: { accuracy: any; }) => row.accuracy)
             },
             {
-              label: 'auc',
+              label: 'AUC-ROC',
               data: this.results.map((row: { auc: any; }) => row.auc)
             },
             {
-              label: 'f1',
+              label: 'F1-score',
               data: this.results.map((row: { f1: any; }) => row.f1)
             },
             {
-              label: 'precision',
+              label: 'Precision score',
               data: this.results.map((row: { precision: any; }) => row.precision)
             },
             {
-              label: 'recall',
+              label: 'Recall score',
               data: this.results.map((row: { recall: any; }) => row.recall)
             },
             {
-              label: 'specificity',
+              label: 'Specificity',
               data: this.results.map((row: { specificity: any; }) => row.specificity)
             })
   

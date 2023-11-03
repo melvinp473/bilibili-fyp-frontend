@@ -145,36 +145,38 @@ export class ResultsComponent {
                 text: 'Metrics Comparison'
             }
         }
-    },
+      },
       data: {
-        labels: selected_data.map(row => row.run_name + " (" + row.run_id + ")"),
+        labels: selected_data.map(row => row.run_name 
+          // + " (" + row.run_id + ")"
+           ),
         datasets:[
           {
-            label:'auc',
-            data: selected_data.map(row => row.metrics.auc)
-          },
-          {
-            label:'precision',
-            data: selected_data.map(row => row.metrics.precision)
-          },
-          {
-            label:'accuracy',
+            label:'Accuracy',
             data: selected_data.map(row => row.metrics.accuracy)
           },
           {
-            label:'recall',
+            label:'AUC-ROC',
+            data: selected_data.map(row => row.metrics.auc)
+          },
+          {
+            label:'F1-score',
+            data: selected_data.map(row => row.metrics.f1)
+          },
+          {
+            label:'Precision score',
+            data: selected_data.map(row => row.metrics.precision)
+          },
+          {
+            label:'Recall score',
             data: selected_data.map(row => row.metrics.recall)
           },
           {
-            label:'specificity',
+            label:'Specificity',
             data: selected_data.map(row => row.metrics.specificity)
           },
-          {
-            label:'f1',
-            data: selected_data.map(row => row.metrics.f1)
-          },
         ]
-        }
+      }
     })
   }
 
@@ -188,9 +190,11 @@ export class ResultsComponent {
                 text: 'Metrics Comparison'
             }
         }
-    },
+      },
       data: {
-        labels: selected_data.map(row => row.run_name + " (" + row.run_id + ")"),
+        labels: selected_data.map(row => row.run_name 
+          // + " (" + row.run_id + ")"
+          ),
         datasets:[
           {
             label:'r2 score',
@@ -221,7 +225,7 @@ export class ResultsComponent {
             data: selected_data.map(row => row.metrics.max_error)
           },
         ]
-        }
+      }
     })
   }
   
