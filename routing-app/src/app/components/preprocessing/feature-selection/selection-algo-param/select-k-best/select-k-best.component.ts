@@ -15,13 +15,13 @@ export class SelectKBestComponent {
   dataset_attributes: any;
   max_length: any
   is_regression = false;
-  is_classification = false;
+  is_classification = true;
 
   paramsForm = new FormGroup({
     k_best: new FormControl(5),
-    selection_type: new FormControl(''),
+    selection_type: new FormControl('mutual_info_classif'),
     target_attribute: new FormControl(''),
-    model: new FormControl('')
+    model: new FormControl('classification')
   });
 
   constructor(
@@ -47,13 +47,11 @@ export class SelectKBestComponent {
     if (formData == "regression") {
       this.is_regression = true
       this.is_classification = false
-      this.paramsForm.controls['selection_type'].setValue('mutual_info_regression')
     }
 
     else if (formData == "classification") {
       this.is_regression = false
       this.is_classification = true
-      this.paramsForm.controls['selection_type'].setValue('mutual_info_classif')
     }
   }
 
