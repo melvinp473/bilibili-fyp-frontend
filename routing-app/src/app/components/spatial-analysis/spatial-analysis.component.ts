@@ -33,11 +33,9 @@ export class SpatialAnalysisComponent implements OnInit {
   apiUrl: string;
   httpClient: HttpClient;
   private subs = new SubSink();
-  mainForm!: FormGroup;
-  resultLogForm = new FormGroup({
-    save_results: new FormControl(''),
-    runName: new FormControl(''),
-  });
+  algoParamsFormData: any;
+  countryCode: any;
+  displayName: any;
 
   constructor(
     httpClient: HttpClient,
@@ -95,7 +93,16 @@ export class SpatialAnalysisComponent implements OnInit {
       symbol: simpleFillSymbol
     });
     graphicsLayer.add(polygonGraphic);
+  }
 
+  onSelectAlgo(countryName: string, code: string){
+    this.countryCode = code
+    this.displayName = countryName
+    this.algoParamsFormData = null;
+  }
 
+  onParamsChange(newValue: any){
+    this.algoParamsFormData = newValue
+    console.log(this.algoParamsFormData)
   }
 }

@@ -1,6 +1,43 @@
-<div>    
-    <app-toolbar currentPageTitle="Spatial Analysis" previousLink="/feature-selection" nextLink="/machinelearning"></app-toolbar>
+<div>
+  <app-toolbar currentPageTitle="Spatial Analysis" previousLink="/feature-selection"
+    nextLink="/machinelearning"></app-toolbar>
 </div>
-<div style="display: flex; justify-content: center; height: 100%; width: 100%;"> 
-  <div id="viewDiv"></div> 
-</div> 
+<div style="padding: 10px;">
+  <button style="float: right;" mat-raised-button color="accent">RUN</button>
+</div>
+<br>
+<div style="padding: 10px;">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>Select Details</mat-panel-title>
+      <mat-panel-description>
+        Select the area level and countries to be used in spatial analysis
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form>
+      <mat-form-field>
+        <mat-label>Area Level</mat-label>
+        <mat-select>
+          <mat-option value="country">Country</mat-option>
+          <mat-option value="state">State</mat-option>
+          <mat-option value="counties">Counties</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div>
+        <button mat-stroked-button color="primary">Add Country</button>
+      </div>
+      <br>
+      <mat-form-field>
+        <mat-label>Select Country</mat-label>
+        <mat-select>
+            <mat-option value="MYS">Malaysia</mat-option>
+            <mat-option value="AUS">Australia</mat-option>
+        </mat-select>
+    </mat-form-field>
+    </form>
+  </mat-expansion-panel>
+</div>
+
+<div style="display: flex; justify-content: center; height: 100%; width: 100%;">
+  <div id="viewDiv"></div>
+</div>
