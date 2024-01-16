@@ -9,6 +9,7 @@ import { ResultsComponent } from './components/results/results.component';
 import { AnalysisComponent } from './components/analysis/analysis.component';
 import { FeatureSelectionComponent } from './components/preprocessing/feature-selection/feature-selection.component';
 import { ArcgisComponent } from './components/arcgis/arcgis.component';
+import { SpatialAnalysisComponent } from './components/spatial-analysis/spatial-analysis.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: 'results', component: ResultsComponent },
   { path: 'test-connection-component', component: TestConnectionComponent },
   { path: 'feature-selection', component: FeatureSelectionComponent },
+  { path: 'spatial-analysis', component: SpatialAnalysisComponent},
   { path: 'arcgis', component: ArcgisComponent },
 ];
 

@@ -43,6 +43,7 @@ import { ArcgisComponent } from './components/arcgis/arcgis.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from "ngx-toastr";
 import { WrapperComponent } from './components/preprocessing/feature-selection/selection-algo-param/wrapper/wrapper.component';
+import { SpatialAnalysisComponent } from './components/spatial-analysis/spatial-analysis.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { WrapperComponent } from './components/preprocessing/feature-selection/s
     WarningPopupComponent,
     ArcgisComponent,
     WrapperComponent,
+    SpatialAnalysisComponent,
   ],
   imports: [
     BrowserModule,
