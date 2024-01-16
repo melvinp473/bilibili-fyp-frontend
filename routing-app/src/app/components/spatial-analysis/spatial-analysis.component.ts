@@ -15,6 +15,8 @@ import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import Graphic from '@arcgis/core/Graphic';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+import Polygon from '@arcgis/core/geometry/Polygon';
+import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
 
 
 export interface Variable {
@@ -68,32 +70,32 @@ export class SpatialAnalysisComponent implements OnInit {
     const graphicsLayer = new GraphicsLayer();
     map.add(graphicsLayer);
 
-    const polygon = {
-      type: "polygon",
+    const polygonGeometry = new Polygon({
       rings: [
-        [-118.818984489994, 34.0137559967283],
-        [-118.806796597377, 34.0215816298725],
-        [-118.791432890735, 34.0163883241613],
-        [-118.79596686535, 34.008564864635],
-        [-118.808558110679, 34.0035027131376]
+        [
+          [-118.818984489994, 34.0137559967283],
+          [-118.806796597377, 34.0215816298725],
+          [-118.791432890735, 34.0163883241613],
+          [-118.79596686535, 34.008564864635],
+          [-118.808558110679, 34.0035027131376]
+        ]
       ]
-    };
+    });
 
-    const simpleFillSymbol = {
-      type: "simple-fill",
+    const simpleFillSymbol = new SimpleFillSymbol({
       color: [227, 139, 79, 0.8],
       outline: {
         color: [255, 255, 255],
         width: 1
       }
-    };
+    });
 
-    // const polygonGraphic = new Graphic({
-    //   geometry: polygon,
-    //   symbol: simpleFillSymbol,
-    // });
+    const polygonGraphic = new Graphic({
+      geometry: polygonGeometry,
+      symbol: simpleFillSymbol
+    });
+    graphicsLayer.add(polygonGraphic);
 
-    // graphicsLayer.add(polygonGraphic);
 
   }
 }
