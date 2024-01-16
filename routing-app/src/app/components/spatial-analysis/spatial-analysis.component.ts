@@ -95,8 +95,5 @@ export class SpatialAnalysisComponent implements OnInit {
 
     // graphicsLayer.add(polygonGraphic);
 
-
-
   }
-
 }
