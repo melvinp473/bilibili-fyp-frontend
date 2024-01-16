@@ -1,65 +1,6 @@
 <div>    
     <app-toolbar currentPageTitle="Spatial Analysis" previousLink="/feature-selection" nextLink="/machinelearning"></app-toolbar>
 </div>
-<div>
-  <meta charset="utf-8">
-  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-  <style>
-    html, body, #viewDiv {
-      padding: 0;
-      margin: 0;
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-  <link rel="stylesheet" href="https://js.arcgis.com/4.28/esri/themes/light/main.css">
-  <script src="https://js.arcgis.com/4.28/"></script>
-  <div id="viewDiv"></div>
-  <script>
-
-    require(["esri/config", "esri/Map", "esri/views/MapView", "esri/layers/GraphicsLayer", "esri/Graphic"], function (esriConfig, Map, MapView, GraphicsLayer, Graphic) {
-      esriConfig.apiKey = "AAPK54d6ad077ec7437f842918858a1fa224w_rKC6NdWIPF8tRPNo6LxpIiQfFsQcM5AJVjcqP7J4Cp-7Rc5wYhen_LxdTl1aAU";
-
-      const map = new Map({
-        basemap: "arcgis/topographic"
-      });
-
-      const view = new MapView({
-        map: map,
-        center: [-118.805, 34.027], 
-        zoom: 13, 
-        container: "viewDiv"
-      });
-
-      const graphicsLayer = new GraphicsLayer();
-      map.add(graphicsLayer);
-
-      const polygon = {
-        type: "polygon",
-        rings: [
-          [-118.818984489994, 34.0137559967283],
-          [-118.806796597377, 34.0215816298725],
-          [-118.791432890735, 34.0163883241613],
-          [-118.79596686535, 34.008564864635],
-          [-118.808558110679, 34.0035027131376]
-        ]
-      };
-
-      const simpleFillSymbol = {
-        type: "simple-fill",
-        color: [227, 139, 79, 0.8],
-        outline: {
-          color: [255, 255, 255],
-          width: 1
-        }
-      };
-
-      const polygonGraphic = new Graphic({
-        geometry: polygon,
-        symbol: simpleFillSymbol,
-      });
-
-      graphicsLayer.add(polygonGraphic);
-    });
-  </script>
-</div>
+<div style="display: flex; justify-content: center; height: 100%; width: 100%;"> 
+  <div id="viewDiv"></div> 
+</div> 

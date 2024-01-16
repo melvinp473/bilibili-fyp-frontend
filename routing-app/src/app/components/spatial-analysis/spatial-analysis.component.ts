@@ -7,6 +7,15 @@ import { WarningPopupComponent } from '../machine-learning/warning-popup/warning
 import { SubSink } from 'subsink';
 import { selectDataset, selectFeatures } from '../state-controllers/dataset-controller/selectors/dataset.selectors';
 import { DatasetState } from '../state-controllers/dataset-controller/states';
+import esriConfig from '@arcgis/core/config';
+import VectorTileLayer from '@arcgis/core/layers/VectorTileLayer';
+
+
+import Map from '@arcgis/core/Map';
+import MapView from '@arcgis/core/views/MapView';
+import Graphic from '@arcgis/core/Graphic';
+import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
+
 
 export interface Variable {
   name: string;
@@ -18,7 +27,7 @@ export interface Variable {
   templateUrl: './spatial-analysis.component.html',
   styleUrls: ['./spatial-analysis.component.css']
 })
-export class SpatialAnalysisComponent implements OnInit{
+export class SpatialAnalysisComponent implements OnInit {
   apiUrl: string;
   httpClient: HttpClient;
   private subs = new SubSink();
@@ -40,7 +49,54 @@ export class SpatialAnalysisComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    esriConfig.apiKey = "AAPKec494d08b92e410a832aca68af6c08ccRwAYSa7l5iUVz_9786FInnz8CIBxsLUPLWXem0ePCii_h-ycfUmotzastMOAKwhP";
+
+    const vtlLayer = new VectorTileLayer({
+      url: "https://vectortileservices3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Santa_Monica_Mountains_Parcels_VTL/VectorTileServer/"
+    });
+
+    const map = new Map({
+      basemap: "arcgis-topographic", // Basemap layer service
+    })
+
+    const view = new MapView({
+      map: map,
+      center: [-118.805, 34.027], // Longitude, Latitude of Australia's center
+      zoom: 13, 
+      container: "viewDiv" // Div element
+    });
+    const graphicsLayer = new GraphicsLayer();
+    map.add(graphicsLayer);
+
+    const polygon = {
+      type: "polygon",
+      rings: [
+        [-118.818984489994, 34.0137559967283],
+        [-118.806796597377, 34.0215816298725],
+        [-118.791432890735, 34.0163883241613],
+        [-118.79596686535, 34.008564864635],
+        [-118.808558110679, 34.0035027131376]
+      ]
+    };
+
+    const simpleFillSymbol = {
+      type: "simple-fill",
+      color: [227, 139, 79, 0.8],
+      outline: {
+        color: [255, 255, 255],
+        width: 1
+      }
+    };
+
+    // const polygonGraphic = new Graphic({
+    //   geometry: polygon,
+    //   symbol: simpleFillSymbol,
+    // });
+
+    // graphicsLayer.add(polygonGraphic);
+
+
+
   }
 
 }
