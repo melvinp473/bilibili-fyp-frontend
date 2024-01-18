@@ -33,9 +33,21 @@ export class SpatialAnalysisComponent implements OnInit {
   apiUrl: string;
   httpClient: HttpClient;
   private subs = new SubSink();
-  algoParamsFormData: any;
+  user_id = '6435575578b04a2b1549c17b';
   countryCode: any;
   displayName: any;
+  mainForm!: FormGroup;
+  dataset$ = this.datasetStore.select(selectDataset);
+  datasetId: any;
+  variables: any;
+  countries_params: any = {
+    countries_list : [
+      {
+        country_code: null,
+        // country_name: null,
+      },
+    ],
+  }
 
   constructor(
     httpClient: HttpClient,
@@ -49,6 +61,24 @@ export class SpatialAnalysisComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.mainForm = this.formBuilder.group({
+
+      dataset_id: ['', Validators.required],
+      user_id: [this.user_id, Validators.required],
+      area_level: ['', Validators.required],
+      target_variable: ['', Validators.required],
+      // countries: ['', Validators.required],
+
+    });
+
+    this.subs.sink = this.dataset$.subscribe((data) => {
+      console.log(data)
+      this.datasetId = data._id;
+      this.mainForm.patchValue({dataset_id: data._id})
+      this.variables = data.attributes;
+    });
+
     esriConfig.apiKey = "AAPKec494d08b92e410a832aca68af6c08ccRwAYSa7l5iUVz_9786FInnz8CIBxsLUPLWXem0ePCii_h-ycfUmotzastMOAKwhP";
 
     const vtlLayer = new VectorTileLayer({
@@ -95,14 +125,37 @@ export class SpatialAnalysisComponent implements OnInit {
     graphicsLayer.add(polygonGraphic);
   }
 
-  onSelectAlgo(countryName: string, code: string){
-    this.countryCode = code
-    this.displayName = countryName
-    this.algoParamsFormData = null;
+  // onSelectAlgo(countryName: string, code: string){
+  //   this.countryCode = code
+  //   this.displayName = countryName
+  //   this.algoParamsFormData = null;
+  // }
+
+  onParamsChange(i:number, event:any){
+    this.countries_params.countries_list[i].country_code = event.value
+    // this.countries_params.countries_list[i].country_name = {}
   }
 
-  onParamsChange(newValue: any){
-    this.algoParamsFormData = newValue
-    console.log(this.algoParamsFormData)
+  addCountries(){
+    this.countries_params.countries_list.push({
+      country_code: null,
+      // country_name: null,
+    })
+  }
+
+  deleteCountries(index: number){
+    this.countries_params.countries_list.splice(index, 1)
+  }
+
+  runAnalysis(){
+    const request_params = {
+      DATASET_ID: this.mainForm.controls['dataset_id'].value,
+      user_id: this.mainForm.controls['user_id'].value,
+      target_variable: this.mainForm.controls['target_variable'].value,
+      area_level: this.mainForm.controls['area_level'].value,
+      countries_params: {...this.countries_params},
+    };
+    // console.log(this.countries_params)
+    console.log(request_params)
   }
 }
