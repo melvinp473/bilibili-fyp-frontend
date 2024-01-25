@@ -1,5 +1,5 @@
 <div>
-  <app-toolbar currentPageTitle="Spatial Analysis" previousLink="/feature-selection"
+  <app-toolbar currentPageTitle="Spatial Analysis" previousLink="/preprocessing"
     nextLink="/machinelearning"></app-toolbar>
 </div>
 <div style="padding: 10px;">
@@ -17,35 +17,42 @@
 
     </mat-expansion-panel-header>
     <form [formGroup]="mainForm">
-      <mat-form-field>
-        <mat-label>Area Level</mat-label>
-        <mat-select formControlName="area_level">
-          <mat-option value="country">Country</mat-option>
-          <mat-option value="state">State</mat-option>
-          <mat-option value="counties">Counties</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <br>
+      <div>
+        <mat-form-field>
+          <mat-label>Area Level</mat-label>
+          <mat-select formControlName="area_level">
+            <mat-option value="country">Country</mat-option>
+            <mat-option value="state">State</mat-option>
+            <mat-option value="counties">County</mat-option>
+          </mat-select>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill">
+          <mat-label>Target Variable</mat-label>
+          <mat-select  formControlName="target_variable">
+            <mat-option *ngFor="let variable of variables" [value]="variable">
+              {{variable}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-      <mat-form-field appearance="fill">
-        <mat-label>Target Variable</mat-label>
-        <mat-select  formControlName="target_variable">
-          <mat-option *ngFor="let variable of variables" [value]="variable">
-            {{variable}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Year</mat-label>
+        <input matInput formControlName="year" type="number" step="1">
+    </mat-form-field>
 
       <div>
-        <button mat-stroked-button color="primary" (click)="addCountries()">Add Country</button>
+        <button mat-stroked-button color="primary" (click)="addLocations()">Add Locations</button>
       </div>
       <br>
       <div *ngFor="let item of countries_params.countries_list; let i = index">
         <mat-form-field>
-          <mat-label>Select Country</mat-label>
+          <mat-label>Select Location</mat-label>
           <mat-select (selectionChange)="onParamsChange(i, $event)">
-              <mat-option value="MYS">Malaysia</mat-option>
               <mat-option value="AUS">Australia</mat-option>
+              <mat-option value="AS">Asia</mat-option>
+              <mat-option value="USA">United States</mat-option>
           </mat-select>
       </mat-form-field>
       <button mat-stroked-button color="warn" [id]="i" (click)="deleteCountries(i)">Remove</button>

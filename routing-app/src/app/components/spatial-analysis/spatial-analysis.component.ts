@@ -17,6 +17,7 @@ import Graphic from '@arcgis/core/Graphic';
 import GraphicsLayer from '@arcgis/core/layers/GraphicsLayer';
 import Polygon from '@arcgis/core/geometry/Polygon';
 import SimpleFillSymbol from '@arcgis/core/symbols/SimpleFillSymbol';
+import { SpatialAnalysisServices } from 'src/app/services/sa-services';
 
 
 export interface Variable {
@@ -54,6 +55,7 @@ export class SpatialAnalysisComponent implements OnInit {
     private datasetStore: Store<DatasetState>,
     private mlWekaStore: Store,
     private dialog: MatDialog,
+    private SAservice: SpatialAnalysisServices,
     private formBuilder: FormBuilder
   ) {
     this.apiUrl = 'http://127.0.0.1:5000/';
@@ -68,6 +70,7 @@ export class SpatialAnalysisComponent implements OnInit {
       user_id: [this.user_id, Validators.required],
       area_level: ['', Validators.required],
       target_variable: ['', Validators.required],
+      year: [2016, Validators.required],
       // countries: ['', Validators.required],
 
     });
@@ -136,7 +139,7 @@ export class SpatialAnalysisComponent implements OnInit {
     // this.countries_params.countries_list[i].country_name = {}
   }
 
-  addCountries(){
+  addLocations(){
     this.countries_params.countries_list.push({
       country_code: null,
       // country_name: null,
@@ -153,9 +156,9 @@ export class SpatialAnalysisComponent implements OnInit {
       user_id: this.mainForm.controls['user_id'].value,
       target_variable: this.mainForm.controls['target_variable'].value,
       area_level: this.mainForm.controls['area_level'].value,
+      year: this.mainForm.controls['year'].value,
       countries_params: {...this.countries_params},
     };
-    // console.log(this.countries_params)
-    console.log(request_params)
+    this.SAservice.runSA(request_params)
   }
 }
