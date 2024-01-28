@@ -35,16 +35,17 @@ export class SpatialAnalysisComponent implements OnInit {
   httpClient: HttpClient;
   private subs = new SubSink();
   user_id = '6435575578b04a2b1549c17b';
-  countryCode: any;
+  locationCode: any;
   displayName: any;
   mainForm!: FormGroup;
   dataset$ = this.datasetStore.select(selectDataset);
   datasetId: any;
   variables: any;
-  countries_params: any = {
-    countries_list : [
+  results: any;
+  location_params: any = {
+    locations_list : [
       {
-        country_code: null,
+        location_code: "AUS",
         // country_name: null,
       },
     ],
@@ -68,9 +69,9 @@ export class SpatialAnalysisComponent implements OnInit {
 
       dataset_id: ['', Validators.required],
       user_id: [this.user_id, Validators.required],
-      area_level: ['', Validators.required],
+      area_level: ['counties', Validators.required],
       target_variable: ['', Validators.required],
-      year: [2016, Validators.required],
+      // year: [2016, Validators.required],
       // countries: ['', Validators.required],
 
     });
@@ -82,72 +83,72 @@ export class SpatialAnalysisComponent implements OnInit {
       this.variables = data.attributes;
     });
 
-    esriConfig.apiKey = "AAPKec494d08b92e410a832aca68af6c08ccRwAYSa7l5iUVz_9786FInnz8CIBxsLUPLWXem0ePCii_h-ycfUmotzastMOAKwhP";
+    // esriConfig.apiKey = "AAPKec494d08b92e410a832aca68af6c08ccRwAYSa7l5iUVz_9786FInnz8CIBxsLUPLWXem0ePCii_h-ycfUmotzastMOAKwhP";
 
-    const vtlLayer = new VectorTileLayer({
-      url: "https://vectortileservices3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Santa_Monica_Mountains_Parcels_VTL/VectorTileServer/"
-    });
+    // const vtlLayer = new VectorTileLayer({
+    //   url: "https://vectortileservices3.arcgis.com/GVgbJbqm8hXASVYi/arcgis/rest/services/Santa_Monica_Mountains_Parcels_VTL/VectorTileServer/"
+    // });
 
-    const map = new Map({
-      basemap: "arcgis-topographic", // Basemap layer service
-    })
+    // const map = new Map({
+    //   basemap: "arcgis-topographic", // Basemap layer service
+    // })
 
-    const view = new MapView({
-      map: map,
-      center: [-118.805, 34.027], // Longitude, Latitude of Australia's center
-      zoom: 13, 
-      container: "viewDiv" // Div element
-    });
-    const graphicsLayer = new GraphicsLayer();
-    map.add(graphicsLayer);
+    // const view = new MapView({
+    //   map: map,
+    //   center: [-118.805, 34.027], // Longitude, Latitude of Australia's center
+    //   zoom: 13, 
+    //   container: "viewDiv" // Div element
+    // });
+    // const graphicsLayer = new GraphicsLayer();
+    // map.add(graphicsLayer);
 
-    const polygonGeometry = new Polygon({
-      rings: [
-        [
-          [-118.818984489994, 34.0137559967283],
-          [-118.806796597377, 34.0215816298725],
-          [-118.791432890735, 34.0163883241613],
-          [-118.79596686535, 34.008564864635],
-          [-118.808558110679, 34.0035027131376]
-        ]
-      ]
-    });
+    // const polygonGeometry = new Polygon({
+    //   rings: [
+    //     [
+    //       [-118.818984489994, 34.0137559967283],
+    //       [-118.806796597377, 34.0215816298725],
+    //       [-118.791432890735, 34.0163883241613],
+    //       [-118.79596686535, 34.008564864635],
+    //       [-118.808558110679, 34.0035027131376]
+    //     ]
+    //   ]
+    // });
 
-    const simpleFillSymbol = new SimpleFillSymbol({
-      color: [227, 139, 79, 0.8],
-      outline: {
-        color: [255, 255, 255],
-        width: 1
-      }
-    });
+    // const simpleFillSymbol = new SimpleFillSymbol({
+    //   color: [227, 139, 79, 0.8],
+    //   outline: {
+    //     color: [255, 255, 255],
+    //     width: 1
+    //   }
+    // });
 
-    const polygonGraphic = new Graphic({
-      geometry: polygonGeometry,
-      symbol: simpleFillSymbol
-    });
-    graphicsLayer.add(polygonGraphic);
+    // const polygonGraphic = new Graphic({
+    //   geometry: polygonGeometry,
+    //   symbol: simpleFillSymbol
+    // });
+    // graphicsLayer.add(polygonGraphic);
   }
 
-  // onSelectAlgo(countryName: string, code: string){
-  //   this.countryCode = code
-  //   this.displayName = countryName
-  //   this.algoParamsFormData = null;
+  // onSelectAlgo(locationName: string, code: string){
+  //   this.locationCode = code
+  //   this.displayName = locationName
+  //   // this.algoParamsFormData = null;
   // }
 
   onParamsChange(i:number, event:any){
-    this.countries_params.countries_list[i].country_code = event.value
+    this.location_params.locations_list[i].location_code = event.value
     // this.countries_params.countries_list[i].country_name = {}
   }
 
   addLocations(){
-    this.countries_params.countries_list.push({
+    this.location_params.locations_list.push({
       country_code: null,
       // country_name: null,
     })
   }
 
   deleteCountries(index: number){
-    this.countries_params.countries_list.splice(index, 1)
+    this.location_params.locations_list.splice(index, 1)
   }
 
   runAnalysis(){
@@ -156,9 +157,10 @@ export class SpatialAnalysisComponent implements OnInit {
       user_id: this.mainForm.controls['user_id'].value,
       target_variable: this.mainForm.controls['target_variable'].value,
       area_level: this.mainForm.controls['area_level'].value,
-      year: this.mainForm.controls['year'].value,
-      countries_params: {...this.countries_params},
+      // year: this.mainForm.controls['year'].value,
+      countries_params: {...this.location_params},
     };
     this.SAservice.runSA(request_params)
+    console.log(request_params)
   }
 }
