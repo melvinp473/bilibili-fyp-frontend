@@ -49,8 +49,8 @@
       <br>
       <div *ngFor="let item of location_params.locations_list; let i = index">
         <mat-form-field>
-          <mat-label>Australia</mat-label>
-          <mat-select (selectionChange)="onParamsChange(i, $event)" value="AUS">
+          <mat-label>Location Selection</mat-label>
+          <mat-select (selectionChange)="onParamsChange(i, $event)" [(value)]="location_params.locations_list[i].location_code">
             <mat-option value="AUS">Australia</mat-option>
             <mat-option value="AS">Asia</mat-option>
             <mat-option value="USA">United States</mat-option>

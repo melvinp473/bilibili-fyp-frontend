@@ -142,7 +142,7 @@ export class SpatialAnalysisComponent implements OnInit {
 
   addLocations(){
     this.location_params.locations_list.push({
-      country_code: null,
+      location_code: null,
       // country_name: null,
     })
   }
