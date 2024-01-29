@@ -160,7 +160,11 @@ export class SpatialAnalysisComponent implements OnInit {
       // year: this.mainForm.controls['year'].value,
       countries_params: {...this.location_params},
     };
-    this.SAservice.runSA(request_params)
     console.log(request_params)
+    this.SAservice.runSA(request_params)
+    .subscribe(response => {
+      
+    })
+    
   }
 }
