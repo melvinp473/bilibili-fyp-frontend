@@ -163,7 +163,7 @@ export class SpatialAnalysisComponent implements OnInit {
     console.log(request_params)
     this.SAservice.runSA(request_params)
     .subscribe(response => {
-      
+      this.results = [response.graph]
     })
     
   }
