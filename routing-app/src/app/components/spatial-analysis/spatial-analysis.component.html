@@ -58,6 +58,8 @@
         </mat-form-field>
         <!-- <button mat-stroked-button color="warn" [id]="i" (click)="deleteCountries(i)">Remove</button> -->
       </div>
+      <button style="float: right;" mat-raised-button color="accent" (click)="runAnalysis()"
+      [disabled]="!save">Save Results</button>
     </form>
   </mat-expansion-panel>
 </div>
