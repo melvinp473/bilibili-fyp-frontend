@@ -42,7 +42,6 @@ export class SpatialAnalysisComponent implements OnInit {
   datasetId: any;
   variables: any;
   results: any;
-  save = false
   location_params: any = {
     locations_list : [
       {
@@ -72,6 +71,7 @@ export class SpatialAnalysisComponent implements OnInit {
       user_id: [this.user_id, Validators.required],
       area_level: ['counties', Validators.required],
       target_variable: ['', Validators.required],
+      save_results: [false],
       // year: [2016, Validators.required],
       // countries: ['', Validators.required],
 
@@ -161,27 +161,15 @@ export class SpatialAnalysisComponent implements OnInit {
       // year: this.mainForm.controls['year'].value,
       request_type: "SA",
       countries_params: {...this.location_params},
+      save: this.mainForm.controls['save_results'].value,
     };
     console.log(request_params)
     this.SAservice.runSA(request_params)
     .subscribe(response => {
       this.results = [response.graph]
-      this.save = true
     })
     
   }
 
-  saveResults(){
-    const request_params = {
-      DATASET_ID: this.mainForm.controls['dataset_id'].value,
-      user_id: this.mainForm.controls['user_id'].value,
-      request_type: "save",
-      results: this.results,
-    };
-    console.log(request_params)
-    this.SAservice.saveReults(request_params)
-    .subscribe(response => {
-    })
-    
-  }
+
 }

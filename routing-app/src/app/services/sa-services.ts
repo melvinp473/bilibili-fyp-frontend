@@ -34,16 +34,4 @@ export class SpatialAnalysisServices {
         )
         
     }
-
-    public saveReults(request_params: any){
-      const url = this.apiUrl + '/spatial-analysis'
-      console.log(url)
-
-      return this.httpClient.post<any>(
-        url,
-        request_params,
-        this.getHttpHeader()
-      )
-      
-  }
 }
