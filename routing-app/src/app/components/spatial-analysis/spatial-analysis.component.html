@@ -36,6 +36,15 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Mapping Variable</mat-label>
+          <mat-select formControlName="mapping_variable">
+            <mat-option *ngFor="let variable of variables" [value]="variable">
+              {{variable}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
 
       <!-- <mat-form-field>
@@ -67,8 +76,8 @@
   <h2>Results:</h2>
   <div class="image-container">
     <div *ngFor="let result of results">
-      <!-- <div style="text-align: center;">{{result.map + result.year}}</div> -->
-      <img style="margin: 0px 20px; max-width: 550px;" src="data:image/png;base64,{{result}}" alt="Precision recall curve">
+      <div style="text-align: center;">{{result.year}}</div>
+      <img style="margin: 0px 20px; max-width: 550px;" src="data:image/png;base64,{{result.graph}}" alt="Precision recall curve">
     </div>
   </div>
 </div>

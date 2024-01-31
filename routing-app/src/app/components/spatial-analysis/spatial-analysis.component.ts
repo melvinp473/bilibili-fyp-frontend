@@ -71,6 +71,7 @@ export class SpatialAnalysisComponent implements OnInit {
       user_id: [this.user_id, Validators.required],
       area_level: ['counties', Validators.required],
       target_variable: ['', Validators.required],
+      mapping_variable: ['', Validators.required],
       save_results: [false],
       // year: [2016, Validators.required],
       // countries: ['', Validators.required],
@@ -162,11 +163,13 @@ export class SpatialAnalysisComponent implements OnInit {
       request_type: "SA",
       countries_params: {...this.location_params},
       save: this.mainForm.controls['save_results'].value,
+      mapping_variable: this.mainForm.controls['mapping_variable'].value,
     };
     console.log(request_params)
     this.SAservice.runSA(request_params)
     .subscribe(response => {
-      this.results = [response.graph]
+      console.log(response)
+      this.results = response
     })
     
   }
