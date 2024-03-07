@@ -10,7 +10,6 @@ import { StoreModule } from '@ngrx/store';
 import { appReducer} from './test-connection/store/reducers/test-connection.reducer';
 import { TestConnectionEffects} from './test-connection/store/effects/test-connection.effects'
 import { MaterialModule } from './material/material.module';
-import { NavigationTemplateComponentComponent } from './navigation-template-component/navigation-template-component.component';
 import { HomeComponent } from './components/home/home.component';
 import { DatasetComponent } from './components/dataset/dataset.component';
 import { PreprocessingComponent } from './components/preprocessing/preprocessing.component';
@@ -50,7 +49,6 @@ import { SpatialAnalysisComponent } from './components/spatial-analysis/spatial-
   declarations: [
     AppComponent,
     TestConnectionComponent,
-    NavigationTemplateComponentComponent,
     HomeComponent,
     DatasetComponent,
     PreprocessingComponent,
