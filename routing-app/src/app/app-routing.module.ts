@@ -10,6 +10,7 @@ import { AnalysisComponent } from './components/analysis/analysis.component';
 import { FeatureSelectionComponent } from './components/preprocessing/feature-selection/feature-selection.component';
 import { ArcgisComponent } from './components/arcgis/arcgis.component';
 import { SpatialAnalysisComponent } from './components/spatial-analysis/spatial-analysis.component';
+import { PredictionComponent } from './components/prediction/prediction.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'feature-selection', component: FeatureSelectionComponent },
   { path: 'spatial-analysis', component: SpatialAnalysisComponent},
   { path: 'arcgis', component: ArcgisComponent },
+  { path: 'prediction', component: PredictionComponent },
 ];
 
 @NgModule({

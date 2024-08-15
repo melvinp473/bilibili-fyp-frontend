@@ -43,6 +43,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ToastrModule } from "ngx-toastr";
 import { WrapperComponent } from './components/preprocessing/feature-selection/selection-algo-param/wrapper/wrapper.component';
 import { SpatialAnalysisComponent } from './components/spatial-analysis/spatial-analysis.component';
+import { PredictionComponent } from './components/prediction/prediction.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { SpatialAnalysisComponent } from './components/spatial-analysis/spatial-
     ArcgisComponent,
     WrapperComponent,
     SpatialAnalysisComponent,
+    PredictionComponent,
   ],
   imports: [
     BrowserModule,

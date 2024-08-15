@@ -1,0 +1,41 @@
+<div>
+  <app-toolbar currentPageTitle="Predictions" previousLink="/results" nextLink="/"></app-toolbar>
+</div>
+<div style="padding: 20px; display: flex; justify-content: center;">
+  <form [formGroup]="predictionForm" style="width: 100%; max-width: 600px;">
+    <div>
+      <mat-form-field style="width: 100%;">
+        <mat-label>Age</mat-label>
+        <input matInput formControlName="age" type="number">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="male">Male</mat-option>
+          <mat-option value="female">Female</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Cholesterol (mg/dL)</mat-label>
+        <input matInput formControlName="cholesterol" type="number">
+      </mat-form-field>
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>Blood Pressure (mmHg)</mat-label>
+        <input matInput formControlName="bloodPressure" type="number">
+      </mat-form-field>
+    </div>
+    <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+      <button mat-raised-button color="accent" (click)="onSubmit()" [disabled]="predictionForm.invalid">PREDICT</button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="predictionResult">
+  <h2>Prediction Result:</h2>
+  <div class="result-container">
+    <p>{{ predictionResult }}</p>
+  </div>
+</div>
